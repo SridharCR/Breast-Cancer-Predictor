@@ -1,0 +1,92 @@
+---
+title: "Data Analysis"
+author: "Sridhar"
+date: "28 January 2019"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+library(ggvis)
+```
+## Load the Data
+Breast Cancer Wisconsin(Diagnosis) data is loaded and the column names are defined based on the attribute information.
+
+### Dataset 1
+The outcome variable is the "classes" and it has following category of data
+* Malignant or
+* Benign breast mass
+The phenotypes for characterization are
+* Sample ID (code number)
+* Clump thickness
+* Uniformity of cell size
+* Uniformity of cell shape
+* Marginal adhesion
+* Single epithelial cell size
+* Number of bare nuclei
+* Bland chromatin
+* Number of normal nuclei
+* Mitosis
+* Classes, i.e. diagnosis
+
+
+```{r setup, include=FALSE}
+diagnosis_data <- read.csv("breast-cancer-wisconsin.data.csv", header = FALSE)
+colnames(diagnosis_data) <- c("sample_code_number", "clump_thickness", "uniformity_of_cell_size", "uniformity_of_cell_shape", "marginal_adhesion", "single_epithelial_cell_size", 
+                       "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitosis", "classes")
+
+```
+
+The data is presented below.
+
+```{r pressure, echo=FALSE}
+head(diagnosis_data)
+```
+
+The properties of data are given,
+
+```{r}
+str(diagnosis_data)
+```
+
+### Dataset 2
+The outcome variable is the "classes" and it has following category of data
+Attribute Information:
+
+1) ID number 
+2) Diagnosis (M = malignant, B = benign) 
+3-32) 
+
+Ten real-valued features are computed for each cell nucleus: 
+
+a) radius (mean of distances from center to points on the perimeter) 
+b) texture (standard deviation of gray-scale values) 
+c) perimeter 
+d) area 
+e) smoothness (local variation in radius lengths) 
+f) compactness (perimeter^2 / area - 1.0) 
+g) concavity (severity of concave portions of the contour) 
+h) concave points (number of concave portions of the contour) 
+i) symmetry 
+j) fractal dimension ("coastline approximation" - 1)
+
+```{r}
+diagnosis_data_2 <- read.csv("wdbc.data.csv", header = FALSE)
+
+phenotypes <- rep(c("radius", "texture", "perimeter", "area", "smoothness", "compactness", "concavity", "concave_points", "symmetry", "fractal_dimension"), 3)
+types <- rep(c("mean", "se", "largest_worst"), each = 10)
+
+colnames(diagnosis_data_2) <- c("ID", "diagnosis", paste(phenotypes, types, sep = "_"))
+
+# how many NAs are in the data
+length(which(is.na(diagnosis_data_2)))
+```
+
+
+## Visualizations
+
+```{r}
+p <- ggvis(diagnosis_data, ~normal_nucleoli, y = ~mitosis)
+layer_points(p)
+```
+
