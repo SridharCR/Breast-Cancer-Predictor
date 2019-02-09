@@ -6,6 +6,9 @@ output: html_document
 ---
 
 ```{r}
+#install.packages("ggplot2")
+#install.packages("ggvis")
+#install.packages("mice")
 library(ggplot2)
 library(ggvis)
 ```
@@ -30,16 +33,31 @@ The phenotypes for characterization are
 * Classes, i.e. diagnosis
 
 
-```{r setup, include=FALSE}
+```{r}
 diagnosis_data <- read.csv("breast-cancer-wisconsin.data.csv", header = FALSE)
 colnames(diagnosis_data) <- c("sample_code_number", "clump_thickness", "uniformity_of_cell_size", "uniformity_of_cell_shape", "marginal_adhesion", "single_epithelial_cell_size", 
                        "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitosis", "classes")
 
 ```
 
+
+```{r}
+# impute missing data
+library(mice)
+
+diagnosis_data[,2:10] <- apply(diagnosis_data[, 2:10], 2, function(x) as.numeric(as.character(x)))
+dataset_impute <- mice(diagnosis_data[, 2:10],  print = FALSE)
+diagnosis_data <- cbind(diagnosis_data[, 11, drop = FALSE], mice::complete(dataset_impute, 1))
+
+diagnosis_data$classes <- as.factor(diagnosis_data$classes)
+
+# how many benign and malignant cases are there?
+summary(diagnosis_data$classes)
+```
 The data is presented below.
 
-```{r pressure, echo=FALSE}
+
+```{r}
 head(diagnosis_data)
 ```
 
@@ -77,16 +95,65 @@ phenotypes <- rep(c("radius", "texture", "perimeter", "area", "smoothness", "com
 types <- rep(c("mean", "se", "largest_worst"), each = 10)
 
 colnames(diagnosis_data_2) <- c("ID", "diagnosis", paste(phenotypes, types, sep = "_"))
+head(diagnosis_data_2)
 
-# how many NAs are in the data
-length(which(is.na(diagnosis_data_2)))
 ```
 
+```{r}
+str(diagnosis_data_2)
+```
+
+```{r}
+diagnosis_data_3 <- read.csv("wpbc.data.csv", header = FALSE)
+
+colnames(diagnosis_data_3) <- c("ID", "outcome", "time", paste(phenotypes, types, sep = "_"), "tumor_size", "lymph_node_status")
+diagnosis_data_3[diagnosis_data_3 == "?"] <- NA
+head(diagnosis_data_3)
+
+```
 
 ## Visualizations
 
 ```{r}
-p <- ggvis(diagnosis_data, ~normal_nucleoli, y = ~mitosis)
-layer_points(p)
+# plotting theme
+
+
+my_theme <- function(base_size = 12, base_family = "sans"){
+  theme_minimal(base_size = base_size, base_family = base_family) +
+  theme(
+    axis.text = element_text(size = 12),
+    axis.text.x = element_text(angle = 0, vjust = 0.5, hjust = 0.5),
+    axis.title = element_text(size = 14),
+    panel.grid.major = element_line(color = "grey"),
+    panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "aliceblue"),
+    strip.background = element_rect(fill = "navy", color = "navy", size = 1),
+    strip.text = element_text(face = "bold", size = 12, color = "white"),
+    legend.position = "right",
+    legend.justification = "top", 
+    legend.background = element_blank(),
+    panel.border = element_rect(color = "grey", fill = NA, size = 0.5)
+  )
+}
+
+theme_set(my_theme())
+```
+
+
+
+```{r}
+samplesize = 0.60 * nrow(diagnosis_data)
+set.seed(80)
+index = sample( seq_len ( nrow ( diagnosis_data ) ), size = samplesize )
+
+# Create training and test set
+datatrain = diagnosis_data[ index, ]
+datatest = diagnosis_data[ -index, ]
+```
+
+```{r}
+max = apply(diagnosis_data , 2 , max)
+min = apply(diagnosis_data, 2 , min)
+scaled = as.data.frame(scale(diagnosis_data, center = min, scale = max - min))
 ```
 
