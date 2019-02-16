@@ -19,4 +19,5 @@ Your workstation should have the following tools and softwares
 * Data_Analysis_files - System generated figures and other stuff required in RMD.
 
 ## End Notes
-This project is in development stage. Contributions are welcomed!
+This project is in development stage. Watch this repo to get notified.
+ Contributions are welcomed!
