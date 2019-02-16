@@ -7,7 +7,7 @@ Clone this repository and get started
 $ git clone https://github.com/SridharCR/Breast-Cancer-Predictor.git
 ```
 
-### Prerequesties
+### Prerequisties
 Your workstation should have the following tools and softwares
 - R 3.5.x
 - RStudio
