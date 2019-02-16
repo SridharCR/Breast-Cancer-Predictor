@@ -35,7 +35,7 @@ The phenotypes for characterization are
 
 
 ```{r}
-diagnosis_data <- read.csv("breast-cancer-wisconsin.data.csv", header = FALSE)
+diagnosis_data <- read.csv("Data/breast-cancer-wisconsin.data.csv", header = FALSE)
 colnames(diagnosis_data) <- c("sample_code_number", "clump_thickness", "uniformity_of_cell_size", "uniformity_of_cell_shape", "marginal_adhesion", "single_epithelial_cell_size", 
                        "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitosis", "classes")
 
@@ -90,7 +90,7 @@ i) symmetry
 j) fractal dimension ("coastline approximation" - 1)
 
 ```{r}
-diagnosis_data_2 <- read.csv("wdbc.data.csv", header = FALSE)
+diagnosis_data_2 <- read.csv("Data/wdbc.data.csv", header = FALSE)
 
 phenotypes <- rep(c("radius", "texture", "perimeter", "area", "smoothness", "compactness", "concavity", "concave_points", "symmetry", "fractal_dimension"), 3)
 types <- rep(c("mean", "se", "largest_worst"), each = 10)
@@ -105,7 +105,7 @@ str(diagnosis_data_2)
 ```
 
 ```{r}
-diagnosis_data_3 <- read.csv("wpbc.data.csv", header = FALSE)
+diagnosis_data_3 <- read.csv("Data/wpbc.data.csv", header = FALSE)
 
 colnames(diagnosis_data_3) <- c("ID", "outcome", "time", paste(phenotypes, types, sep = "_"), "tumor_size", "lymph_node_status")
 diagnosis_data_3[diagnosis_data_3 == "?"] <- NA
@@ -129,7 +129,6 @@ summary(diagnosis_data_3$outcome)
 ```{r}
 # plotting theme*
 
-
 my_theme <- function(base_size = 12, base_family = "sans"){
   theme_minimal(base_size = base_size, base_family = base_family) +
   theme(
@@ -149,6 +148,7 @@ my_theme <- function(base_size = 12, base_family = "sans"){
 }
 
 theme_set(my_theme())
+
 ```
 
 
@@ -227,7 +227,8 @@ library(gridExtra)
 library(grid)
 p1 <- pca_func(data = t(diagnosis_data[, 2:10]), groups = as.character(diagnosis_data$classes), title = "Breast cancer dataset 1: Samples")
 p2 <- pca_func(data = diagnosis_data[, 2:10], groups = as.character(colnames(diagnosis_data[, 2:10])), title = "Breast cancer dataset 1: Features", print_ellipse = FALSE)
-grid.arrange(p1, p2, ncol = 2)
+plot(p1)
+plot(p2)
 ```
 
 
@@ -257,7 +258,8 @@ ggplot(data = diagnosis_data_gather, aes(x = value, fill = classes, color = clas
 ```{r}
 p1 <- pca_func(data = t(diagnosis_data_2[, 3:32]), groups = as.character(diagnosis_data_2$diagnosis), title = "Breast cancer dataset 2: Samples")
 p2 <- pca_func(data = diagnosis_data_2[, 3:32], groups = as.character(colnames(diagnosis_data_2[, 3:32])), title = "Breast cancer dataset 2: Features", print_ellipse = FALSE)
-grid.arrange(p1, p2, ncol = 2, widths = c(0.5, 0.5))
+plot(p1)
+plot(p2)
 ```
 
 ```{r}
@@ -282,7 +284,8 @@ ggplot(data = diagnosis_data_2_gather, aes(x = value, fill = diagnosis, color = 
 ```{r}
 p1 <- pca_func(data = t(diagnosis_data_3[, 2:34]), groups = as.character(diagnosis_data_3$outcome), title = "Breast cancer dataset 3: Samples")
 p2 <- pca_func(data = diagnosis_data_3[, 2:34], groups = as.character(colnames(diagnosis_data_3[, 2:34])), title = "Breast cancer dataset 3: Features", print_ellipse = FALSE)
-grid.arrange(p1, p2, ncol = 2, widths = c(0.4, 0.6))
+plot(p1)
+plot(p2)
 ```
 
 
