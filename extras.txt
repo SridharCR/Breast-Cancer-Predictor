@@ -1,0 +1,201 @@
+#
+# This is the user-interface definition of a Shiny web application. You can
+# run the application by clicking 'Run App' above.
+#
+# Find out more about building applications with Shiny here:
+# 
+#    http://shiny.rstudio.com/
+#
+
+library(shiny)
+
+# Define UI for application that draws a histogram
+shinyUI(fluidPage(
+  # Application title
+  titlePanel("Breast Cancer Predictor"),
+  
+  # Sidebar with a slider input for number of bins 
+  sidebarLayout(
+    sidebarPanel(
+      
+      numericInput(inputId = 'clump_thickness','Clump thickness', 5, min = 1, max = 15),
+      numericInput(inputId = 'uniformity_of_cell_size','Uniformity of cell size', 1, min = 1, max = 15),
+      numericInput(inputId = 'uniformity_of_cell_shape','Uniformity of Cell Shape', 1, min = 1, max = 15),
+      numericInput(inputId = 'marginal_adhesion','Marginal Adhesion', 1, min = 1, max = 15),
+      numericInput(inputId = 'single_epithelial_cell_size','Single Epithelial Cell Size', 2, min = 1, max = 15),
+      numericInput(inputId = 'bare_nuclei','Bare Nuclei', 1, min = 1, max = 15),
+      numericInput(inputId = 'bland_chromatin','Bland Chromatin', 3, min = 1, max = 15),
+      numericInput(inputId = 'normal_nucleoli','Normal Nucleoli', 1, min = 1, max = 15),
+      numericInput(inputId = 'mitosis','Mitosis', 3, min = 1, max = 15)
+    ),
+    
+    # Show a plot of the generated distribution
+    mainPanel(
+       textOutput("value")
+    )
+  )
+))
+
+
+
+
+
+
+
+#
+# This is the user-interface definition of a Shiny web application. You can
+# run the application by clicking 'Run App' above.
+#
+# Find out more about building applications with Shiny here:
+# 
+#    http://shiny.rstudio.com/
+#
+
+library(shiny)
+library(DT)
+# Define UI for application that draws a histogram
+shinyUI(fluidPage(
+  # Application title
+  titlePanel("Breast Cancer Predictor"),
+  column(width = 4,
+         fileInput('file1', 'Upload test data in csv format ',multiple = FALSE,
+                   accept=c('.csv')),
+         
+         uiOutput("sample_input_data_heading"),
+         tableOutput("sample_input_data")
+  ),
+  # Sidebar with a slider input for number of bins 
+  sidebarLayout(
+    sidebarPanel(
+      tags$h3("Mean"),
+      numericInput(inputId = 'radius_mean','Radius', 5),
+      numericInput(inputId = 'texture_mean','Texture', 1),
+      numericInput(inputId = 'perimeter_mean','Perimeter', 1),
+      numericInput(inputId = 'area_mean','Area', 1),
+      numericInput(inputId = 'smoothness_mean','Smoothness', 2),
+      numericInput(inputId = 'compactness_mean','Compactness', 1),
+      numericInput(inputId = 'concavity_mean','Concavity', 3),
+      numericInput(inputId = 'concave.points_mean','Concave Points', 1),
+      numericInput(inputId = 'symmetry_mean','Symmetry', 3),
+      numericInput(inputId = 'fractal_dimension_mean','Fractal Dimension', 3),
+      tags$h3("Standard Error"),
+      numericInput(inputId = 'radius_se','Radius', 5),
+      numericInput(inputId = 'texture_se','Texture', 1),
+      numericInput(inputId = 'perimeter_se','Perimeter', 1),
+      numericInput(inputId = 'area_se','Area', 1),
+      numericInput(inputId = 'smoothness_se','Smoothness', 2),
+      numericInput(inputId = 'compactness_se','Compactness', 1),
+      numericInput(inputId = 'concavity_se','Concavity', 3),
+      numericInput(inputId = 'concave.points_se','Concave Points', 1),
+      numericInput(inputId = 'symmetry_se','Symmetry', 3),
+      numericInput(inputId = 'fractal_dimension_se','Fractal Dimension', 3),
+      tags$h3("Worst"),
+      numericInput(inputId = 'radius_worst','Radius', 5),
+      numericInput(inputId = 'texture_worst','Texture', 1),
+      numericInput(inputId = 'perimeter_worst','Perimeter', 1),
+      numericInput(inputId = 'area_worst','Area', 1),
+      numericInput(inputId = 'smoothness_worst','Smoothness', 2),
+      numericInput(inputId = 'compactness_worst','Compactness', 1),
+      numericInput(inputId = 'concavity_worst','Concavity', 3),
+      numericInput(inputId = 'concave.points_worst','Concave Points', 1),
+      numericInput(inputId = 'symmetry_worst','Symmetry', 3),
+      numericInput(inputId = 'fractal_dimension_worst','Fractal Dimension', 3),
+      actionButton("Run_model", "Run model")
+    ),
+    
+    # Show a plot of the generated distribution
+    mainPanel(
+      tabsetPanel(
+        tabPanel("model summary", verbatimTextOutput('summary'))
+      ),
+              fluidRow(
+                br(),
+                br(),
+                br(),
+                br(),
+                column(width = 8,
+                       tags$h4("After you upload a test dataset, you can download the predictions in csv format by
+                                    clicking the button below.", 
+                               style="font-size:200%"),
+                       br(),
+                       br()
+                )),
+              fluidRow(
+                
+                column(width = 7,
+                       downloadButton("downloadData", em('Download Predictions',style="text-align:center;color:blue;font-size:150%")),
+                       plotOutput('plot_predictions')
+                ),
+                column(width = 4,
+                       uiOutput("sample_prediction_heading"),
+                       tableOutput("sample_predictions")
+                )
+            
+      )
+      
+      
+      
+    )
+  )
+))
+
+
+
+
+
+
+
+
+
+
+
+library(shiny)
+load("Neuralnetwork.rda")
+# Define server logic required to draw a histogram
+shinyServer(function(input, output) {
+  
+  test <- reactive({
+    # this is how you fetch the input variables from ui component
+    
+    radius_mean <- input$radius_mean
+    texture_mean <- as.numeric(input$texture_mean)
+    perimeter_mean <- as.numeric(input$perimeter_mean)
+    area_mean <- as.numeric(input$area_mean)
+    smoothness_mean <- as.numeric(input$smoothness_mean)
+    compactness_mean <- as.numeric(input$compactness_mean)
+    concavity_mean <- as.numeric(input$concavity_mean)
+    concave.points_mean <- as.numeric(input$concave.points_mean)
+    symmetry_mean <- as.numeric(input$symmetry_mean)
+    fractal_dimension_mean <- as.numeric(input$fractal_dimension_mean)
+    
+    radius_se <- as.numeric(input$radius_se)
+    texture_se <- as.numeric(input$texture_se)
+    perimeter_se <- as.numeric(input$perimeter_se)
+    area_se <- as.numeric(input$area_se)
+    smoothness_se <- as.numeric(input$smoothness_se)
+    compactness_se <- as.numeric(input$compactness_se)
+    concavity_se <- as.numeric(input$concavity_se)
+    concave.points_se <- as.numeric(input$concave.points_se)
+    symmetry_se <- as.numeric(input$symmetry_se)
+    fractal_dimension_se <- as.numeric(input$fractal_dimension_se)
+    
+    radius_worst <- as.numeric(input$radius_worst)
+    texture_worst <- as.numeric(input$texture_worst)
+    perimeter_worst <- as.numeric(input$perimeter_worst)
+    area_worst <- as.numeric(input$area_worst)
+    smoothness_worst <- as.numeric(input$smoothness_worst)
+    compactness_worst <- as.numeric(input$compactness_worst)
+    concavity_worst <- as.numeric(input$concavity_worst)
+    concave.points_worst <- as.numeric(input$concave.points_worst)
+    symmetry_worst <- as.numeric(input$symmetry_worst)
+    fractal_dimension_worst <- as.numeric(input$fractal_dimension_worst)
+    
+    test <- cbind(radius_mean, texture_mean, perimeter_mean, area_mean, smoothness_mean, compactness_mean, concavity_mean, concave.points_mean, symmetry_mean, fractal_dimension_mean,radius_se, texture_se, perimeter_se, area_se, smoothness_se, compactness_se, concavity_se, concave.points_se, symmetry_se, fractal_dimension_se,radius_worst, texture_worst, perimeter_worst, area_worst, smoothness_worst, compactness_worst, concavity_worst, concave.points_worst, symmetry_worst, fractal_dimension_worst)
+    test <- as.data.frame(test)
+    
+  })
+  pred <- eventReactive(input$Run_model, {
+    predict(model_nnet, newdata = test(), type="class")
+  })
+  output$summary <- renderText(pred())
+})

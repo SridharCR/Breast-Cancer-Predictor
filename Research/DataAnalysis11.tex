@@ -576,38 +576,29 @@ Ten real-valued features are computed for each cell nucleus:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# plotting theme*}
+\CommentTok{# plotting theme}
 
-\NormalTok{custom_theme <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{15}\NormalTok{,}
-                      \DataTypeTok{base_family =} \StringTok{""}\NormalTok{,}
-                      \DataTypeTok{base_line_size =}\NormalTok{ base_size }\OperatorTok{/}\StringTok{ }\DecValTok{170}\NormalTok{,}
-                      \DataTypeTok{base_rect_size =}\NormalTok{ base_size }\OperatorTok{/}\StringTok{ }\DecValTok{170}\NormalTok{)\{}
-  \KeywordTok{theme_minimal}\NormalTok{(}\DataTypeTok{base_size =}\NormalTok{ base_size, }
-                \DataTypeTok{base_family =}\NormalTok{ base_family,}
-                \DataTypeTok{base_line_size =}\NormalTok{ base_line_size) }\OperatorTok{%+replace%}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}
-      \DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}
-        \DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(}\DecValTok{25}\NormalTok{, }\DecValTok{43}\NormalTok{, }\DecValTok{65}\NormalTok{, }\DataTypeTok{maxColorValue =} \DecValTok{255}\NormalTok{), }
-        \DataTypeTok{face =} \StringTok{"bold"}\NormalTok{,}
-        \DataTypeTok{hjust =} \DecValTok{0}\NormalTok{),}
-      \DataTypeTok{axis.title =} \KeywordTok{element_text}\NormalTok{(}
-        \DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(}\DecValTok{105}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DataTypeTok{maxColorValue =} \DecValTok{255}\NormalTok{),}
-        \DataTypeTok{size =} \KeywordTok{rel}\NormalTok{(}\FloatTok{0.75}\NormalTok{)),}
-      \DataTypeTok{axis.text =} \KeywordTok{element_text}\NormalTok{(}
-        \DataTypeTok{color =} \KeywordTok{rgb}\NormalTok{(}\DecValTok{105}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DataTypeTok{maxColorValue =} \DecValTok{255}\NormalTok{),}
-        \DataTypeTok{size =} \KeywordTok{rel}\NormalTok{(}\FloatTok{0.5}\NormalTok{)),}
-      \DataTypeTok{panel.grid.major =} \KeywordTok{element_line}\NormalTok{(}
-        \KeywordTok{rgb}\NormalTok{(}\DecValTok{105}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DataTypeTok{maxColorValue =} \DecValTok{255}\NormalTok{),}
-        \DataTypeTok{linetype =} \StringTok{"dotted"}\NormalTok{),   }
-      \DataTypeTok{panel.grid.minor =} \KeywordTok{element_line}\NormalTok{(}
-        \KeywordTok{rgb}\NormalTok{(}\DecValTok{105}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DataTypeTok{maxColorValue =} \DecValTok{255}\NormalTok{),}
-        \DataTypeTok{linetype =} \StringTok{"dotted"}\NormalTok{, }
-        \DataTypeTok{size =} \KeywordTok{rel}\NormalTok{(}\DecValTok{4}\NormalTok{)),   }
-      
-      \DataTypeTok{complete =} \OtherTok{TRUE}
-\NormalTok{    )}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+
+\NormalTok{my_theme <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{12}\NormalTok{, }\DataTypeTok{base_family =} \StringTok{"sans"}\NormalTok{)\{}
+  \KeywordTok{theme_minimal}\NormalTok{(}\DataTypeTok{base_size =}\NormalTok{ base_size, }\DataTypeTok{base_family =}\NormalTok{ base_family) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}
+    \DataTypeTok{axis.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{),}
+    \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{0}\NormalTok{, }\DataTypeTok{vjust =} \DecValTok{1}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{),}
+    \DataTypeTok{axis.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{14}\NormalTok{),}
+    \DataTypeTok{panel.grid.major =} \KeywordTok{element_line}\NormalTok{(}\DataTypeTok{color =} \StringTok{"grey"}\NormalTok{),}
+    \DataTypeTok{panel.grid.minor =} \KeywordTok{element_blank}\NormalTok{(),}
+    \DataTypeTok{panel.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"aliceblue"}\NormalTok{),}
+    \DataTypeTok{strip.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"navy"}\NormalTok{, }\DataTypeTok{color =} \StringTok{"navy"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{),}
+    \DataTypeTok{strip.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{face =} \StringTok{"bold"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{12}\NormalTok{, }\DataTypeTok{color =} \StringTok{"white"}\NormalTok{),}
+    \DataTypeTok{legend.position =} \StringTok{"right"}\NormalTok{,}
+    \DataTypeTok{legend.justification =} \StringTok{"top"}\NormalTok{, }
+    \DataTypeTok{legend.background =} \KeywordTok{element_blank}\NormalTok{(),}
+    \DataTypeTok{panel.border =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{color =} \StringTok{"grey"}\NormalTok{, }\DataTypeTok{fill =} \OtherTok{NA}\NormalTok{, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{)}
+\NormalTok{  )}
 \NormalTok{\}}
-\KeywordTok{theme_set}\NormalTok{(}\KeywordTok{custom_theme}\NormalTok{())}
+
+\KeywordTok{theme_set}\NormalTok{(}\KeywordTok{my_theme}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
@@ -925,6 +916,22 @@ Ten real-valued features are computed for each cell nucleus:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{diagnosis_data_3_gather <-}\StringTok{ }\NormalTok{diagnosis_data_}\DecValTok{3} \OperatorTok{%>%}
+\StringTok{  }\KeywordTok{gather}\NormalTok{(measure, value, time}\OperatorTok{:}\NormalTok{lymph_node_status)}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diagnosis_data_3_gather, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ value, }\DataTypeTok{fill =}\NormalTok{ outcome, }\DataTypeTok{color =}\NormalTok{ outcome)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_rug}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_fill_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Set1"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Set1"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{( }\OperatorTok{~}\StringTok{ }\NormalTok{measure, }\DataTypeTok{scales =} \StringTok{"free_y"}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis11_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{# parallel processing}
 \KeywordTok{registerDoParallel}\NormalTok{()}
 
@@ -980,7 +987,78 @@ Ten real-valued features are computed for each cell nucleus:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{DataAnalysis11_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{DataAnalysis11_files/figure-latex/unnamed-chunk-21-1.pdf}
+Correlation
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(caret)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{27}\NormalTok{)}
+\NormalTok{diagnosis_data_index <-}\StringTok{ }\KeywordTok{createDataPartition}\NormalTok{(diagnosis_data}\OperatorTok{$}\NormalTok{classes, }\DataTypeTok{p =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{list =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{diagnosis_data_train <-}\StringTok{ }\NormalTok{diagnosis_data[diagnosis_data_index, ]}
+\NormalTok{diagnosis_data_test  <-}\StringTok{ }\NormalTok{diagnosis_data[}\OperatorTok{-}\NormalTok{diagnosis_data_index, ]}
+\end{Highlighting}
+\end{Shaded}
+
+Dataset 2
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{27}\NormalTok{)}
+\NormalTok{diagnosis_data_2_index <-}\StringTok{ }\KeywordTok{createDataPartition}\NormalTok{(diagnosis_data_}\DecValTok{2}\OperatorTok{$}\NormalTok{diagnosis, }\DataTypeTok{p =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{list =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{diagnosis_data_2_train <-}\StringTok{ }\NormalTok{diagnosis_data_}\DecValTok{2}\NormalTok{[diagnosis_data_2_index, ]}
+\NormalTok{diagnosis_data_2_test  <-}\StringTok{ }\NormalTok{diagnosis_data_}\DecValTok{2}\NormalTok{[}\OperatorTok{-}\NormalTok{diagnosis_data_2_index, ]}
+\end{Highlighting}
+\end{Shaded}
+
+Dataset 3
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{27}\NormalTok{)}
+\NormalTok{diagnosis_data_3_index <-}\StringTok{ }\KeywordTok{createDataPartition}\NormalTok{(diagnosis_data_}\DecValTok{3}\OperatorTok{$}\NormalTok{outcome, }\DataTypeTok{p =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{list =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{diagnosis_data_3_train <-}\StringTok{ }\NormalTok{diagnosis_data_}\DecValTok{3}\NormalTok{[diagnosis_data_3_index, ]}
+\NormalTok{diagnosis_data_3_test  <-}\StringTok{ }\NormalTok{diagnosis_data_}\DecValTok{3}\NormalTok{[}\OperatorTok{-}\NormalTok{diagnosis_data_3_index, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(corrplot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## corrplot 0.84 loaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# calculate correlation matrix}
+\NormalTok{corMatMy <-}\StringTok{ }\KeywordTok{cor}\NormalTok{(diagnosis_data_train[, }\OperatorTok{-}\DecValTok{1}\NormalTok{])}
+\KeywordTok{corrplot}\NormalTok{(corMatMy, }\DataTypeTok{order =} \StringTok{"hclust"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis11_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corMatMy <-}\StringTok{ }\KeywordTok{cor}\NormalTok{(diagnosis_data_2_train[, }\DecValTok{3}\OperatorTok{:}\DecValTok{32}\NormalTok{])}
+\KeywordTok{corrplot}\NormalTok{(corMatMy, }\DataTypeTok{order =} \StringTok{"hclust"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis11_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corMatMy <-}\StringTok{ }\KeywordTok{cor}\NormalTok{(diagnosis_data_3_train[, }\OperatorTok{-}\DecValTok{1}\NormalTok{])}
+\KeywordTok{corrplot}\NormalTok{(corMatMy, }\DataTypeTok{order =} \StringTok{"hclust"}\NormalTok{, }\DataTypeTok{tl.cex =} \FloatTok{0.4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis11_files/figure-latex/unnamed-chunk-27-1.pdf}
 
 
 \end{document}
