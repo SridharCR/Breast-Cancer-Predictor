@@ -4,7 +4,12 @@ library(shiny)
 load("Neuralnetwork.rda")
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  
+  output$progressBox <- renderValueBox({
+    valueBox(
+      paste0(25 + input$count, "%"), "Progress", icon = icon("list"),
+      color = "purple"
+    )
+  })
   test <- reactive({
     # this is how you fetch the input variables from ui component
     
@@ -46,7 +51,12 @@ shinyServer(function(input, output) {
     
   })
   pred <- eventReactive(input$Run_model, {
-    predict(model_nnet, newdata = test())
+    predict(model_nnet, newdata = test(), type = "class")
   })
-  output$summary <- renderText(pred())
+  output$summary <- renderValueBox({
+    valueBox(
+      renderText(pred()), "Result", icon = icon("flash", lib = "glyphicon"),
+      color = "yellow"
+    )
+  })
 })
