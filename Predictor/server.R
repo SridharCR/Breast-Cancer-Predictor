@@ -1,19 +1,36 @@
 
-
+library(shinyjs)
 library(shiny)
+library(knitr)
+library(corrplot)
+library(NeuralNetTools)
+library(caret)
+library(nnet)
 load("Neuralnetwork.rda")
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  output$progressBox <- renderValueBox({
-    valueBox(
-      paste0(25 + input$count, "%"), "Progress", icon = icon("list"),
-      color = "purple"
-    )
+  observeEvent(input$close, {
+    js$closeWindow()
+    stopApp()
   })
+  output$attribute <- renderUI(HTML("
+<h2>Metadata:</h2>
+Ten real-valued features are computed for each cell nucleus:<br>
+	<ul>
+  <li>Radius (mean of distances from center to points on the perimeter)</li>
+	<li>Texture (standard deviation of gray-scale values)</li>
+	<li>Perimeter</li>
+	<li>Area</li>
+	<li>Smoothness (local variation in radius lengths)</li>
+	<li>Compactness (perimeter^2 / area - 1.0)</li>
+	<li>Concavity (severity of concave portions of the contour)</li>
+	<li>Concave points (number of concave portions of the contour)</li>
+	<li>Symmetry</li>
+	<li>Fractal dimension (coastline approximation - 1)</li>"))
   test <- reactive({
     # this is how you fetch the input variables from ui component
     
-    radius_mean <- input$radius_mean
+    radius_mean <- as.numeric(input$radius_mean)
     texture_mean <- as.numeric(input$texture_mean)
     perimeter_mean <- as.numeric(input$perimeter_mean)
     area_mean <- as.numeric(input$area_mean)
@@ -54,8 +71,36 @@ shinyServer(function(input, output) {
     predict(model_nnet, newdata = test(), type = "class")
   })
   output$summary <- renderValueBox({
+    res <- pred()
+    if(is.null(res))
+      res <- "Results"
+    
     valueBox(
-      renderText(pred()), "Result", icon = icon("flash", lib = "glyphicon"),
+      
+      renderText(res), "Result", icon = icon("flash", lib = "glyphicon"),
+      color = "yellow"
+    )
+  })
+  corr <- renderPlot({
+    corrplot(corrplot, order = "hclust", tl.cex = 0.65, addrect = 8)
+  })
+  test1 <- reactive({
+    clump_thickness <- as.numeric(input$clump_thickness)
+    uniformity_of_cell_size <- as.numeric(input$uniformity_of_cell_size)
+    uniformity_of_cell_shape <- as.numeric(input$uniformity_of_cell_shape)
+    marginal_adhesion <- as.numeric(input$marginal_adhesion)
+    single_epithelial_cell_size <- as.numeric(input$single_epithelial_cell_size)
+    bare_nuclei <- as.numeric(input$bare_nuclei)
+    bland_chromatin <- as.numeric(input$bland_chromatin)
+    normal_nucleoli <- as.numeric(input$normal_nucleoli)
+    mitosis <- as.numeric(input$mitosis)
+  })
+  pred1 <- eventReactive(input$Run_model, {
+    predict(model_nnet, newdata = test(), type = "class")
+  })
+  output$summary1 <- renderValueBox({
+    valueBox(
+      renderText(pred()), "Result", icon = icon("heartbeat"),
       color = "yellow"
     )
   })

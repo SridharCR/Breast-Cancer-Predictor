@@ -7,11 +7,11 @@
 #    http://shiny.rstudio.com/
 #
 
-
+library(shinyjs)
 library(shiny)
 library(shinydashboard)
 library(DT)
-
+jscode <- "shinyjs.closeWindow = function() { window.close(); }"
 dashboardPage(
   title = "Breast Cancer Prediction",
   header <- dashboardHeader(title = "Breast Cancer",dropdownMenu(type = "messages",
@@ -36,33 +36,35 @@ dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("dashboard")),
       menuItem("Dimensions of tumour cells", tabName = "physical_dimensions" ,icon = icon("cog", lib = "glyphicon")),
-      menuItem("Tumour Cell data", tabName = "cellular data", icon = icon("diagnoses")),
+      menuItem("Tumour Cell data", tabName = "cellular_data", icon = icon("diagnoses")),
+      menuItem("About", tabName = "about", icon = icon("info-circle")),
       menuItem("Github", icon = icon("send",lib='glyphicon'), 
                href = "https://github.com/SridharCR/Breast-Cancer-Predictor")
     )
   ),
   body <- dashboardBody(fluidPage(
+    
     tabItems(
       tabItem(tabName = "home",
-              fluidRow(
-                # A static valueBox
-                valueBox(10 * 2, "New Orders", icon = icon("credit-card")),
-                
-                # Dynamic valueBoxes
-                valueBoxOutput("progressBox"))
-              
+              useShinyjs(),
+              extendShinyjs(text = jscode, functions = c("closeWindow")),
+              actionButton("close", "Close window")
               ),
-      tabItem(tabName = "cellular data",
-              
-              fluidRow(
-                # A static valueBox
-                valueBox(10 * 2, "New Orders", icon = icon("credit-card")),
-                
-                # Dynamic valueBoxes
-                valueBoxOutput("progressBox"))
-      ),
+      
       tabItem(tabName = "physical_dimensions",
+              frow2 <- fluidRow(
+                tags$head(
+                  tags$style("
+                     font-size: 15px;
+                      
+                     }
+                     ")),
+                  box(width = 12,
+                  htmlOutput("attribute")
+                  )
+              ),
     box(title = "Mean data", status = "primary", solidHeader = T, width = 12,
+    
     frow1 <- fluidRow(
       tags$head(
         tags$style("
@@ -156,7 +158,49 @@ dashboardPage(
                  numericInput(inputId = 'fractal_dimension_worst','Fractal Dimension', 3))
         )),
     actionButton("Run_model", "Run model"),
-    valueBoxOutput("summary")
-  )))
+      valueBoxOutput("summary")
+    
+    
+  ),
+  tabItem(tabName = "cellular_data",
+          # "clump_thickness", "uniformity_of_cell_size", "uniformity_of_cell_shape", "marginal_adhesion", "single_epithelial_cell_size", "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitosis"
+          fluidRow(
+            box(title = "Cellular Data", status = "primary", solidHeader = T, width = 12,
+                frow1 <- fluidRow(
+                  tags$head(
+                    tags$style("
+                     .input-sm,.selectize-input {
+                     min-height: 34px;  font-size: 11.2px;
+                    
+                     }
+                     ")),
+                  
+                  column(2,offset = 0, style='padding:10px;', 
+                         numericInput(inputId = "clump_thickness",'Clump Thickness', 5)),
+                  column(2,offset = 0, style='padding:10px;', 
+                         numericInput(inputId = "uniformity_of_cell_size",'Uniformity of Cell Size', 1)),
+                  column(2,offset = 0, style='padding:10px;', 
+                         numericInput(inputId = 'uniformity_of_cell_shape','Uniformity of Cell Shape', 1)),
+                  column(2,offset = 0, style='padding:10px;', 
+                         numericInput(inputId = 'marginal_adhesion','Marginal Adhesion', 1)),
+                  column(2,offset = 0, style='padding:10px;', 
+                         numericInput(inputId = 'single_epithelial_cell_size','Single Epithelial Cell Size', 2)),
+                  column(2,offset = 0, style='padding:10px;', 
+                         numericInput(inputId = 'bare_nuclei','Bare Nuclei', 1)),
+                  column(2,offset = 0, style='padding:10px;', 
+                         numericInput(inputId = 'bland_chromatin','Bland Chromatin', 3)),
+                  column(2,offset = 0, style='padding:10px;', 
+                         numericInput(inputId = 'normal_nucleoli','Normal Nucleoli', 1)),
+                  column(2,offset = 0, style='padding:10px;', 
+                         numericInput(inputId = 'mitosis','Mitosis', 3))
+                  
+                ),
+                actionButton("Run_cellular_model", "Run model"),
+                valueBoxOutput("summary1")))
+  ),
+  tabItem(tabName = "about"
+          
+  )
+  ))
 )
 )
