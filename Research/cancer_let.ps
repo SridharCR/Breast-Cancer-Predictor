@@ -1,0 +1,6756 @@
+%!PS-Adobe
+/wpdict	120 dict def
+wpdict	begin
+/bdef	{bind def} bind def
+
+/bflg	false def
+/Bfont	0 def
+/bon	false def
+
+/psz	0 def
+/_S	/show load def
+/_t	{0 rmoveto} bdef
+
+/_pixelsnap
+	{transform .25 sub round .25 add
+	 exch .25 sub round .25 add exch itransform
+	} bdef
+/_pixeldsnap
+	{ dtransform round exch round exch idtransform } bdef
+
+/_lt	{_pixelsnap lineto} bdef
+/_rlt	{_pixeldsnap rlineto} bdef
+/_mt	{_pixelsnap moveto} bdef
+/_rmt	{_pixeldsnap rmoveto} bdef
+
+/bshow	{gsave psz 30 div 0 _rmt dup show grestore show} bdef
+
+/DUx	0 def
+/DUy	0 def
+/hscl	0 def
+
+/M	{_mt
+	 2 mul -2 2
+	 { -2 roll 0 _rmt _S } for
+	} bdef
+
+/makeoutl
+	{ dup /OutlineFlag known not
+	  { dup dup length 2 add dict begin
+	    {1 index /FID ne { def }{ pop pop } ifelse } forall
+	    /UniqueID known {/UniqueID UniqueID 10000 add def} if
+	    /PaintType PaintType 0 eq { 2 }{ PaintType } ifelse def
+	    /StrokeWidth 15 def
+	    /OutlineFlag true def
+	    /OutlineFont currentdict end definefont
+	  } if
+	} bdef
+
+/nbuff	50 string def
+/orntsv	0 def
+/plen	0 def
+/pwid	0 def
+/picstr	1 string def
+
+/WPencoding StandardEncoding 256 array copy def 0
+ [ 127/Aacute/Acircumflex/Adieresis/Agrave/Aring/Atilde/Ccedilla
+  /Delta/Eacute/Ecircumflex/Edieresis/Egrave/Eth/Gamma/Iacute
+  /Icircumflex/Idieresis/Igrave/Lambda/Ntilde/Oacute
+  /Ocircumflex/Odieresis/Ograve/Omega/Otilde/Phi/Pi/Psi
+  /Scaron/Sigma/TeXtext32/Theta/Thorn
+  209/Uacute/Ucircumflex/Udieresis/Ugrave/Upsilon/Xi/Yacute
+  /Ydieresis/Zcaron/aacute/acircumflex/adieresis/agrave
+  /aring/atilde/brokenbar
+  228/ccedilla/copyright/degree/divide
+  236/dotlessj/eacute/ecircumflex/edieresis/egrave
+  242/eth/ff/ffi
+  246/ffl/iacute
+  252/icircumflex/idieresis/igrave/logicalnot
+  1/minus/mu/multiply/ntilde/oacute/ocircumflex/odieresis
+  /ograve/onehalf/onequarter/onesuperior/otilde/plusminus
+  /registered/scaron/thorn/threequarters/threesuperior
+  /trademark/twosuperior/uacute/ucircumflex/udieresis
+  /ugrave/yacute/ydieresis/zcaron
+]
+{ dup type /nametype eq
+  { WPencoding 2 index 2 index put pop 1 add }
+  { exch pop } ifelse
+} forall pop
+
+/reencode
+{ dup FontDirectory exch known
+   { findfont }
+   {  dup nbuff cvs dup length 1 sub get 82 eq
+   {dup nbuff cvs dup length 1 sub 0 exch getinterval
+   findfont begin
+   currentdict dup length dict begin
+{ 1 index /FID ne {def} {pop pop} ifelse } forall
+/FontName exch def
+
+/Encoding WPencoding def
+currentdict dup end end
+/FontName get exch definefont
+     }
+     { findfont } ifelse
+  } ifelse
+} bdef
+
+/WPDLencoding StandardEncoding 256 array copy def 0
+[ 127     /SA420000/SD630000/SF010000/SF020000/SF030000
+/SF040000/SF050000/SF060000/SF070000/SF080000/SF090000
+/SF100000/SF110000/SF140000/SF150000/SF160000/SF190000
+/SF200000/SF210000/SF220000/SF230000/SF240000/SF250000/SF260000
+/SF270000/SF280000/SF360000/SF370000/SF380000/SF390000/SF400000
+/SF410000/SF420000/SF430000
+209 /SF440000/SF450000/SF460000/SF470000/SF480000
+/SF490000/SF500000/SF510000/SF520000/SF530000/SF540000
+/SF570000/SF580000/SF590000/SF600000/SF610000
+228 /SM570001/SM590000/SM600000/SM630000
+236 /SM680000/SM690000/SM700000/SM750000/SM750002
+242 /SM770000/SM790000/SP320000
+246 /SS000000/SS010000
+252 /SS260000/SS270000/SV040000/apostrophereverse
+1/arrowboth/arrowdown/arrowleft/arrowright/arrowup/club
+/deutschmark/diamond/diamondopen/exclamdbl/female
+/fiveeighths/franc/heart/male/musicalnote/musicalnotedbl
+/napostrophe/nsuperior/oneeighths/seveneighths/spade
+/threeeights/underscoredbl/SM760000
+]
+{ dup type /nametype eq
+  { WPDLencoding 2 index 2 index put pop 1 add }
+  { exch pop } ifelse
+} forall pop
+
+/reencodeL
+    { dup FontDirectory exch known
+      { findfont }
+      {  dup nbuff cvs dup length 1 sub get 76 eq
+         {    dup nbuff cvs dup length 1 sub 0 exch getinterval
+         findfont begin
+         currentdict dup length dict begin
+         { 1 index /FID ne {def} {pop pop} ifelse } forall
+         /FontName exch def
+         /Encoding WPDLencoding def
+         currentdict dup end end
+         /FontName get exch definefont
+         }
+         { findfont } ifelse
+      } ifelse
+    } bdef
+
+/ron	false def
+/sflg	false def
+/slan	0 def
+/sp	32 def
+
+/sshow
+	{ save exch
+	   gsave
+	    psz 20 div dup neg _rmt dup show
+	   grestore
+	   dup
+	   save exch
+	    Bfont setfont
+	    1 setgray show
+	   restore
+	   currentfont makeoutl setfont show
+	   currentpoint 3 -1 roll
+	  restore _mt
+	} bdef
+
+/Sx	0 def
+/Sy	0 def
+/Ux	0 def
+/Uy	0 def
+/W	/widthshow load def
+
+/_B	{/bflg true def
+	 sflg not {/_S /bshow load def /bon true def} if
+	} bdef
+/_b	{/bflg false def
+	 bon {/_S /show load def /bon false def} if
+	} bdef
+/_bd	{save} bdef
+/_bp	{save 2 setmiterlimit .06 .06 scale 0 0 _mt} bdef
+/_ccprocs
+	{/proc2 exch cvlit def
+	 /proc1 exch cvlit def
+	 /newproc proc1 length proc2 length add
+	 array def
+	 newproc 0 proc1 putinterval
+	 newproc proc1 length proc2 putinterval
+	 newproc cvx
+	} def
+/_clr	{3 {255 div 3 1 roll} repeat
+	 ron {6 3 roll pop pop pop} {setrgbcolor} ifelse
+	} bdef
+/_cp	/closepath load def
+/_cw	{stroke initclip _mt 0 2 index
+	 _rlt 0 _rlt 0 exch neg
+	 _rlt clip newpath
+	} bdef
+/_d	/setdash load def
+/_DU	{currentpoint /DUy exch def /DUx exch def} bdef
+/_du	{gsave
+	  save
+	  8 setlinewidth
+      currentpoint -30 add _mt
+      DUx DUy -30 add _lt stroke
+	  restore
+	  8 setlinewidth
+	  currentpoint -50 add _mt
+	  DUx DUy -50 add _lt stroke
+	 grestore
+	} bdef
+/_ed	{restore} bdef
+/_ep	{restore showpage 0 0 _mt} bdef
+/_f	/eofill load def
+/_ff	{ exch reencode exch
+	  3 div dup /psz exch def
+	  scalefont dup /Bfont exch def setfont
+	} bdef
+/_ffs	{ /slan exch 10 div def /hscl exch 1000 div def
+	  /psz exch 3 div def
+	  [ psz hscl mul 0 slan dup sin exch cos div psz mul psz 0 0 ]
+	  exch reencode exch makefont dup /Bfont exch def setfont
+	} bdef
+/_g	/setgray load def
+/_gs	{neg 100 add 100 div setgray} bdef
+/_i	{gsave
+	  dup /picstr exch 7 add 8 idiv string def
+	  3 1 roll translate dup 1 scale
+	  dup 1 1 [5 -1 roll 0 0 1 0 0]
+	  {currentfile picstr readhexstring pop} image
+         grestore
+        } bdef
+/_is	{save 4 1 roll
+	  dup /picstr exch 7 add 8 idiv string def
+	  3 1 roll translate dup 1 scale
+	  dup 1 1 [5 -1 roll 0 0 1 0 0]
+	  {currentfile picstr readhexstring pop} image
+	 restore
+	} bdef
+/_ie	{1 eq { {1 exch sub} currenttransfer _ccprocs settransfer} if
+	 /_isx exch def /_isy exch def
+	 _isx mul exch _isy mul translate
+	 add 2 div /_txc exch def
+	 add 2 div /_tyc exch def
+	 _txc _isx mul _tyc _isy mul translate
+	 360 exch sub rotate
+	 1 eq { _isx neg _isy scale }
+	 { _isx _isy scale }
+	 ifelse _txc neg _tyc neg translate
+	} bdef
+/_irms	{save
+	  12 1 roll
+	  1 eq {{1 exch sub} currenttransfer _ccprocs settransfer} if
+	  /picstr exch string def translate
+	  2 index 6 index sub 2 div 2 index 6 index sub 2 div neg
+	  translate
+	  5 index 5 index 2 div neg exch 2 div exch
+	  2 copy neg exch neg exch 5 2 roll translate
+	  360 exch sub rotate
+	  3 index 3 index 7 index div exch 8 index div exch scale
+	  translate pop pop 2 index 2 index scale
+	  3 index 0 eq
+	  { [ 3 index 0 0 5 index neg 0 0 ] }
+	  { 3 index 1 eq
+      { [ 3 index 0 0 5 index 0 7 index ] }
+      { 3 index 128 eq
+	  { [ 3 index neg 0 0 5 index neg 7 index 0 ] }
+	  { [ 3 index neg 0 0 5 index 7 index 7 index ] } ifelse
+	    } ifelse
+	  } ifelse
+          {currentfile picstr readhexstring pop} image
+          pop
+	 restore
+	} bdef
+
+/_l	{_lt} bdef
+/_lr	{_rlt} bdef
+/_m	{_mt} bdef
+/_O	{currentfont makeoutl setfont} bdef
+/_o	{Bfont setfont} bdef
+/_ornt	{/pwid exch def /plen exch def
+	 orntsv 1 eq {0 pwid translate -90 rotate} if
+	 orntsv 2 eq {pwid plen translate 180 rotate} if
+	 orntsv 3 eq {plen 0 translate 90 rotate} if
+	 dup 1 eq {pwid 0 translate 90 rotate} if
+	 dup 2 eq {pwid plen translate 180 rotate} if
+	 dup 3 eq {0 plen translate -90 rotate} if
+	 /orntsv exch def
+	} bdef
+/_lod1	{currentpoint orntsv plen pwid 6 -1 roll restore save} bdef
+/_lod2	{_bp 7 2 roll _ornt _mt} bdef
+/_unlod	{currentpoint orntsv plen pwid 7 -2 roll restore restore
+	 _bp 6 1 roll _ornt _mt
+	} bdef
+/_p	{2 copy _mt 1 0 _rlt _mt} bdef
+/_pl	{{_lt} repeat} bdef
+/_R      { /ron true def /_S /_rshow load def /_t /_red load def} bdef
+/_rshow	 { save exch
+	   currentpoint
+	   /RSy exch def /RSx exch def
+	   ron {
+		 sflg
+		 {	currentpoint
+			/Ry exch def /Rx exch def
+			dup stringwidth pop Rx Ry psz 4 div add _mt
+			Rx psz 15 add setlinewidth .95 setgray 0 setlinecap
+			add Ry psz 4 div add _lt stroke Rx Ry _mt 0 0 0 setrgbcolor
+			dup show Rx Ry _mt
+			sshow
+		 }
+		 { _redshow
+		 }ifelse
+	   }
+	   {	 sflg {sshow} if
+	   }ifelse
+	   currentpoint 3 -1 roll
+	   restore _mt
+	 } bdef
+/_red	{ gsave dup
+         currentpoint /Ry exch def /Rx exch def
+         Rx Ry psz 4 div add _mt
+         Rx psz 15 add setlinewidth .95 setgray 0 setlinecap
+         add Ry psz 4 div add _lt stroke
+         Rx Ry _mt
+         grestore
+         0 rmoveto
+    }bdef
+/_redshow {currentpoint
+         /Ry exch def /Rx exch def
+         dup stringwidth pop Rx Ry psz 4 div add _mt
+         Rx psz 15 add setlinewidth .95 setgray 0 setlinecap
+         add Ry psz 4 div add _lt stroke Rx Ry _mt 0 0 0 setrgbcolor
+         show currentpoint _mt
+    }bdef
+/_rmxy	{_rmt} bdef
+/_s	/stroke load def
+/_SH	bon {/bon false def} if
+	{/sflg true def /_S /_rshow load def
+	} bdef
+/_sh	{ ron 	{/sflg false def bflg {_B} if}
+		{/_S /show load def /sflg false def bflg {_B} if}ifelse
+	}bdef
+/_sp	{ gsave stroke grestore } bdef
+/_ST     {currentpoint /Sy exch def /Sx exch def} bdef
+/_st     {gsave
+          currentpoint
+          psz 4 div add _mt
+          Sx Sy psz 4 div add _lt
+          10 setlinewidth
+          stroke
+          grestore
+          } bdef
+/_U	{currentpoint /Uy exch def /Ux exch def} bdef
+/_u	{gsave
+	  currentpoint
+	  -30 add _mt
+	  Ux Uy -30 add _lt
+	  12 setlinewidth
+	  stroke
+	 grestore
+	} bdef
+/_w	/setlinewidth load def
+end
+/#copies 1 def /wpdict2 100 dict def
+wpdict begin wpdict2 begin
+_bd
+/_rhs{readhexstring}bdef/_tr{translate}bdef
+/_ix{index}bdef/_mx{matrix}bdef
+/ife{ifelse}bdef/_x{exch}bdef
+/_is{save 4 1 roll
+dup/picstr _x 7 add 8 idiv string def
+3 1 roll _tr dup 1 scale
+dup 1 1[5 -1 roll 0 0 1 0 0]
+{currentfile picstr _rhs pop}image restore}bdef
+/_epsi{1 eq{{1 _x sub}currenttransfer _ccprocs settransfer}if
+/yp _x def/xp _x def/dhgt _x def/dwid _x def
+4 copy sub/swid _x def
+sub/shgt _x def
+add 2 div/icx _x def add 2 div/icy _x def
+xp dwid 2 div add icx sub yp dhgt 2 div sub
+icy sub _tr icx icy _tr
+360 _x sub rotate
+dwid swid div/xsc _x def _x
+dhgt shgt div/ysc _x def _x
+dup 1 eq{xsc neg/xsc _x def pop}
+{dup 2 eq{ysc neg /ysc _x def pop}
+{3 eq{ysc neg/ysc _x def xsc neg/xsc _x def}
+{}ife}ife}ife
+xsc ysc scale
+100 div _x 100 div _x scale
+icx neg icy neg _tr}bdef
+/_c{3{255 div 3 1 roll}repeat setrgbcolor}bdef
+/eq3{3 copy 2 _ix eq{eq{true}{false}ife}{pop
+pop false}ife}bdef
+/g{255 div setgray}bdef
+/_clr{ron{6 3 roll pop pop pop}{eq3{pop
+pop g}{_c}ife}ife}bdef
+/_r{/ron false def eq3{1 sub neg g pop
+pop}{setrgbcolor}ife}bdef
+/_ircms{save 15 1 roll
+1 eq{{1 exch sub}currenttransfer _ccprocs settransfer}if
+/pstr _x string def _tr
+/Cli _x def/USy _x def/USx _x def/Rot _x def/HTd _x def
+/WDd _x def/Bdep _x def/HTs _x def/WDs _x def/MIR _x def
+USx 100 div USy 100 div scale
+WDd WDs sub 2 div HTd HTs sub 2 div neg _tr
+WDs HTs 2 div neg _x 2 div _x _tr
+Rot 360 _x sub rotate WDd HTd HTs div _x WDs div _x scale
+WDs 2 div neg HTs 2 div _tr
+WDs HTs scale WDs HTs Bdep MIR 0
+eq{[WDs 0 0 HTs neg 0 0]}{MIR 1 eq{[WDs 0 0 HTs 0 HTs]}
+{MIR 128 eq{[WDs neg 0 0 HTs neg WDs 0]}
+{[WDs neg 0 0 HTs WDs HTs]}ife}ife}ife
+{currentfile pstr _rhs pop}Cli
+0 eq{image}{false 3 colorimage}ife
+restore}bdef
+/_bp{save 2 setlinecap 2 setmiterlimit
+.06 .06 scale 0 0 moveto}bdef
+/tctm _mx def/trot _mx def/tscale _mx def/rmtx _mx def
+/fr{72 0 rmtx defaultmatrix dtransform
+/yres _x def/xres _x def
+xres dup mul yres dup mul add sqrt}bdef
+/sus{/spotf _x def/sang _x def/csz _x def
+/m tctm currentmatrix def/rm sang trot rotate def
+/sm csz dup tscale scale def
+sm rm m m concatmatrix m concatmatrix pop
+1 0 m dtransform /y1 _x def/x1 _x def
+/veclength x1 dup mul y1 dup mul add sqrt def
+/frcy fr veclength div def /nsang y1 x1 atan def
+frcy nsang/spotf load setscreen}bdef
+/bitis{/ybit _x def /xbit _x def
+/bval bstring ybit bwidth mul xbit 8 idiv add get def
+/mask 1 7 xbit 8 mod sub bitshift def
+bval mask and 0 ne}bdef
+/bps{/y _x def /x _x def
+/xndx x 1 add 2 div bpside mul cvi def
+/yndx y 1 add 2 div bpside mul cvi def
+xndx yndx bitis
+{/onb onb 1 add def 1}{/ofb ofb 1 add def 0}ife}bdef
+/stpatt{/csz _x def /angle _x def /bwidth _x def
+/bpside _x def /bstring _x def
+/onb 0 def /ofb 0 def
+csz angle /bps load
+sus{}settransfer
+ofb ofb onb add div _g}bdef
+/_fp{8 1 0 cpi stpatt}bdef
+/_pf{gsave eofill grestore}bdef
+/_np{newpath}bdef/_lc{setlinecap}bdef
+/_sr{/cpi _x def}bdef
+/nbuff 50 string def
+letter _bp 0 13200 10200 _ornt /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8900 11886 _m
+(1)_S 1200 10016 _m
+(MACHINE)_S 100 _t
+(LEARNING)_S 100 _t
+(TECHNIQUES)_S 100 _t
+(TO)_S 100 _t
+(DIAGNOSE)_S 100 _t
+(BREAST)_S 100 _t
+(CANCER)_S 100 _t
+(FROM)_S 100 _t
+(IMAGE-PROCESSED)_S 1200 9682 _m
+(NUCLEAR)_S 100 _t
+(FEATURES)_S 100 _t
+(OF)_S 100 _t
+(FINE)_S 100 _t
+(NEEDLE)_S 100 _t
+(ASPIRATES)_S 1200 9014 _m
+(William)_S 100 _t
+(H.)_S 100 _t
+(Wolberg,)_S 100 _t
+(M.D.)_S 1800 8680 _m
+(Departments)_S 100 _t
+(of)_S 100 _t
+(Surgery)_S 100 _t
+(and)_S 100 _t
+(Human)_S 100 _t
+(Oncology,)_S 1800 8346 _m
+(University)_S 100 _t
+(of)_S 100 _t
+(Wisconsin,)_S 100 _t
+(Madison,)_S 100 _t
+(WI)_S 100 _t
+(53792)_S 1800 8012 _m
+(email)_S 100 _t
+(wolberg@eagle.surgery.wisc.edu)_S 100 _t
+1200 7678 _m
+(W.)_S 100 _t
+(Nick)_S 100 _t
+(Street,)_S 100 _t
+(M.S.)_S 100 _t
+1800 7344 _m
+(Computer)_S 100 _t
+(Sciences)_S 100 _t
+(Department)_S 1800 7010 _m
+(University)_S 100 _t
+(of)_S 100 _t
+(Wisconsin,)_S 100 _t
+(Madison,)_S 100 _t
+(WI)_S 100 _t
+(53706)_S 1800 6676 _m
+(email)_S 100 _t
+(street@cs.wisc.edu)_S 1200 6342 _m
+(O.)_S 100 _t
+(L.)_S 100 _t
+(Mangasarian,)_S 100 _t
+(Ph.D.)_S 1800 6008 _m
+(Computer)_S 100 _t
+(Sciences)_S 100 _t
+(Department.)_S 1800 5674 _m
+(University)_S 100 _t
+(of)_S 100 _t
+(Wisconsin,)_S 100 _t
+(Madison,)_S 100 _t
+(WI)_S 100 _t
+(53706)_S 1800 5340 _m
+(email)_S 100 _t
+(olvi@cs.wisc.edu)_S 1200 4338 _m
+(This)_S 100 _t
+(study)_S 100 _t
+(was)_S 100 _t
+(supported)_S 100 _t
+(in)_S 100 _t
+(part)_S 100 _t
+(by)_S 100 _t
+(Air)_S 100 _t
+(Force)_S 100 _t
+(Office)_S 100 _t
+(of)_S 100 _t
+(Scientific)_S 100 _t
+(Research)_S 1200 4004 _m
+(grant)_S 100 _t
+(AFOSR)_S 100 _t
+(89-0410)_S 100 _t
+(and)_S 100 _t
+(National)_S 100 _t
+(Science)_S 100 _t
+(Foundation)_S 100 _t
+(grant)_S 100 _t
+(CCR-9101801.)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8900 11886 _m
+(2)_S 1200 11519 _m
+(SUMMARY:)_S 1200 11185 _m
+(An)_S 100 _t
+(interactive)_S 100 _t
+(computer)_S 100 _t
+(system)_S 100 _t
+(evaluates)_S 100 _t
+(and)_S 100 _t
+(diagnoses)_S 100 _t
+(based)_S 100 _t
+(on)_S 100 _t
+(cytologic)_S 1200 10851 _m
+(features)_S 100 _t
+(derived)_S 100 _t
+(directly)_S 100 _t
+(from)_S 100 _t
+(a)_S 100 _t
+(digital)_S 100 _t
+(scan)_S 100 _t
+(of)_S 100 _t
+(fine-needle)_S 100 _t
+(aspirates)_S 100 _t
+8400 10851 _m
+(\(FNA\))_S 1200 10517 _m
+(slides.)_S 300 _t
+(A)_S 100 _t
+(consecutive)_S 100 _t
+(series)_S 100 _t
+(of)_S 100 _t
+(569)_S 100 _t
+(patients)_S 100 _t
+(provided)_S 100 _t
+(the)_S 100 _t
+(data)_S 100 _t
+(to)_S 100 _t
+(develop)_S 1200 10183 _m
+(the)_S 100 _t
+(system)_S 100 _t
+(and)_S 100 _t
+(an)_S 100 _t
+(additional)_S 100 _t
+(54)_S 100 _t
+(consecutive,)_S 100 _t
+(new)_S 100 _t
+(patients)_S 100 _t
+(provided)_S 100 _t
+(samples)_S 100 _t
+(to)_S 1200 9849 _m
+(test)_S 100 _t
+(the)_S 100 _t
+(system.)_S 300 _t
+1800 9515 _m
+100 _t
+(The)_S 100 _t
+(projected)_S 100 _t
+(prospective)_S 100 _t
+(accuracy)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(system)_S 100 _t
+(estimated)_S 100 _t
+(by)_S 100 _t
+(ten-fold)_S 1200 9181 _m
+(cross)_S 100 _t
+(validation)_S 100 _t
+(was)_S 100 _t
+(97%.)_S 200 _t
+(The)_S 100 _t
+(actual)_S 100 _t
+(accuracy)_S 100 _t
+(on)_S 100 _t
+(54)_S 100 _t
+(new)_S 100 _t
+(samples)_S 100 _t
+(\(36)_S 100 _t
+(benign,)_S 100 _t
+(1)_S 1200 8847 _m
+(atypia,)_S 100 _t
+(and)_S 100 _t
+(17)_S 100 _t
+(malignant\))_S 100 _t
+(was)_S 100 _t
+(100%.)_S 300 _t
+1800 8513 _m
+100 _t
+(Digital)_S 100 _t
+(image)_S 100 _t
+(analysis)_S 100 _t
+(coupled)_S 100 _t
+(with)_S 100 _t
+(machine)_S 100 _t
+(learning)_S 100 _t
+(techniques)_S 100 _t
+(will)_S 1200 8179 _m
+(improve)_S 100 _t
+(diagnostic)_S 100 _t
+(accuracy)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(fine)_S 100 _t
+(needle)_S 100 _t
+(aspirates.)_S 200 _t
+1200 7511 _m
+100 _t
+100 _t
+1800 6509 _m
+100 _t
+1200 6175 _m
+(Keywords:)_S 100 _t
+(Breast)_S 100 _t
+(cancer,)_S 100 _t
+(digital)_S 100 _t
+(morphometry,)_S 100 _t
+(image)_S 100 _t
+(analysis,)_S 100 _t
+(machine)_S 1200 5841 _m
+(learning,)_S 100 _t
+(fine)_S 100 _t
+(needle)_S 100 _t
+(aspiration.)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8900 11886 _m
+(3)_S 1200 11519 _m
+(INTRODUCTION:)_S 1200 11185 _m
+(The)_S 100 _t
+(accuracy)_S 100 _t
+(of)_S 100 _t
+(visually)_S 100 _t
+(diagnosed)_S 100 _t
+(breast)_S 100 _t
+(fine)_S 100 _t
+(needle)_S 100 _t
+(aspirates)_S 100 _t
+(\(FNA\))_S 100 _t
+(is)_S 100 _t
+(over)_S 1200 10851 _m
+(90%.)_S 200 _t
+(The)_S 100 _t
+(overall)_S 100 _t
+(accuracy)_S 100 _t
+(was)_S 100 _t
+(94.3%)_S 100 _t
+(in)_S 100 _t
+(a)_S 100 _t
+(37-series)_S 100 _t
+(study)_S 100 _t
+(reported)_S 100 _t
+(by)_S 100 _t
+(Frable)_S 1200 10517 _m
+([8])_S 100 _t
+(plus)_S 100 _t
+(25)_S 100 _t
+(more)_S 100 _t
+(recent)_S 100 _t
+(series)_S 300 _t
+([1],[3],[4],[6],[7],[10-14],[18-20],[25-27],)_S 1200 10183 _m
+([30],[32-35],[38-40],)_S 100 _t
+(with)_S 100 _t
+(a)_S 100 _t
+(total)_S 100 _t
+(of)_S 100 _t
+(23,741)_S 100 _t
+(satisfactory)_S 100 _t
+(breast)_S 100 _t
+(FNA's.)_S 200 _t
+1200 9849 _m
+(Individually,)_S 100 _t
+(the)_S 100 _t
+(mean)_S 100 _t
+(sensitivity)_S 100 _t
+(for)_S 100 _t
+(these)_S 100 _t
+(series)_S 100 _t
+(was)_S 100 _t
+(0.91)_S 100 _t
+(+/-)_S 100 _t
+(0.07)_S 100 _t
+(and)_S 100 _t
+(the)_S 1200 9515 _m
+(mean)_S 100 _t
+(specificity)_S 100 _t
+(was)_S 100 _t
+(0.87)_S 100 _t
+(+/-)_S 100 _t
+(0.18.)_S 200 _t
+(The)_S 100 _t
+(relatively)_S 100 _t
+(high)_S 100 _t
+(standard)_S 100 _t
+(deviations)_S 1200 9181 _m
+(indicate)_S 100 _t
+(that)_S 100 _t
+(the)_S 100 _t
+(accuracy)_S 100 _t
+(achieved)_S 100 _t
+(in)_S 100 _t
+(individual)_S 100 _t
+(series)_S 100 _t
+(varies)_S 100 _t
+(considerably)_S 1200 8847 _m
+(and)_S 100 _t
+(reflects)_S 100 _t
+(the)_S 100 _t
+(subjectivity)_S 100 _t
+(of)_S 100 _t
+(visual)_S 100 _t
+(diagnosis.)_S 200 _t
+(Additionally,)_S 100 _t
+(publication)_S 1200 8513 _m
+(bias)_S 100 _t
+(is)_S 100 _t
+(toward)_S 100 _t
+(placing)_S 100 _t
+(favorable)_S 100 _t
+(results)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(literature.)_S 200 _t
+(Giard)_S 100 _t
+(and)_S 100 _t
+(Hermans)_S 1200 8179 _m
+([9])_S 100 _t
+(emphasized)_S 100 _t
+(the)_S 100 _t
+(need)_S 100 _t
+(for)_S 100 _t
+(developing)_S 100 _t
+(individual)_S 100 _t
+(performance)_S 100 _t
+(characteristics)_S 1200 7845 _m
+(for)_S 100 _t
+(persons)_S 100 _t
+(doing)_S 100 _t
+(this)_S 100 _t
+(test.)_S 200 _t
+(The)_S 100 _t
+(subjectivity)_S 100 _t
+(which)_S 100 _t
+(is)_S 100 _t
+(inherent)_S 100 _t
+(in)_S 100 _t
+(visual)_S 1200 7511 _m
+(diagnosis)_S 100 _t
+(can)_S 100 _t
+(be)_S 100 _t
+(minimized)_S 100 _t
+(with)_S 100 _t
+(computer)_S 100 _t
+(based)_S 100 _t
+(digital)_S 100 _t
+(image)_S 100 _t
+(analysis)_S 100 _t
+(and)_S 1200 7177 _m
+(machine)_S 100 _t
+(learning)_S 100 _t
+(techniques)_S 100 _t
+([37].)_S 200 _t
+(This)_S 100 _t
+(technology)_S 100 _t
+(will)_S 100 _t
+(enhance)_S 100 _t
+(the)_S 100 _t
+(usefulness)_S 1200 6843 _m
+(of)_S 100 _t
+(fine)_S 100 _t
+(needle)_S 100 _t
+(aspiration)_S 100 _t
+(as)_S 100 _t
+(a)_S 100 _t
+(diagnostic)_S 100 _t
+(tool)_S 100 _t
+(for)_S 100 _t
+(breast)_S 100 _t
+(cancer.)_S 1200 6509 _m
+100 _t
+100 _t
+1200 6175 _m
+(PATIENTS:)_S 1800 5841 _m
+(A)_S 100 _t
+(consecutive)_S 100 _t
+(series)_S 100 _t
+(of)_S 100 _t
+(569)_S 100 _t
+(patients)_S 100 _t
+(provided)_S 100 _t
+(the)_S 100 _t
+(data)_S 100 _t
+(for)_S 100 _t
+(the)_S 100 _t
+(study.)_S 100 _t
+1200 5507 _m
+(An)_S 100 _t
+(additional)_S 100 _t
+(54)_S 100 _t
+(consecutive,)_S 100 _t
+(new)_S 100 _t
+(patients)_S 100 _t
+(provided)_S 100 _t
+(samples)_S 100 _t
+(to)_S 100 _t
+(test)_S 100 _t
+(the)_S 1200 5173 _m
+(system.)_S 100 _t
+(All)_S 100 _t
+(cancers)_S 100 _t
+(and)_S 100 _t
+(some)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(benign)_S 100 _t
+(masses)_S 100 _t
+(were)_S 100 _t
+(histologically)_S 1200 4839 _m
+(confirmed.)_S 200 _t
+(The)_S 100 _t
+(remaining)_S 100 _t
+(benign)_S 100 _t
+(masses)_S 100 _t
+(were)_S 100 _t
+(followed)_S 100 _t
+(for)_S 100 _t
+(a)_S 100 _t
+(year)_S 100 _t
+(and)_S 100 _t
+(were)_S 1200 4505 _m
+(biopsied)_S 100 _t
+(if)_S 100 _t
+(they)_S 100 _t
+(changed)_S 100 _t
+(in)_S 100 _t
+(size)_S 100 _t
+(or)_S 100 _t
+(character.)_S 200 _t
+(Cancer)_S 100 _t
+(patients)_S 100 _t
+(were)_S 100 _t
+(given)_S 1200 4171 _m
+(standard)_S 100 _t
+(surgical)_S 100 _t
+(and)_S 100 _t
+(chemotherapy)_S 100 _t
+(treatment.)_S 200 _t
+(Adjunctive)_S 100 _t
+(radiotherapy)_S 100 _t
+(was)_S 1200 3837 _m
+(given)_S 100 _t
+(when)_S 100 _t
+(indicated.)_S 200 _t
+1200 3503 _m
+(Fine)_S 100 _t
+(Needle)_S 100 _t
+(Aspiration)_S 1200 3169 _m
+(A)_S 100 _t
+(small)_S 100 _t
+(drop)_S 100 _t
+(of)_S 100 _t
+(viscous)_S 100 _t
+(fluid)_S 100 _t
+(was)_S 100 _t
+(aspirated)_S 100 _t
+(from)_S 100 _t
+(breast)_S 100 _t
+(masses)_S 100 _t
+(by)_S 100 _t
+(making)_S 1200 2835 _m
+(multiple)_S 100 _t
+(passes)_S 100 _t
+(with)_S 100 _t
+(a)_S 100 _t
+(23)_S 100 _t
+(gauge)_S 100 _t
+(needle)_S 100 _t
+(as)_S 100 _t
+(negative)_S 100 _t
+(pressure)_S 100 _t
+(was)_S 100 _t
+(applied)_S 100 _t
+(to)_S 100 _t
+(an)_S 1200 2501 _m
+(attached)_S 100 _t
+(syringe.)_S 200 _t
+(The)_S 100 _t
+(aspirated)_S 100 _t
+(material)_S 100 _t
+(was)_S 100 _t
+(expressed)_S 100 _t
+(onto)_S 100 _t
+(a)_S 100 _t
+(silane)_S 100 _t
+(coated)_S 1200 2167 _m
+(glass)_S 100 _t
+(slide.)_S 200 _t
+(A)_S 100 _t
+(similar)_S 100 _t
+(slide)_S 100 _t
+(was)_S 100 _t
+(placed)_S 100 _t
+(face)_S 100 _t
+(down)_S 100 _t
+(on)_S 100 _t
+(the)_S 100 _t
+(aspirate,)_S 100 _t
+(and)_S 100 _t
+(the)_S 1200 1833 _m
+(aspirate)_S 100 _t
+(was)_S 100 _t
+(spread)_S 100 _t
+(as)_S 100 _t
+(the)_S 100 _t
+(slides)_S 100 _t
+(were)_S 100 _t
+(separated)_S 100 _t
+(with)_S 100 _t
+(a)_S 100 _t
+(horizontal)_S 100 _t
+(motion.)_S 100 _t
+1200 1499 _m
+(Preparations)_S 100 _t
+(were)_S 100 _t
+(immediately)_S 100 _t
+(fixed)_S 100 _t
+(in)_S 100 _t
+(95%)_S 100 _t
+(ethanol)_S 100 _t
+(and)_S 100 _t
+(examined)_S 100 _t
+(after)_S 100 _t
+(they)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8900 11886 _m
+(4)_S 1200 11519 _m
+(were)_S 100 _t
+(stained)_S 100 _t
+(with)_S 100 _t
+(hematoxylin)_S 100 _t
+(and)_S 100 _t
+(eosin.)_S 300 _t
+(Only)_S 100 _t
+(palpable)_S 100 _t
+(masses)_S 100 _t
+(were)_S 100 _t
+(aspirated)_S 1200 11185 _m
+(and)_S 100 _t
+(only)_S 100 _t
+(solid)_S 100 _t
+(masses)_S 100 _t
+(which)_S 100 _t
+(yielded)_S 100 _t
+(epithelial)_S 100 _t
+(cells)_S 100 _t
+(were)_S 100 _t
+(analyzed.)_S 100 _t
+1200 10851 _m
+(NUCLEAR)_S 100 _t
+(FEATURE)_S 100 _t
+(CHARACTERIZATION:)_S 1200 10517 _m
+(Image)_S 100 _t
+(Preparation)_S 1200 10183 _m
+(The)_S 100 _t
+(area)_S 100 _t
+(on)_S 100 _t
+(the)_S 100 _t
+(aspirate)_S 100 _t
+(slides)_S 100 _t
+(to)_S 100 _t
+(be)_S 100 _t
+(analyzed)_S 100 _t
+(was)_S 100 _t
+(visually)_S 100 _t
+(selected)_S 100 _t
+(for)_S 1200 9849 _m
+(minimal)_S 100 _t
+(nuclear)_S 100 _t
+(overlap.)_S 200 _t
+(Areas)_S 100 _t
+(of)_S 100 _t
+(apocrine)_S 100 _t
+(metaplasia)_S 100 _t
+(were)_S 100 _t
+(avoided.)_S 200 _t
+(The)_S 1200 9515 _m
+(image)_S 100 _t
+(for)_S 100 _t
+(digital)_S 100 _t
+(analysis)_S 100 _t
+(was)_S 100 _t
+(generated)_S 100 _t
+(by)_S 100 _t
+(a)_S 100 _t
+(JVC)_S 100 _t
+(TK-1070U)_S 100 _t
+(color)_S 100 _t
+(video)_S 100 _t
+(camera)_S 1200 9181 _m
+(mounted)_S 100 _t
+(atop)_S 100 _t
+(an)_S 100 _t
+(Olympus)_S 100 _t
+(microscope)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(image)_S 100 _t
+(was)_S 100 _t
+(projected)_S 100 _t
+(into)_S 100 _t
+(the)_S 100 _t
+(camera)_S 1200 8847 _m
+(with)_S 100 _t
+(a)_S 100 _t
+(63)_S 100 _t
+(x)_S 100 _t
+(objective)_S 100 _t
+(and)_S 100 _t
+(a)_S 100 _t
+(2.5)_S 100 _t
+(x)_S 100 _t
+(ocular.)_S 200 _t
+(The)_S 100 _t
+(image)_S 100 _t
+(was)_S 100 _t
+(captured)_S 100 _t
+(by)_S 100 _t
+(a)_S 1200 8513 _m
+(ComputerEyes/RT)_S 100 _t
+(color)_S 100 _t
+(framegrabber)_S 100 _t
+(board)_S 100 _t
+(\(Digital)_S 100 _t
+(Vision,)_S 100 _t
+(Inc.,)_S 100 _t
+(Dedham)_S 100 _t
+(MA)_S 1200 8179 _m
+(02026\))_S 100 _t
+(as)_S 100 _t
+(a)_S 100 _t
+(512)_S 100 _t
+(x)_S 100 _t
+(480,)_S 100 _t
+(8-bit-per-pixel)_S 100 _t
+(Targa)_S 100 _t
+(file.)_S 1200 7511 _m
+(The)_S 100 _t
+(Digital)_S 100 _t
+(Assessment)_S 100 _t
+(Process)_S 1200 7177 _m
+(The)_S 100 _t
+(first)_S 100 _t
+(step)_S 100 _t
+(in)_S 100 _t
+(successfully)_S 100 _t
+(analyzing)_S 100 _t
+(the)_S 100 _t
+(digital)_S 100 _t
+(image)_S 100 _t
+(was)_S 100 _t
+(to)_S 100 _t
+(specify)_S 100 _t
+(the)_S 1200 6843 _m
+(exact)_S 100 _t
+(location)_S 100 _t
+(of)_S 100 _t
+(each)_S 100 _t
+(cell)_S 100 _t
+(nucleus.)_S 200 _t
+(A)_S 100 _t
+(graphical)_S 100 _t
+(user)_S 100 _t
+(interface)_S 100 _t
+(was)_S 100 _t
+(developed)_S 1200 6509 _m
+(that)_S 100 _t
+(allows)_S 100 _t
+(the)_S 100 _t
+(user)_S 100 _t
+(to)_S 100 _t
+(input)_S 100 _t
+(the)_S 100 _t
+(approximate)_S 100 _t
+(location)_S 100 _t
+(of)_S 100 _t
+(sufficient)_S 100 _t
+(nuclei)_S 100 _t
+(to)_S 1200 6175 _m
+(provide)_S 100 _t
+(a)_S 100 _t
+(representative)_S 100 _t
+(sample.)_S 200 _t
+(The)_S 200 _t
+(interface)_S 100 _t
+(was)_S 100 _t
+(developed)_S 100 _t
+(using)_S 100 _t
+(the)_S 100 _t
+(X)_S 1200 5841 _m
+(Window)_S 100 _t
+(System)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(Athena)_S 100 _t
+(WidgetSet)_S 100 _t
+(on)_S 100 _t
+(a)_S 100 _t
+(DECstation)_S 100 _t
+(3100.)_S 200 _t
+(A)_S 100 _t
+(mouse)_S 100 _t
+(button)_S 1200 5507 _m
+(was)_S 100 _t
+(used)_S 100 _t
+(to)_S 100 _t
+(trace)_S 100 _t
+(a)_S 100 _t
+(rough)_S 100 _t
+(outline)_S 100 _t
+(of)_S 100 _t
+(each)_S 100 _t
+(visible)_S 100 _t
+(cell)_S 100 _t
+(nucleus.)_S 1200 4839 _m
+(Snakes)_S 1200 4505 _m
+(Beginning)_S 100 _t
+(with)_S 100 _t
+(a)_S 100 _t
+(user-defined)_S 100 _t
+(approximate)_S 100 _t
+(border)_S 100 _t
+(as)_S 100 _t
+(an)_S 100 _t
+(initialization,)_S 100 _t
+(the)_S 1200 4171 _m
+(actual)_S 100 _t
+(cell)_S 100 _t
+(nuclear)_S 100 _t
+(boundary)_S 100 _t
+(was)_S 100 _t
+(located)_S 100 _t
+(by)_S 100 _t
+(an)_S 100 _t
+(active)_S 100 _t
+(contour)_S 100 _t
+(model)_S 100 _t
+(known)_S 100 _t
+(in)_S 1200 3837 _m
+(the)_S 100 _t
+(literature)_S 100 _t
+(as)_S 100 _t
+(a)_S 100 _t
+("snake"[17],[42].)_S 300 _t
+(A)_S 100 _t
+(snake)_S 100 _t
+(is)_S 100 _t
+(a)_S 100 _t
+(deformable)_S 100 _t
+(spline)_S 100 _t
+(which)_S 1200 3503 _m
+(seeks)_S 100 _t
+(to)_S 100 _t
+(minimize)_S 100 _t
+(an)_S 100 _t
+(energy)_S 100 _t
+(function)_S 100 _t
+(defined)_S 100 _t
+(over)_S 100 _t
+(the)_S 100 _t
+(arclength)_S 100 _t
+(of)_S 100 _t
+(a)_S 100 _t
+(curve.)_S 100 _t
+1200 3169 _m
+(We)_S 100 _t
+(define)_S 100 _t
+(the)_S 100 _t
+(energy)_S 100 _t
+(function)_S 100 _t
+(in)_S 100 _t
+(such)_S 100 _t
+(a)_S 100 _t
+(way)_S 100 _t
+(that)_S 100 _t
+(the)_S 100 _t
+(snake,)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(form)_S 100 _t
+(of)_S 100 _t
+(a)_S 1200 2835 _m
+(closed)_S 100 _t
+(curve,)_S 100 _t
+(conforms)_S 100 _t
+(itself)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(boundary)_S 100 _t
+(of)_S 100 _t
+(a)_S 100 _t
+(cell)_S 100 _t
+(nucleus.)_S 1200 2501 _m
+(To)_S 100 _t
+(achieve)_S 100 _t
+(this,)_S 100 _t
+(the)_S 100 _t
+(energy)_S 100 _t
+(function)_S 100 _t
+(to)_S 100 _t
+(be)_S 100 _t
+(minimized)_S 100 _t
+(is)_S 100 _t
+(defined)_S 100 _t
+(as)_S 100 _t
+(the)_S 1200 2167 _m
+(following)_S 100 _t
+(function)_S 100 _t
+(of)_S 100 _t
+(arclength:)_S gsave 4 4 scale 16 _sr 
+_s [] 0 _d 2 _lc 0 g 103 1899 325 358 _cw 
+_s 831 435 _m
+_sp 831 435 812 435 812 434 815 434 811 413 808 413 807 412 827 412 829 419 827 419 826 413 813 413 815 424 822 424 822 421 
+823 421 824 428 823 428 822 425 815 425 817 434 830 434 829 428 830 428 24 _pl _cp 
+0 g _f _s _s 
+0 g 911 379 _m
+_sp 911 379 910 378 908 379 906 379 904 379 902 378 901 376 900 375 901 374 902 373 904 372 906 372 908 372 909 372 909 371 
+909 370 909 369 908 368 905 367 903 368 901 368 901 369 900 370 900 370 900 371 899 370 899 368 898 367 899 366 900 368 
+900 367 902 367 904 366 907 366 909 367 910 369 911 371 910 372 907 373 906 373 904 373 903 374 902 375 902 376 903 377 
+906 378 909 377 910 376 910 375 910 375 911 375 911 377 912 379 53 _pl _cp 
+0 g _f _s _s 
+0 g 1009 435 _m
+_sp 1009 435 990 435 989 434 993 434 989 413 985 413 985 412 1005 412 1006 419 1005 419 1004 413 990 413 992 424 1000 424 999 421 
+1001 421 1002 428 1001 428 1000 425 993 425 994 434 1007 434 1006 428 1008 428 24 _pl _cp 
+0 g _f _s _s 
+0 g 1024 414 _m
+_sp 1024 414 1023 413 1021 414 1019 414 1016 413 1014 412 1012 409 1011 406 1011 404 1012 402 1014 401 1016 401 1019 402 1023 403 1022 404 
+1022 404 1021 403 1020 403 1019 402 1017 402 1015 402 1013 403 1012 405 1012 406 1013 409 1014 411 1016 412 1019 413 1021 413 1022 412 
+1023 411 1023 410 1023 410 1023 409 1024 410 1024 412 1025 414 37 _pl _cp 
+0 g _f _s _s 
+0 g 1036 414 _m
+_sp 1036 414 1034 414 1032 413 1031 412 1030 411 1029 410 1028 409 1028 406 1028 404 1029 402 1031 401 1033 401 1036 402 1039 404 1040 406 
+1041 409 1041 411 1040 413 1038 414 19 _pl _cp 1029 406 _m
+_sp 1029 406 1030 409 1031 411 1033 412 1035 413 1037 413 1039 412 1040 410 1040 409 1039 406 1038 404 1036 403 1033 402 1032 402 1030 403 
+1029 405 16 _pl _cp 
+0 g _f _s _s 
+0 g 1045 414 _m
+_sp 1045 414 1045 413 1047 413 1045 402 1043 402 1043 402 1048 402 1049 402 1046 402 1048 410 1051 412 1054 413 1055 412 1056 411 1056 410 
+1056 409 1054 402 1052 402 1052 402 1058 402 1058 402 1055 402 1057 409 1057 410 1057 411 1057 412 1056 413 1055 414 1054 414 1051 413 
+1048 412 1048 414 32 _pl _cp 
+0 g _f _s _s 
+0 g 1066 417 _m
+_sp 1066 417 1066 414 1064 414 1063 413 1065 413 1064 407 1064 405 1064 404 1064 403 1065 402 1066 401 1068 401 1071 402 1073 403 1073 404 
+1071 403 1068 402 1066 403 1065 404 1065 406 1065 407 1067 413 1074 413 1074 414 1067 414 1067 417 26 _pl _cp 
+0 g _f _s _s 
+0 g 1123 431 _m
+_sp 1123 431 1122 429 1121 430 1119 430 1116 430 1112 430 1110 429 1108 427 1107 425 1108 423 1110 421 1112 421 1113 420 1115 420 1118 420 
+1120 420 1121 419 1121 418 1120 416 1119 414 1116 413 1113 413 1110 414 1108 415 1107 416 1107 417 1107 418 1107 418 1105 418 1105 415 
+1104 412 1106 412 1106 414 1107 413 1109 412 1113 412 1117 412 1119 414 1121 415 1122 418 1122 419 1121 421 1119 422 1117 422 1115 422 
+1112 422 1111 423 1109 424 1109 425 1110 426 1111 428 1113 429 1115 429 1118 429 1120 428 1121 427 1121 426 1121 425 1121 425 1123 425 
+1123 428 1124 430 62 _pl _cp 
+0 g _f _s _s 
+0 g 1260 435 _m
+_sp 1260 435 1241 435 1241 434 1244 434 1240 413 1237 413 1236 412 1256 412 1258 419 1256 419 1255 413 1242 413 1244 424 1251 424 1251 421 
+1252 421 1253 428 1252 428 1251 425 1244 425 1246 434 1259 434 1258 428 1259 428 24 _pl _cp 
+0 g _f _s _s 
+0 g 1275 414 _m
+_sp 1275 414 1275 413 1273 414 1271 414 1267 413 1265 412 1263 409 1262 406 1262 404 1264 402 1265 401 1268 401 1271 402 1274 403 1274 404 
+1273 404 1272 403 1271 403 1270 402 1268 402 1266 402 1265 403 1264 406 1265 409 1266 411 1268 412 1270 413 1272 413 1273 412 1274 411 
+1274 410 1274 410 1274 409 1275 410 1275 412 1276 414 36 _pl _cp 
+0 g _f _s _s 
+0 g 1283 414 _m
+_sp 1283 414 1279 414 1279 413 1281 413 1280 406 1280 405 1280 404 1280 403 1281 402 1282 401 1283 401 1286 402 1289 404 1288 402 1292 402 
+1292 402 1290 402 1292 414 1288 414 1288 413 1291 413 1289 405 1288 405 1287 404 1286 403 1284 402 1282 403 1281 404 1281 405 1281 406 
+30 _pl _cp 
+0 g _f _s _s 
+0 g 1302 414 _m
+_sp 1302 414 1297 414 1297 413 1301 413 1299 402 1295 402 1295 402 1305 402 1305 402 1300 402 1301 409 1302 410 1303 411 1305 412 1306 413 
+1307 413 1308 413 1308 413 1308 414 1308 414 1304 413 1301 411 22 _pl _cp 
+0 g _f _s _s 
+0 g 1316 413 _m
+_sp 1316 413 1318 413 1318 414 1312 414 1312 413 1314 413 1317 402 1319 402 1326 413 1328 413 1328 414 1323 414 1322 413 1325 413 1318 403 
+15 _pl _cp 
+0 g _f _s _s 
+0 g 1374 431 _m
+_sp 1374 431 1373 429 1372 430 1370 430 1367 430 1363 430 1361 429 1359 427 1358 425 1359 423 1361 421 1363 421 1364 420 1366 420 1369 420 
+1371 420 1372 419 1372 418 1371 416 1370 414 1367 413 1364 413 1361 414 1359 415 1358 416 1358 417 1358 418 1358 418 1357 418 1356 415 
+1355 412 1357 412 1358 414 1358 413 1361 412 1364 412 1368 412 1371 414 1373 415 1374 418 1374 419 1373 421 1371 422 1369 422 1366 422 
+1363 422 1362 423 1360 424 1360 425 1361 426 1362 428 1364 429 1367 429 1371 428 1372 427 1373 426 1373 425 1373 425 1374 425 1374 428 
+1375 430 61 _pl _cp 
+0 g _f _s _s 
+0 g 1512 435 _m
+_sp 1512 435 1492 435 1492 434 1495 434 1491 413 1488 413 1488 412 1507 412 1509 419 1507 419 1506 413 1493 413 1495 424 1502 424 1502 421 
+1503 421 1505 428 1503 428 1503 425 1495 425 1497 434 1510 434 1509 428 1510 428 24 _pl _cp 
+0 g _f _s _s 
+0 g 1522 414 _m
+_sp 1522 414 1517 414 1516 413 1521 413 1519 402 1514 402 1513 402 1524 402 1525 402 1520 402 10 _pl _cp 1521 417 _m
+_sp 1521 417 1523 417 1523 420 1521 420 4 _pl _cp 
+0 g _f _s _s 
+0 g 1533 414 _m
+_sp 1533 414 1530 414 1530 413 1532 413 1529 402 1528 402 1528 402 1532 402 1533 402 1531 402 1532 411 1534 412 1536 413 1537 412 1537 411 
+1537 410 1537 409 1535 402 1538 402 1538 402 1537 402 1538 411 1540 412 1542 413 1543 412 1543 411 1543 410 1543 409 1541 402 1544 402 
+1544 402 1543 402 1544 409 1544 410 1544 411 1543 413 1542 414 1540 413 1538 412 1537 413 1536 414 1534 413 1532 412 43 _pl _cp 
+0 g _f _s _s 
+0 g 1549 413 _m
+_sp 1549 413 1549 412 1552 413 1554 413 1556 412 1557 411 1557 410 1557 409 1557 409 1555 409 1553 409 1550 409 1548 408 1547 406 1546 404 
+1546 403 1547 402 1550 401 1553 402 1556 404 1556 402 1559 402 1560 402 1557 402 1558 410 1558 411 1558 412 1557 413 1556 414 1554 414 
+1552 414 31 _pl _cp 1557 408 _m
+_sp 1557 408 1556 405 1553 403 1550 402 1548 403 1547 404 1548 406 1549 407 1551 408 1553 408 1555 408 11 _pl _cp 
+0 g _f _s _s 
+0 g 1575 414 _m
+_sp 1575 414 1575 411 1573 413 1571 414 1568 413 1566 412 1565 410 1564 407 1564 405 1565 404 1568 403 1571 403 1574 405 1573 403 1573 402 
+1573 401 1573 401 1572 400 1571 399 1568 398 1566 398 1563 399 1563 398 1565 398 1568 397 1571 398 1573 399 1574 401 1574 403 1576 413 
+1579 413 1579 414 32 _pl _cp 1569 403 _m
+_sp 1569 403 1567 403 1566 404 1565 407 1566 409 1567 411 1569 412 1571 413 1572 413 1573 412 1574 409 1574 407 1573 405 1571 404 14 _pl _cp 
+0 g _f _s _s 
+0 g 1592 405 _m
+_sp 1592 405 1589 403 1588 402 1586 402 1584 402 1583 403 1582 406 1582 407 1582 407 1594 407 1594 408 1594 409 1594 411 1593 412 1591 413 
+1589 414 1586 413 1583 412 1582 409 1581 406 1581 404 1582 402 1584 401 1586 401 1588 401 1590 402 1591 403 1592 404 28 _pl _cp 1582 408 _m
+_sp 1582 408 1583 410 1585 412 1586 413 1588 413 1590 413 1592 412 1593 410 1593 409 1593 408 10 _pl _cp 
+0 g _f _s _s 
+0 g 1642 431 _m
+_sp 1642 431 1641 429 1640 430 1638 430 1635 430 1631 430 1629 429 1627 427 1626 425 1627 423 1629 421 1631 421 1632 420 1634 420 1637 420 
+1639 420 1640 419 1640 418 1639 416 1638 414 1635 413 1632 413 1629 414 1627 415 1626 416 1626 417 1626 418 1626 418 1625 418 1624 415 
+1623 412 1625 412 1626 414 1626 413 1629 412 1632 412 1636 412 1639 414 1641 415 1642 418 1642 419 1641 421 1639 422 1637 422 1634 422 
+1631 422 1630 423 1628 424 1628 425 1629 426 1630 428 1632 429 1635 429 1639 428 1640 427 1641 426 1641 425 1641 425 1642 425 1642 428 
+1643 430 61 _pl _cp 
+0 g _f _s _s 
+0 g 1714 438 _m
+_sp 1714 438 1714 437 1718 437 1716 426 1715 428 1714 429 1712 430 1709 430 1705 429 1702 427 1699 423 1698 419 1699 416 1700 414 1703 413 
+1706 412 1710 413 1712 414 1714 416 1713 412 1718 412 1719 413 1715 413 1720 438 24 _pl _cp 1700 419 _m
+_sp 1700 419 1701 423 1703 426 1705 428 1709 429 1712 429 1714 428 1715 426 1715 423 1714 419 1712 416 1710 414 1706 413 1703 413 1702 415 
+1700 416 16 _pl _cp 
+0 g _f _s _s 
+0 g 1742 431 _m
+_sp 1742 431 1741 429 1740 430 1738 430 1735 430 1731 430 1729 429 1727 427 1726 425 1727 423 1729 421 1731 421 1732 420 1734 420 1737 420 
+1739 420 1740 419 1740 418 1739 416 1738 414 1735 413 1732 413 1729 414 1727 415 1726 416 1726 417 1726 418 1726 418 1725 418 1724 415 
+1723 412 1725 412 1726 414 1726 413 1729 412 1732 412 1736 412 1739 414 1741 415 1742 418 1742 419 1741 421 1739 422 1737 422 1734 422 
+1731 422 1730 423 1728 424 1728 425 1729 426 1730 428 1732 429 1735 429 1739 428 1740 427 1741 426 1741 425 1741 425 1742 425 1742 428 
+1743 430 61 _pl _cp 
+0 g _f _s _s 
+0 g 870 428 _m
+_sp 870 428 854 428 854 427 870 427 4 _pl _cp 870 422 _m
+_sp 870 422 854 422 854 420 870 420 4 _pl _cp 
+0 g _f _s _s 
+0 g 1163 432 _m
+_sp 1163 432 1163 425 1156 425 1156 423 1163 423 1163 417 1165 417 1165 423 1172 423 1172 425 1165 425 1165 432 12 _pl _cp 
+0 g _f _s _s 
+0 g 1415 432 _m
+_sp 1415 432 1415 425 1408 425 1408 423 1415 423 1415 417 1416 417 1416 423 1423 423 1423 425 1416 425 1416 432 12 _pl _cp 
+0 g _f _s _s 
+0 g 915 453 _m
+_sp 915 453 915 453 916 451 917 449 917 448 916 447 915 447 914 447 913 448 913 450 914 451 915 451 915 452 914 452 912 452 
+911 451 909 448 908 443 907 434 907 429 906 422 905 413 904 406 903 400 903 399 903 398 902 393 900 390 898 388 896 388 
+894 388 893 389 892 391 893 392 894 393 895 393 896 392 896 391 896 390 895 389 894 389 896 389 897 389 898 390 899 393 
+900 398 901 405 901 411 901 416 902 423 903 430 904 435 906 444 907 448 910 452 912 453 56 _pl _cp 
+0 g _f _s _s 
+0 g 934 439 _m
+_sp 934 439 930 431 929 427 929 424 929 420 930 416 934 408 936 408 936 409 935 412 933 414 932 419 931 424 931 426 931 428 
+933 433 934 436 936 439 936 439 19 _pl _cp 
+0 g _f _s _s 
+0 g 1092 439 _m
+_sp 1092 439 1088 431 1087 427 1087 424 1087 420 1088 416 1092 408 1094 408 1094 409 1093 412 1091 414 1090 419 1089 424 1089 426 1089 428 
+1091 433 1092 436 1094 439 1094 439 19 _pl _cp 
+0 g _f _s _s 
+0 g 1133 408 _m
+_sp 1133 408 1137 416 1138 420 1138 424 1138 427 1137 431 1133 439 1131 439 1131 439 1133 435 1135 431 1136 427 1136 424 1135 417 1133 413 
+1131 409 1131 408 17 _pl _cp 
+0 g _f _s _s 
+0 g 1344 439 _m
+_sp 1344 439 1340 431 1339 427 1338 424 1339 420 1340 416 1344 408 1345 408 1345 409 1344 412 1342 414 1341 419 1340 424 1340 426 1341 428 
+1341 431 1342 433 1344 436 1345 439 1345 439 20 _pl _cp 
+0 g _f _s _s 
+0 g 1384 408 _m
+_sp 1384 408 1388 416 1389 420 1389 424 1389 427 1388 431 1384 439 1382 439 1383 439 1385 435 1386 431 1387 427 1387 424 1386 417 1383 409 
+1382 408 16 _pl _cp 
+0 g _f _s _s 
+0 g 1612 439 _m
+_sp 1612 439 1608 431 1607 427 1606 424 1607 420 1608 416 1612 408 1613 408 1613 409 1612 412 1610 414 1609 419 1608 424 1608 426 1609 428 
+1609 431 1610 433 1612 436 1613 439 1613 439 20 _pl _cp 
+0 g _f _s _s 
+0 g 1652 408 _m
+_sp 1652 408 1656 416 1657 420 1657 424 1657 427 1656 431 1652 439 1650 439 1651 439 1653 435 1654 431 1655 427 1655 424 1654 417 1651 409 
+1650 408 16 _pl _cp 
+0 g _f _s _s 
+0 g 1677 408 _m
+_sp 1677 408 1681 416 1682 420 1682 424 1682 427 1681 431 1677 439 1675 439 1676 439 1678 435 1679 431 1680 427 1680 424 1679 417 1676 409 
+1675 408 16 _pl _cp 
+0 g _f _s _s 
+0 g 963 432 _m
+_sp 963 432 961 427 959 430 957 432 955 433 953 433 949 432 947 430 945 426 944 422 945 418 947 415 949 413 953 412 955 412 
+958 413 960 415 961 417 962 412 966 412 962 422 966 432 22 _pl _cp 959 422 _m
+_sp 959 422 958 419 957 417 955 415 953 414 951 415 949 416 948 419 947 422 948 425 949 428 951 429 953 430 955 429 957 428 
+958 425 16 _pl _cp 
+0 g _f _s _s 
+0 g 1196 405 _m
+_sp 1196 405 1200 405 1200 413 1201 413 1202 412 1204 412 1205 412 1208 413 1211 414 1212 417 1213 420 1213 423 1212 426 1210 427 1208 428 
+1210 429 1211 430 1212 433 1211 436 1210 438 1207 440 1204 440 1201 439 1198 438 1197 435 1196 434 1196 431 27 _pl _cp 1200 416 _m
+_sp 1200 416 1200 431 1200 434 1201 436 1202 437 1204 438 1206 438 1208 437 1209 435 1209 433 1208 431 1206 429 1205 429 1203 429 1203 426 
+1204 426 1207 426 1209 425 1210 423 1210 420 1210 418 1209 416 1207 415 1204 414 1202 415 25 _pl _cp 
+0 g _f _s _s 
+0 g 1453 405 _m
+_sp 1453 405 1456 405 1456 413 1463 432 1460 432 1454 417 1448 432 1445 432 1453 413 9 _pl _cp 
+0 g _f _s 
+_s 0 g 0 0 0 0 _cw 
+_s grestore _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8900 11886 _m
+(5)_S 1200 11519 _m
+100 _t
+(Here)_S 100 _t
+(E)_S 100 _t
+(represents)_S 100 _t
+(the)_S 100 _t
+(total)_S 100 _t
+(energy)_S 100 _t
+(integrated)_S 100 _t
+(along)_S 100 _t
+(the)_S 100 _t
+(arclength)_S 100 _t
+(s)_S 100 _t
+(of)_S 100 _t
+(the)_S 1200 11185 _m
+(snake.)_S 200 _t
+(The)_S 100 _t
+(energy)_S 100 _t
+(computation)_S 100 _t
+(is)_S 100 _t
+(the)_S 100 _t
+(integral)_S 100 _t
+(of)_S 100 _t
+(energy)_S 100 _t
+(terms)_S 100 _t
+1200 10851 _m
+(E)_S /CourierR 300 _ff
+1300 10818 _m
+(cont)_S 1540 10818 _m
+/CourierR 500 _ff
+1540 10851 _m
+(,)_S 100 _t
+(E)_S /CourierR 300 _ff
+1840 10818 _m
+(curv)_S 2080 10818 _m
+/CourierR 500 _ff
+2080 10851 _m
+100 _t
+(and)_S 100 _t
+(E)_S /CourierR 300 _ff
+2680 10818 _m
+(image)_S 2980 10818 _m
+/CourierR 500 _ff
+2980 10851 _m
+(,)_S 100 _t
+(with)_S 100 _t
+(respective)_S 100 _t
+(weights)_S 100 _t
+/Symbol 500 _ff
+-2 _t
+(a)_S -3 _t
+/CourierR 500 _ff
+(,)_S /Symbol 500 _ff
+4 _t
+(b)_S 4 _t
+/CourierR 500 _ff
+(,)_S 100 _t
+(and)_S 100 _t
+/Symbol 500 _ff
+15 _t
+(g)_S 16 _t
+/CourierR 500 _ff
+100 _t
+(controlling)_S 100 _t
+(their)_S 1200 10517 _m
+(relative)_S 100 _t
+(importance.)_S 200 _t
+(To)_S 100 _t
+(avoid)_S 100 _t
+(performing)_S 100 _t
+(the)_S 100 _t
+(necessary)_S 100 _t
+(variational)_S 100 _t
+(calculus,)_S 1200 10183 _m
+(the)_S 100 _t
+(energy)_S 100 _t
+(function)_S 100 _t
+(is)_S 100 _t
+(computed)_S 100 _t
+(at)_S 100 _t
+(a)_S 100 _t
+(number)_S 100 _t
+(of)_S 100 _t
+(discrete)_S 100 _t
+(points)_S 100 _t
+(along)_S 100 _t
+(the)_S 1200 9849 _m
+(curve,)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(integral)_S 100 _t
+(is)_S 100 _t
+(approximated)_S 100 _t
+(with)_S 100 _t
+(a)_S 100 _t
+(sum.)_S 200 _t
+(The)_S 100 _t
+(three)_S 100 _t
+(energy)_S 100 _t
+(terms)_S 1200 9515 _m
+(measure)_S 100 _t
+(the)_S 100 _t
+(following)_S 100 _t
+(quantities:)_S 1200 9181 _m
+(E)_S /CourierR 300 _ff
+1300 9148 _m
+(cont)_S /CourierR 500 _ff
+1200 8847 _m
+(This)_S 100 _t
+(term)_S 100 _t
+(is)_S 100 _t
+(constructed)_S 100 _t
+(to)_S 100 _t
+(penalize)_S 100 _t
+(discontinuities)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(curve.)_S 200 _t
+(In)_S 1200 8513 _m
+(the)_S 100 _t
+(discrete)_S 100 _t
+(case,)_S 100 _t
+(this)_S 100 _t
+(term)_S 100 _t
+(measures)_S 100 _t
+(how)_S 100 _t
+(evenly)_S 100 _t
+(spaced)_S 100 _t
+(the)_S 100 _t
+(snake)_S 100 _t
+(points)_S 100 _t
+(are.)_S 100 _t
+1200 8179 _m
+(This)_S 100 _t
+(counteracts)_S 100 _t
+(the)_S 100 _t
+(tendency)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(snake)_S 100 _t
+(points)_S 100 _t
+(to)_S 100 _t
+(cluster)_S 100 _t
+(near)_S 100 _t
+(regions)_S 100 _t
+(of)_S 1200 7845 _m
+(sharp)_S 100 _t
+(gray)_S 100 _t
+(scale)_S 100 _t
+(discontinuities.)_S 200 _t
+(The)_S 100 _t
+(distance)_S 100 _t
+(from)_S 100 _t
+(a)_S 100 _t
+(snake)_S 100 _t
+(point)_S 100 _t
+(to)_S 100 _t
+(one)_S 100 _t
+(of)_S 1200 7511 _m
+(its)_S 100 _t
+(neighbors)_S 100 _t
+(is)_S 100 _t
+(found)_S 100 _t
+(and)_S 100 _t
+(compared)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(average)_S 100 _t
+(distance)_S 100 _t
+(between)_S 100 _t
+(adjacent)_S 1200 7177 _m
+(points.)_S 200 _t
+(The)_S 100 _t
+(magnitude)_S 100 _t
+(of)_S 100 _t
+(this)_S 100 _t
+(difference)_S 100 _t
+(is)_S 100 _t
+(then)_S 100 _t
+/Courier-ObliqueR 500 _ff
+(E)_S /Courier-ObliqueR 300 _ff
+6300 7144 _m
+(cont)_S 6540 7144 _m
+/CourierR 500 _ff
+6540 7177 _m
+(.)_S 100 _t
+1200 6843 _m
+(E)_S /CourierR 300 _ff
+1300 6810 _m
+(curv)_S /CourierR 500 _ff
+1200 6509 _m
+(This)_S 100 _t
+(geometric)_S 100 _t
+(term)_S 100 _t
+(measures)_S 100 _t
+(discontinuities)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(curvature)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(snake.)_S 100 _t
+1200 6175 _m
+(Cell)_S 100 _t
+(nuclei)_S 100 _t
+(are)_S 100 _t
+(more)_S 100 _t
+(or)_S 100 _t
+(less)_S 100 _t
+(ellipsoidal;)_S 100 _t
+(the)_S 100 _t
+(curvature)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(nuclear)_S 1200 5841 _m
+(boundary)_S 100 _t
+(should)_S 100 _t
+(be)_S 100 _t
+(approximately)_S 100 _t
+(the)_S 100 _t
+(inverse)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(radius,)_S 100 _t
+(and)_S 100 _t
+(should)_S 100 _t
+1200 5507 _m
+(change)_S 100 _t
+(slowly)_S 100 _t
+(from)_S 100 _t
+(one)_S 100 _t
+(part)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(boundary)_S 100 _t
+(to)_S 100 _t
+(another.)_S 200 _t
+(Hence,)_S 100 _t
+(points)_S 1200 5173 _m
+(with)_S 100 _t
+(abnormally)_S 100 _t
+(high)_S 100 _t
+(curvature)_S 100 _t
+(\(sharp)_S 100 _t
+(corners\))_S 100 _t
+(or)_S 100 _t
+(low)_S 100 _t
+(curvature)_S 100 _t
+(\(straight)_S 100 _t
+(line)_S 1200 4839 _m
+(segments\))_S 100 _t
+(are)_S 100 _t
+(penalized.)_S 200 _t
+(This)_S 100 _t
+(term)_S 100 _t
+(allows)_S 100 _t
+(the)_S 100 _t
+(snake)_S 100 _t
+(to)_S 100 _t
+(take)_S 100 _t
+(on)_S 100 _t
+(a)_S 100 _t
+(reasonable)_S 1200 4505 _m
+(shape)_S 100 _t
+(even)_S 100 _t
+(in)_S 100 _t
+(regions)_S 100 _t
+(where)_S 100 _t
+(gray)_S 100 _t
+(scale)_S 100 _t
+(information)_S 100 _t
+(is)_S 100 _t
+(lacking,)_S 100 _t
+(for)_S 100 _t
+(instance,)_S 1200 4171 _m
+(where)_S 100 _t
+(cells)_S 100 _t
+(overlap.)_S 200 _t
+(The)_S 100 _t
+(distance)_S 100 _t
+(from)_S 100 _t
+(a)_S 100 _t
+(snake)_S 100 _t
+(point)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(center\(i.e.,)_S 1200 3837 _m
+(length)_S 100 _t
+(of)_S 100 _t
+(radial)_S 100 _t
+(line\))_S 100 _t
+(is)_S 100 _t
+(then)_S 100 _t
+(compared)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(average)_S 100 _t
+(of)_S 100 _t
+(such)_S 100 _t
+(distances)_S 100 _t
+(in)_S 100 _t
+(a)_S 1200 3503 _m
+(neighborhood)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(point.)_S 200 _t
+(The)_S 100 _t
+(magnitude)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(difference)_S 100 _t
+(is)_S 100 _t
+(this)_S 100 _t
+(energy)_S 1200 3169 _m
+(term)_S 100 _t
+/Courier-ObliqueR 500 _ff
+(E)_S /Courier-ObliqueR 300 _ff
+1800 3136 _m
+(curv)_S 2040 3136 _m
+/CourierR 500 _ff
+2040 3169 _m
+(.)_S 1200 2835 _m
+(E)_S /CourierR 300 _ff
+1300 2802 _m
+(image)_S /CourierR 500 _ff
+1200 2501 _m
+(This)_S 100 _t
+(term)_S 100 _t
+(ties)_S 100 _t
+(the)_S 100 _t
+(snake's)_S 100 _t
+(performance)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(underlying)_S 100 _t
+(image.)_S 200 _t
+(In)_S 100 _t
+(our)_S 1200 2167 _m
+(case)_S 100 _t
+(E)_S /CourierR 300 _ff
+1800 2134 _m
+(image)_S 2100 2134 _m
+/CourierR 500 _ff
+2100 2167 _m
+100 _t
+(measures)_S 100 _t
+(the)_S 100 _t
+(gray-level)_S 100 _t
+(contrast)_S 100 _t
+(between)_S 100 _t
+(pixels)_S 100 _t
+(inside)_S 100 _t
+(the)_S 100 _t
+(snake)_S 100 _t
+(and)_S 1200 1833 _m
+(those)_S 100 _t
+(outside)_S 100 _t
+(the)_S 100 _t
+(snake.)_S 200 _t
+(Taking)_S 100 _t
+(advantage)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(fact)_S 100 _t
+(that)_S 100 _t
+(cell)_S 100 _t
+(nuclei)_S 100 _t
+(are)_S 1200 1499 _m
+(generally)_S 100 _t
+(darker)_S 100 _t
+(than)_S 100 _t
+(the)_S 100 _t
+(surrounding)_S 100 _t
+(material,)_S 100 _t
+(we)_S 100 _t
+(define)_S 100 _t
+(this)_S 100 _t
+(term)_S 100 _t
+(such)_S 100 _t
+(that)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8900 11886 _m
+(6)_S 1200 11519 _m
+(lowest)_S 100 _t
+(energy)_S 100 _t
+(is)_S 100 _t
+(achieved)_S 100 _t
+(by)_S 100 _t
+(a)_S 100 _t
+(sharp,)_S 100 _t
+(dark-to-light)_S 100 _t
+(transition.)_S 200 _t
+(Hence,)_S 100 _t
+(an)_S 1200 11185 _m
+(edge)_S 100 _t
+(detection)_S 100 _t
+(template)_S 100 _t
+(is)_S 100 _t
+(rotated)_S 100 _t
+(so)_S 100 _t
+(the)_S 100 _t
+(expected)_S 100 _t
+(edge)_S 100 _t
+(is)_S 100 _t
+(perpendicular)_S 100 _t
+(to)_S 1200 10851 _m
+(the)_S 100 _t
+(radial)_S 100 _t
+(line)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(nucleus)_S 100 _t
+(at)_S 100 _t
+(that)_S 100 _t
+(point.)_S 200 _t
+(For)_S 100 _t
+(instance,)_S 100 _t
+(the)_S 100 _t
+(following)_S 1200 10517 _m
+(edge)_S 100 _t
+(template)_S 100 _t
+(would)_S 100 _t
+(be)_S 100 _t
+(applied)_S 100 _t
+(for)_S 100 _t
+(a)_S 100 _t
+(snake)_S 100 _t
+(point)_S 100 _t
+(directly)_S 100 _t
+(above)_S 100 _t
+(the)_S 100 _t
+(center)_S 100 _t
+(of)_S 1200 10183 _m
+(the)_S 100 _t
+(nucleus:)_S 100 _t
+gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 525 1244 _m
+_sp 601 1244 601 1245 525 1245 3 _pl _pf _np _s _s 525 1181 _m
+_sp 526 1181 526 1245 525 1245 3 _pl _pf _np _s _s 529 1240 _m
+_sp 601 1240 601 1241 529 1241 3 _pl _pf _np _s _s 529 1181 _m
+_sp 530 1181 530 1241 529 1241 3 _pl _pf _np 
+_s 0 g 58 70 531 1181 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4348 9680 _m
+100 _t
+/Courier-BoldR 500 _ff
+(1)_S /CourierR 500 _ff
+gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 600 1244 _m
+_sp 676 1244 676 1245 600 1245 3 _pl _pf _np _s _s 600 1181 _m
+_sp 601 1181 601 1241 600 1241 3 _pl _pf _np _s _s 600 1244 _m
+_sp 601 1244 601 1245 600 1245 3 _pl _pf _np _s _s 600 1240 _m
+_sp 676 1240 676 1241 600 1241 3 _pl _pf _np 
+_s 0 g 58 74 602 1181 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4918 9680 _m
+100 _t
+/Courier-BoldR 500 _ff
+(2)_S /CourierR 500 _ff
+gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 749 1181 _m
+_sp 750 1181 750 1245 749 1245 3 _pl _pf _np _s _s 675 1244 _m
+_sp 750 1244 750 1245 675 1245 3 _pl _pf _np _s _s 675 1181 _m
+_sp 676 1181 676 1241 675 1241 3 _pl _pf _np _s _s 675 1244 _m
+_sp 676 1244 676 1245 675 1245 3 _pl _pf _np _s _s 745 1181 _m
+_sp 746 1181 746 1241 745 1241 3 _pl _pf _np _s _s 675 1240 _m
+_sp 746 1240 746 1241 675 1241 3 _pl _pf _np 
+_s 0 g 58 67 677 1181 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5520 9680 _m
+100 _t
+/Courier-BoldR 500 _ff
+(1)_S /CourierR 500 _ff
+gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 529 1181 _m
+_sp 601 1181 601 1182 529 1182 3 _pl _pf _np _s _s 525 1122 _m
+_sp 526 1122 526 1182 525 1182 3 _pl _pf _np _s _s 529 1122 _m
+_sp 530 1122 530 1182 529 1182 3 _pl _pf _np 
+_s 0 g 58 70 531 1122 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4348 9208 _m
+100 _t
+/Courier-BoldR 500 _ff
+(0)_S /CourierR 500 _ff
+gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 600 1181 _m
+_sp 676 1181 676 1182 600 1182 3 _pl _pf _np _s _s 600 1122 _m
+_sp 601 1122 601 1182 600 1182 3 _pl _pf _np 
+_s 0 g 58 74 602 1122 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4918 9208 _m
+100 _t
+/Courier-BoldR 500 _ff
+(0)_S /CourierR 500 _ff
+gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 749 1122 _m
+_sp 750 1122 750 1182 749 1182 3 _pl _pf _np _s _s 675 1181 _m
+_sp 746 1181 746 1182 675 1182 3 _pl _pf _np _s _s 675 1122 _m
+_sp 676 1122 676 1182 675 1182 3 _pl _pf _np _s _s 745 1122 _m
+_sp 746 1122 746 1182 745 1182 3 _pl _pf _np 
+_s 0 g 58 67 677 1122 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5520 9208 _m
+100 _t
+/Courier-BoldR 500 _ff
+(0)_S /CourierR 500 _ff
+gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 525 1057 _m
+_sp 601 1057 601 1058 525 1058 3 _pl _pf _np _s _s 529 1122 _m
+_sp 601 1122 601 1123 529 1123 3 _pl _pf _np _s _s 525 1057 _m
+_sp 526 1057 526 1123 525 1123 3 _pl _pf _np _s _s 529 1061 _m
+_sp 601 1061 601 1062 529 1062 3 _pl _pf _np _s _s 529 1061 _m
+_sp 530 1061 530 1123 529 1123 3 _pl _pf _np 
+_s 0 g 58 70 531 1063 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4348 8736 _m
+/Courier-BoldR 500 _ff
+(-1)_S /CourierR 500 _ff
+gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 600 1057 _m
+_sp 676 1057 676 1058 600 1058 3 _pl _pf _np _s _s 600 1122 _m
+_sp 676 1122 676 1123 600 1123 3 _pl _pf _np _s _s 600 1061 _m
+_sp 601 1061 601 1123 600 1123 3 _pl _pf _np _s _s 600 1061 _m
+_sp 676 1061 676 1062 600 1062 3 _pl _pf _np 
+_s 0 g 58 74 602 1063 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4918 8736 _m
+/Courier-BoldR 500 _ff
+(-2)_S /CourierR 500 _ff
+gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 675 1057 _m
+_sp 750 1057 750 1058 675 1058 3 _pl _pf _np _s _s 749 1057 _m
+_sp 750 1057 750 1123 749 1123 3 _pl _pf _np _s _s 675 1122 _m
+_sp 746 1122 746 1123 675 1123 3 _pl _pf _np _s _s 675 1061 _m
+_sp 676 1061 676 1123 675 1123 3 _pl _pf _np _s _s 675 1061 _m
+_sp 746 1061 746 1062 675 1062 3 _pl _pf _np _s _s 745 1061 _m
+_sp 746 1061 746 1123 745 1123 3 _pl _pf _np 
+_s 0 g 58 67 677 1063 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5520 8736 _m
+/Courier-BoldR 500 _ff
+(-1)_S /CourierR 500 _ff
+1200 8355 _m
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+1200 8021 _m
+(Thus,)_S 100 _t
+(gray)_S 100 _t
+(scale)_S 100 _t
+(discontinuities)_S 100 _t
+(which)_S 100 _t
+(are)_S 100 _t
+(perpendicular)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(radial)_S 100 _t
+(line)_S 1200 7687 _m
+(produce)_S 100 _t
+(the)_S 100 _t
+(highest)_S 100 _t
+(edge)_S 100 _t
+(score.)_S 200 _t
+/Courier-ObliqueR 500 _ff
+(E)_S /Courier-ObliqueR 300 _ff
+4600 7654 _m
+(image)_S 60 _t
+4960 7654 _m
+/CourierR 500 _ff
+4960 7687 _m
+(is)_S 100 _t
+(defined)_S 100 _t
+(so)_S 100 _t
+(a)_S 100 _t
+(sharp)_S 100 _t
+(discontinuity)_S 1200 7353 _m
+(minimizes)_S 100 _t
+(the)_S 100 _t
+(energy)_S 100 _t
+(value.)_S 200 _t
+(Since)_S 100 _t
+(light)_S 100 _t
+(intensity)_S 100 _t
+(is)_S 100 _t
+(the)_S 100 _t
+(most)_S 100 _t
+(important)_S 1200 7019 _m
+(factor)_S 100 _t
+(in)_S 100 _t
+(finding)_S 100 _t
+(the)_S 100 _t
+(nuclear)_S 100 _t
+(boundary,)_S 100 _t
+(this)_S 100 _t
+(term)_S 100 _t
+(is)_S 100 _t
+(weighted)_S 100 _t
+(somewhat)_S 100 _t
+(more)_S 1200 6685 _m
+(heavily)_S 100 _t
+(than)_S 100 _t
+(the)_S 100 _t
+(other)_S 100 _t
+(two,)_S 100 _t
+(i.e.)_S 100 _t
+/Symbol 500 _ff
+15 _t
+(g)_S 16 _t
+/CourierR 500 _ff
+(>)_S /Symbol 500 _ff
+-2 _t
+(a)_S -3 _t
+/CourierR 500 _ff
+100 _t
+(and)_S 100 _t
+/Symbol 500 _ff
+15 _t
+(g)_S 16 _t
+/CourierR 500 _ff
+(>)_S /Symbol 500 _ff
+4 _t
+(b)_S 4 _t
+/CourierR 500 _ff
+(.)_S 100 _t
+1800 6351 _m
+(The)_S 100 _t
+(optimal)_S 100 _t
+(local)_S 100 _t
+(value)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(energy)_S 100 _t
+(function)_S 100 _t
+(is)_S 100 _t
+(approximated)_S 100 _t
+(using)_S 100 _t
+(an)_S 1200 6017 _m
+(algorithm)_S 100 _t
+(due)_S 100 _t
+(to)_S 100 _t
+(Williams)_S 100 _t
+(and)_S 100 _t
+(Shah)_S 100 _t
+([42].)_S 200 _t
+(If)_S 100 _t
+(the)_S 100 _t
+(function)_S 100 _t
+(value)_S 100 _t
+(at)_S 100 _t
+(a)_S 1200 5683 _m
+(particular)_S 100 _t
+(snake)_S 100 _t
+(point)_S 100 _t
+(can)_S 100 _t
+(be)_S 100 _t
+(lowered)_S 100 _t
+(by)_S 100 _t
+(moving)_S 100 _t
+(the)_S 100 _t
+(point)_S 100 _t
+(to)_S 100 _t
+(an)_S 100 _t
+(adjacent)_S 1200 5349 _m
+(pixel,)_S 100 _t
+(then)_S 100 _t
+(it)_S 100 _t
+(is)_S 100 _t
+(moved,)_S 100 _t
+(thus)_S 100 _t
+(possibly)_S 100 _t
+(affecting)_S 100 _t
+(the)_S 100 _t
+(energy)_S 100 _t
+(computation)_S 100 _t
+(at)_S 1200 5015 _m
+(other)_S 100 _t
+(points.)_S 200 _t
+(The)_S 100 _t
+(process)_S 100 _t
+(is)_S 100 _t
+(repeated)_S 100 _t
+(for)_S 100 _t
+(each)_S 100 _t
+(point,)_S 100 _t
+(in)_S 100 _t
+(turn,)_S 100 _t
+(until)_S 100 _t
+(all)_S 1200 4681 _m
+(points)_S 100 _t
+(settle)_S 100 _t
+(into)_S 100 _t
+(a)_S 100 _t
+(local)_S 100 _t
+(minimum)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(energy)_S 100 _t
+(function.)_S 200 _t
+(Since)_S 100 _t
+(a)_S 100 _t
+(local)_S 100 _t
+(or)_S 1200 4347 _m
+(greedy)_S 100 _t
+(convergence)_S 100 _t
+(algorithm)_S 100 _t
+(is)_S 100 _t
+(used,)_S 100 _t
+(the)_S 100 _t
+(snake)_S 100 _t
+(may)_S 100 _t
+(converge)_S 100 _t
+(to)_S 100 _t
+(a)_S 100 _t
+(local)_S 100 _t
+(energy)_S 1200 4013 _m
+(minimum)_S 100 _t
+(that)_S 100 _t
+(is)_S 100 _t
+(a)_S 100 _t
+(poor)_S 100 _t
+(representation)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(cell)_S 100 _t
+(nucleus)_S 100 _t
+(boundary.)_S 200 _t
+(In)_S 100 _t
+(this)_S 1200 3679 _m
+(case,)_S 100 _t
+(the)_S 100 _t
+(user)_S 100 _t
+(can)_S 100 _t
+(use)_S 100 _t
+(the)_S 100 _t
+(mouse)_S 100 _t
+(pointer)_S 100 _t
+(to)_S 100 _t
+(delete)_S 100 _t
+(the)_S 100 _t
+(snake)_S 100 _t
+(and)_S 100 _t
+(initialize)_S 100 _t
+(a)_S 1200 3345 _m
+(new)_S 100 _t
+(one)_S 100 _t
+(in)_S 100 _t
+(its)_S 100 _t
+(place.)_S 200 _t
+(Most)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(snakes)_S 100 _t
+(perform)_S 100 _t
+(quite)_S 100 _t
+(well,)_S 100 _t
+(conforming)_S 1200 3011 _m
+(closely)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(nuclear)_S 100 _t
+(boundaries)_S 100 _t
+(very)_S 100 _t
+(quickly.)_S 100 _t
+1200 2343 _m
+(Nuclear)_S 100 _t
+(Features)_S 1200 2009 _m
+(An)_S 100 _t
+(area)_S 100 _t
+(on)_S 100 _t
+(the)_S 100 _t
+(cytology)_S 100 _t
+(slide)_S 100 _t
+(was)_S 100 _t
+(visually)_S 100 _t
+(selected)_S 100 _t
+(for)_S 100 _t
+(optimal)_S 100 _t
+(digital)_S 100 _t
+1200 1675 _m
+(analysis)_S 100 _t
+(and)_S 100 _t
+(one)_S 100 _t
+(image)_S 100 _t
+(was)_S 100 _t
+(made)_S 100 _t
+(of)_S 100 _t
+(this)_S 100 _t
+(area.)_S 200 _t
+(The)_S 100 _t
+(area)_S 100 _t
+(selected)_S 100 _t
+(contained)_S 100 _t
+(the)_S 1200 1341 _m
+(most)_S 100 _t
+(abnormal)_S 100 _t
+(appearing)_S 100 _t
+(cells)_S 100 _t
+(in)_S 100 _t
+(which)_S 100 _t
+(monolayered)_S 100 _t
+(nuclei)_S 100 _t
+(were)_S 100 _t
+(present.)_S 200 _t
+(By)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8900 11886 _m
+(7)_S 1200 11519 _m
+(using)_S 100 _t
+(the)_S 100 _t
+(computer-generated)_S 100 _t
+(snakes,)_S 100 _t
+(ten)_S 100 _t
+(nuclear)_S 100 _t
+(features)_S 100 _t
+(were)_S 100 _t
+(calculated)_S 100 _t
+(for)_S 1200 11185 _m
+(each)_S 100 _t
+(cell.)_S 200 _t
+(These)_S 100 _t
+(features)_S 100 _t
+(are)_S 100 _t
+(modeled)_S 100 _t
+(such)_S 100 _t
+(that)_S 100 _t
+(higher)_S 100 _t
+(values)_S 100 _t
+(are)_S 100 _t
+(typically)_S 1200 10851 _m
+(associated)_S 100 _t
+(with)_S 100 _t
+(malignancy.)_S 200 _t
+(The)_S 100 _t
+(mean)_S 100 _t
+(value,)_S 100 _t
+(worst)_S 100 _t
+(\(mean)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(three)_S 100 _t
+(largest)_S 1200 10517 _m
+(values\),)_S 100 _t
+(and)_S 100 _t
+(standard)_S 100 _t
+(error)_S 100 _t
+(of)_S 100 _t
+(each)_S 100 _t
+(feature)_S 100 _t
+(were)_S 100 _t
+(computed)_S 100 _t
+(for)_S 100 _t
+(each)_S 100 _t
+(image,)_S 1200 10183 _m
+(resulting)_S 100 _t
+(in)_S 100 _t
+(a)_S 100 _t
+(total)_S 100 _t
+(of)_S 100 _t
+(thirty)_S 100 _t
+(features)_S 100 _t
+(for)_S 100 _t
+(each)_S 100 _t
+(case)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(study.)_S 1200 9515 _m
+(Radius)_S 1200 9181 _m
+(The)_S 100 _t
+(radius)_S 100 _t
+(of)_S 100 _t
+(an)_S 100 _t
+(individual)_S 100 _t
+(nucleus)_S 100 _t
+(is)_S 100 _t
+(measured)_S 100 _t
+(by)_S 100 _t
+(averaging)_S 100 _t
+(the)_S 100 _t
+(length)_S 100 _t
+(of)_S 100 _t
+(the)_S 1200 8847 _m
+(radial)_S 100 _t
+(line)_S 100 _t
+(segments)_S 100 _t
+(defined)_S 100 _t
+(by)_S 100 _t
+(the)_S 100 _t
+(centroid)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(snake)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(individual)_S 1200 8513 _m
+(snake)_S 100 _t
+(points.)_S 1200 7845 _m
+(Perimeter)_S 1200 7511 _m
+(The)_S 100 _t
+(total)_S 100 _t
+(distance)_S 100 _t
+(between)_S 100 _t
+(consecutive)_S 100 _t
+(snake)_S 100 _t
+(points)_S 100 _t
+(constitutes)_S 100 _t
+(the)_S 100 _t
+(nuclear)_S 1200 7177 _m
+(perimeter.)_S 100 _t
+1200 6509 _m
+(Area)_S 1200 6175 _m
+(Nuclear)_S 100 _t
+(area)_S 100 _t
+(is)_S 100 _t
+(measured)_S 100 _t
+(simply)_S 100 _t
+(by)_S 100 _t
+(counting)_S 100 _t
+(the)_S 100 _t
+(number)_S 100 _t
+(of)_S 100 _t
+(pixels)_S 100 _t
+(on)_S 100 _t
+(the)_S 1200 5841 _m
+(interior)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(snake)_S 100 _t
+(and)_S 100 _t
+(adding)_S 100 _t
+(one-half)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(pixels)_S 100 _t
+(on)_S 100 _t
+(the)_S 100 _t
+(perimeter.)_S 1200 5173 _m
+(Compactness)_S 1200 4839 _m
+(Perimeter)_S 100 _t
+(and)_S 100 _t
+(area)_S 100 _t
+(are)_S 100 _t
+(combined)_S 100 _t
+([2])_S 100 _t
+(to)_S 100 _t
+(give)_S 100 _t
+(a)_S 100 _t
+(measure)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(compactness)_S 100 _t
+(of)_S 1200 4505 _m
+(the)_S 100 _t
+(cell)_S 100 _t
+(nuclei)_S 100 _t
+(using)_S 100 _t
+(the)_S 100 _t
+(formula)_S 100 _t
+(perimeter)_S /CourierR 300 _ff
+5500 4565 _m
+(2)_S 5560 4565 _m
+/CourierR 500 _ff
+5560 4505 _m
+100 _t
+(/area.)_S 200 _t
+(This)_S 100 _t
+(dimensionless)_S 100 _t
+(number)_S 1200 4171 _m
+(is)_S 100 _t
+(at)_S 100 _t
+(a)_S 100 _t
+(minimum)_S 100 _t
+(with)_S 100 _t
+(a)_S 100 _t
+(circular)_S 100 _t
+(disk)_S 100 _t
+(and)_S 100 _t
+(increases)_S 100 _t
+(with)_S 100 _t
+(the)_S 100 _t
+(irregularity)_S 100 _t
+(of)_S 1200 3837 _m
+(the)_S 100 _t
+(boundary.)_S 200 _t
+(However,)_S 100 _t
+(this)_S 100 _t
+(measure)_S 100 _t
+(of)_S 100 _t
+(shape)_S 100 _t
+(also)_S 100 _t
+(increases)_S 100 _t
+(for)_S 100 _t
+(elongated)_S 1200 3503 _m
+(cell)_S 100 _t
+(nuclei,)_S 100 _t
+(which)_S 100 _t
+(do)_S 100 _t
+(not)_S 100 _t
+(necessarily)_S 100 _t
+(indicate)_S 100 _t
+(an)_S 100 _t
+(increased)_S 100 _t
+(likelihood)_S 100 _t
+(of)_S 1200 3169 _m
+(malignancy.)_S 200 _t
+(The)_S 100 _t
+(feature)_S 100 _t
+(is)_S 100 _t
+(also)_S 100 _t
+(biased)_S 100 _t
+(upward)_S 100 _t
+(for)_S 100 _t
+(small)_S 100 _t
+(cells)_S 100 _t
+(because)_S 100 _t
+(of)_S 100 _t
+(the)_S 1200 2835 _m
+(decreased)_S 100 _t
+(accuracy)_S 100 _t
+(imposed)_S 100 _t
+(by)_S 100 _t
+(digitization)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(sample.)_S 200 _t
+1200 2167 _m
+(Smoothness)_S 1200 1833 _m
+(The)_S 100 _t
+(smoothness)_S 100 _t
+(of)_S 100 _t
+(a)_S 100 _t
+(nuclear)_S 100 _t
+(contour)_S 100 _t
+(is)_S 100 _t
+(quantified)_S 100 _t
+(by)_S 100 _t
+(measuring)_S 100 _t
+(the)_S 1200 1499 _m
+(difference)_S 100 _t
+(between)_S 100 _t
+(the)_S 100 _t
+(length)_S 100 _t
+(of)_S 100 _t
+(a)_S 100 _t
+(radial)_S 100 _t
+(line)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(mean)_S 100 _t
+(length)_S 100 _t
+(of)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8900 11886 _m
+(8)_S 1200 11519 _m
+(the)_S 100 _t
+(lines)_S 100 _t
+(surrounding)_S 100 _t
+(it.)_S 200 _t
+(This)_S 100 _t
+(is)_S 100 _t
+(similar)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(curvature)_S 100 _t
+(energy)_S 1200 11185 _m
+(computation)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(snakes.)_S 200 _t
+1200 10517 _m
+(Concavity)_S 1200 10183 _m
+(In)_S 100 _t
+(a)_S 100 _t
+(further)_S 100 _t
+(attempt)_S 100 _t
+(to)_S 100 _t
+(capture)_S 100 _t
+(shape)_S 100 _t
+(information)_S 100 _t
+(we)_S 100 _t
+(measure)_S 100 _t
+(the)_S 100 _t
+(number)_S 100 _t
+(and)_S 1200 9849 _m
+(severity)_S 100 _t
+(of)_S 100 _t
+(concavities)_S 100 _t
+(or)_S 100 _t
+(indentations)_S 100 _t
+(in)_S 100 _t
+(a)_S 100 _t
+(cell)_S 100 _t
+(nucleus.)_S 200 _t
+(We)_S 100 _t
+(draw)_S 100 _t
+(chords)_S 1200 9515 _m
+(between)_S 100 _t
+(non-adjacent)_S 100 _t
+(snake)_S 100 _t
+(points)_S 100 _t
+(and)_S 100 _t
+(measure)_S 100 _t
+(the)_S 100 _t
+(extent)_S 100 _t
+(to)_S 100 _t
+(which)_S 100 _t
+(the)_S 100 _t
+(actual)_S 1200 9181 _m
+(boundary)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(nucleus)_S 100 _t
+(lies)_S 100 _t
+(on)_S 100 _t
+(the)_S 100 _t
+(inside)_S 100 _t
+(of)_S 100 _t
+(each)_S 100 _t
+(chord.)_S 200 _t
+(This)_S 100 _t
+(feature)_S 100 _t
+(is)_S 1200 8847 _m
+(greatly)_S 100 _t
+(affected)_S 100 _t
+(by)_S 100 _t
+(the)_S 100 _t
+(length)_S 100 _t
+(of)_S 100 _t
+(these)_S 100 _t
+(chords,)_S 100 _t
+(as)_S 100 _t
+(smaller)_S 100 _t
+(chords)_S 100 _t
+(better)_S 1200 8513 _m
+(capture)_S 100 _t
+(small)_S 100 _t
+(concavities.)_S 200 _t
+(We)_S 100 _t
+(have)_S 100 _t
+(chosen)_S 100 _t
+(to)_S 100 _t
+(emphasize)_S 100 _t
+(small)_S 100 _t
+(indentations,)_S 100 _t
+(as)_S 1200 8179 _m
+(larger)_S 100 _t
+(shape)_S 100 _t
+(irregularities)_S 100 _t
+(are)_S 100 _t
+(captured)_S 100 _t
+(by)_S 100 _t
+(other)_S 100 _t
+(features.)_S 1200 7511 _m
+(Concave)_S 100 _t
+(Points)_S 1200 7177 _m
+(This)_S 100 _t
+(feature)_S 100 _t
+(is)_S 100 _t
+(similar)_S 100 _t
+(to)_S 100 _t
+(Concavity)_S 100 _t
+(but)_S 100 _t
+(measures)_S 100 _t
+(only)_S 100 _t
+(the)_S 100 _t
+(number,)_S 100 _t
+(rather)_S 100 _t
+(than)_S 1200 6843 _m
+(the)_S 100 _t
+(magnitude,)_S 100 _t
+(of)_S 100 _t
+(contour)_S 100 _t
+(concavities.)_S 1200 6175 _m
+(Symmetry)_S 1200 5841 _m
+(In)_S 100 _t
+(order)_S 100 _t
+(to)_S 100 _t
+(measure)_S 100 _t
+(symmetry,)_S 100 _t
+(the)_S 100 _t
+(major)_S 100 _t
+(axis,)_S 100 _t
+(or)_S 100 _t
+(longest)_S 100 _t
+(chord)_S 100 _t
+(through)_S 100 _t
+(the)_S 1200 5507 _m
+(center,)_S 100 _t
+(is)_S 100 _t
+(found.)_S 200 _t
+(We)_S 100 _t
+(then)_S 100 _t
+(measure)_S 100 _t
+(the)_S 100 _t
+(length)_S 100 _t
+(difference)_S 100 _t
+(between)_S 100 _t
+(lines)_S 1200 5173 _m
+(perpendicular)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(major)_S 100 _t
+(axis)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(nuclear)_S 100 _t
+(boundary)_S 100 _t
+(in)_S 100 _t
+(both)_S 100 _t
+(directions.)_S 100 _t
+1200 4839 _m
+(Special)_S 100 _t
+(care)_S 100 _t
+(is)_S 100 _t
+(taken)_S 100 _t
+(to)_S 100 _t
+(account)_S 100 _t
+(for)_S 100 _t
+(cases)_S 100 _t
+(where)_S 100 _t
+(the)_S 100 _t
+(major)_S 100 _t
+(axis)_S 100 _t
+(cuts)_S 100 _t
+(the)_S 100 _t
+1200 4505 _m
+(boundary)_S 100 _t
+(because)_S 100 _t
+(of)_S 100 _t
+(a)_S 100 _t
+(concavity.)_S 1200 3837 _m
+(Fractal)_S 100 _t
+(Dimension)_S 1200 3503 _m
+(The)_S 100 _t
+(fractal)_S 100 _t
+(dimension)_S 100 _t
+(of)_S 100 _t
+(a)_S 100 _t
+(nuclear)_S 100 _t
+(boundary)_S 100 _t
+(is)_S 100 _t
+(approximated)_S 100 _t
+(using)_S 100 _t
+(the)_S 1200 3169 _m
+("coastline)_S 100 _t
+(approximation")_S 100 _t
+(described)_S 100 _t
+(by)_S 100 _t
+(Mandelbrot)_S 100 _t
+([21].)_S 200 _t
+(The)_S 100 _t
+(perimeter)_S 100 _t
+(of)_S 100 _t
+(the)_S 1200 2835 _m
+(nucleus)_S 100 _t
+(is)_S 100 _t
+(measured)_S 100 _t
+(using)_S 100 _t
+(increasingly)_S 100 _t
+(larger)_S 100 _t
+("rulers".)_S 200 _t
+(As)_S 100 _t
+(the)_S 100 _t
+(ruler)_S 100 _t
+(size)_S 1200 2501 _m
+(increases,)_S 100 _t
+(decreasing)_S 100 _t
+(the)_S 100 _t
+(precision)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(measurement,)_S 100 _t
+(the)_S 100 _t
+(observed)_S 100 _t
+(perimeter)_S 1200 2167 _m
+(decreases.)_S 200 _t
+(Plotting)_S 100 _t
+(log)_S 100 _t
+(of)_S 100 _t
+(observed)_S 100 _t
+(perimeter)_S 100 _t
+(against)_S 100 _t
+(log)_S 100 _t
+(of)_S 100 _t
+(ruler)_S 100 _t
+(size)_S 100 _t
+(and)_S 1200 1833 _m
+(measuring)_S 100 _t
+(the)_S 100 _t
+(downward)_S 100 _t
+(slope)_S 100 _t
+(gives)_S 100 _t
+(\(the)_S 100 _t
+(negative)_S 100 _t
+(of\))_S 100 _t
+(an)_S 100 _t
+(approximation)_S 100 _t
+(to)_S 100 _t
+(the)_S 1200 1499 _m
+(fractal)_S 100 _t
+(dimension.)_S 200 _t
+(As)_S 100 _t
+(with)_S 100 _t
+(all)_S 100 _t
+(the)_S 100 _t
+(shape)_S 100 _t
+(features,)_S 100 _t
+(a)_S 100 _t
+(higher)_S 100 _t
+(value)_S 100 _t
+(corresponds)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8900 11886 _m
+(9)_S 1200 11519 _m
+(to)_S 100 _t
+(a)_S 100 _t
+(less)_S 100 _t
+(regular)_S 100 _t
+(contour)_S 100 _t
+(and)_S 100 _t
+(thus)_S 100 _t
+(to)_S 100 _t
+(a)_S 100 _t
+(higher)_S 100 _t
+(probability)_S 100 _t
+(of)_S 100 _t
+(malignancy.)_S 1200 10851 _m
+(Texture)_S 1200 10517 _m
+(The)_S 100 _t
+(texture)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(cell)_S 100 _t
+(nucleus)_S 100 _t
+(is)_S 100 _t
+(measured)_S 100 _t
+(by)_S 100 _t
+(finding)_S 100 _t
+(the)_S 100 _t
+(variance)_S 100 _t
+(of)_S 100 _t
+(the)_S 1200 10183 _m
+(gray)_S 100 _t
+(scale)_S 100 _t
+(intensities)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(component)_S 100 _t
+(pixels.)_S 1200 9181 _m
+(PHANTOMS:)_S 1200 8847 _m
+(A)_S 100 _t
+(series)_S 100 _t
+(of)_S 100 _t
+(four)_S 100 _t
+(shapes)_S 100 _t
+(\()_S 100 _t
+(round,)_S 100 _t
+(ellipse,)_S 100 _t
+(moon,)_S 100 _t
+(and)_S 100 _t
+(rough\))_S 100 _t
+(in)_S 100 _t
+(three)_S 100 _t
+(sizes)_S 100 _t
+(were)_S 1200 8513 _m
+(generated)_S 100 _t
+(in)_S 100 _t
+(order)_S 100 _t
+(to)_S 100 _t
+(compare)_S 100 _t
+(digital)_S 100 _t
+(feature)_S 100 _t
+(assessments)_S 100 _t
+(with)_S 100 _t
+(visual)_S 1200 8179 _m
+(characteristics)_S 100 _t
+(\(Fig.)_S 100 _t
+(1\).)_S 300 _t
+(The)_S 100 _t
+(results)_S 100 _t
+(are)_S 100 _t
+(shown)_S 100 _t
+(in)_S 100 _t
+(Table)_S 100 _t
+(1.)_S 200 _t
+(Size)_S 100 _t
+(is)_S 1200 7845 _m
+(measured)_S 100 _t
+(by)_S 100 _t
+(Radius)_S 100 _t
+(and)_S 100 _t
+(Area.)_S 200 _t
+(Shape)_S 100 _t
+(is)_S 100 _t
+(measured)_S 100 _t
+(by)_S 100 _t
+(Smoothness,)_S 100 _t
+(Concavity,)_S 1200 7511 _m
+(Compactness,)_S 100 _t
+(Concave)_S 100 _t
+(Points,)_S 100 _t
+(Symmetry)_S 100 _t
+(and)_S 100 _t
+(Fractal)_S 100 _t
+(Dimension.)_S 200 _t
+(Although)_S 1200 7177 _m
+(initially)_S 100 _t
+(thought)_S 100 _t
+(to)_S 100 _t
+(measure)_S 100 _t
+(size,)_S 100 _t
+(the)_S 100 _t
+(measurement)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(phantoms)_S 100 _t
+(determined)_S 1200 6843 _m
+(that)_S 100 _t
+(both)_S 100 _t
+(size)_S 100 _t
+(and)_S 100 _t
+(shape)_S 100 _t
+(are)_S 100 _t
+(measured)_S 100 _t
+(by)_S 100 _t
+(Perimeter)_S 100 _t
+(\(Fig.)_S 100 _t
+(1\).)_S 200 _t
+(Each)_S 100 _t
+(phantom)_S 100 _t
+(was)_S 1200 6509 _m
+(measured)_S 100 _t
+(three)_S 100 _t
+(times)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(mean)_S 100 _t
+(values)_S 100 _t
+(and)_S 100 _t
+(standard)_S 100 _t
+(error)_S 100 _t
+(of)_S 100 _t
+(each)_S 100 _t
+(feature)_S 1200 6175 _m
+(was)_S 100 _t
+(calculated)_S 100 _t
+(for)_S 100 _t
+(each)_S 100 _t
+(phantom.)_S 200 _t
+1200 5507 _m
+(Classification)_S 100 _t
+(Procedure)_S 1200 5173 _m
+(Image)_S 100 _t
+(processing)_S 100 _t
+(produces)_S 100 _t
+(a)_S 100 _t
+(database)_S 100 _t
+(of)_S 100 _t
+(one)_S 100 _t
+(point)_S 100 _t
+(with)_S 100 _t
+(30)_S 100 _t
+(dimensions)_S 100 _t
+(for)_S 100 _t
+(each)_S 1200 4839 _m
+(sample.)_S 200 _t
+(The)_S 100 _t
+(classification)_S 100 _t
+(procedure)_S 100 _t
+(becomes)_S 100 _t
+(one)_S 100 _t
+(of)_S 100 _t
+(pattern)_S 100 _t
+(separation,)_S 1200 4505 _m
+(specifically,)_S 100 _t
+(that)_S 100 _t
+(of)_S 100 _t
+(determining)_S 100 _t
+(how)_S 100 _t
+(points)_S 100 _t
+(can)_S 100 _t
+(best)_S 100 _t
+(be)_S 100 _t
+(separated)_S 100 _t
+(into)_S 100 _t
+(benign)_S 1200 4171 _m
+(and)_S 100 _t
+(malignant)_S 100 _t
+(sets.)_S 200 _t
+(The)_S 100 _t
+(classification)_S 100 _t
+(procedure)_S 100 _t
+(is)_S 100 _t
+(a)_S 100 _t
+(variant)_S 100 _t
+(on)_S 100 _t
+(the)_S 1200 3837 _m
+(Multisurface)_S 100 _t
+(Method)_S 100 _t
+(\(MSM\))_S 100 _t
+([22],[24])_S 100 _t
+(known)_S 100 _t
+(as)_S 100 _t
+(MSM-Tree)_S 100 _t
+(\(MSM-T\))_S 100 _t
+([5],[23].)_S 200 _t
+(This)_S 1200 3503 _m
+(method)_S 100 _t
+(uses)_S 100 _t
+(linear)_S 100 _t
+(programming)_S 100 _t
+(iteratively)_S 100 _t
+(to)_S 100 _t
+(place)_S 100 _t
+(a)_S 100 _t
+(series)_S 100 _t
+(of)_S 100 _t
+(separating)_S 1200 3169 _m
+(planes)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(feature)_S 100 _t
+(space)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(examples.)_S 200 _t
+(If)_S 100 _t
+(the)_S 100 _t
+(two)_S 100 _t
+(sets)_S 100 _t
+(can)_S 100 _t
+(be)_S 100 _t
+(separated)_S 1200 2835 _m
+(by)_S 100 _t
+(a)_S 100 _t
+(single)_S 100 _t
+(plane,)_S 100 _t
+(the)_S 100 _t
+(first)_S 100 _t
+(plane)_S 100 _t
+(will)_S 100 _t
+(be)_S 100 _t
+(so)_S 100 _t
+(placed)_S 100 _t
+(between)_S 100 _t
+(them.)_S 200 _t
+(If)_S 100 _t
+(the)_S 1200 2501 _m
+(sets)_S 100 _t
+(are)_S 100 _t
+(not)_S 100 _t
+(linearly)_S 100 _t
+(separable,)_S 100 _t
+(MSM-T)_S 100 _t
+(constructs)_S 100 _t
+(a)_S 100 _t
+(plane)_S 100 _t
+(that)_S 100 _t
+(minimizes)_S 100 _t
+(an)_S 1200 2167 _m
+(average)_S 100 _t
+(distance)_S 100 _t
+(of)_S 100 _t
+(misclassified)_S 100 _t
+(points.)_S 200 _t
+(The)_S 100 _t
+(procedure)_S 100 _t
+(is)_S 100 _t
+(recursively)_S 1200 1833 _m
+(repeated)_S 100 _t
+(on)_S 100 _t
+(the)_S 100 _t
+(two)_S 100 _t
+(regions)_S 100 _t
+(generated)_S 100 _t
+(by)_S 100 _t
+(each)_S 100 _t
+(plane)_S 100 _t
+(until)_S 100 _t
+(each)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(final)_S 1200 1499 _m
+(regions)_S 100 _t
+(contains)_S 100 _t
+(mostly)_S 100 _t
+(points)_S 100 _t
+(of)_S 100 _t
+(one)_S 100 _t
+(category.)_S 300 _t
+(The)_S 100 _t
+(classifier)_S 100 _t
+(thus)_S 100 _t
+(obtained)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8800 11886 _m
+(10)_S 1200 11519 _m
+(is)_S 100 _t
+(then)_S 100 _t
+(used)_S 100 _t
+(to)_S 100 _t
+(categorize)_S 100 _t
+(new)_S 100 _t
+(cases.)_S 200 _t
+(In)_S 100 _t
+(order)_S 100 _t
+(to)_S 100 _t
+(generate)_S 100 _t
+(a)_S 100 _t
+(classifier)_S 100 _t
+(that)_S 1200 11185 _m
+(generalizes)_S 100 _t
+(well)_S 100 _t
+(to)_S 100 _t
+(unseen)_S 100 _t
+(cases,)_S 100 _t
+(we)_S 100 _t
+(sought)_S 100 _t
+(to)_S 100 _t
+(minimize)_S 100 _t
+(not)_S 100 _t
+(only)_S 100 _t
+(the)_S 100 _t
+(number)_S 100 _t
+(of)_S 1200 10851 _m
+(separating)_S 100 _t
+(planes)_S 100 _t
+(but)_S 100 _t
+(also)_S 100 _t
+(the)_S 100 _t
+(number)_S 100 _t
+(of)_S 100 _t
+(features)_S 100 _t
+(used.)_S 200 _t
+(As)_S 100 _t
+(a)_S 100 _t
+(rule,)_S 100 _t
+(simpler)_S 1200 10517 _m
+(classifiers)_S 100 _t
+(perform)_S 100 _t
+(better)_S 100 _t
+(than)_S 100 _t
+(more)_S 100 _t
+(complex)_S 100 _t
+(ones)_S 100 _t
+(on)_S 100 _t
+(new)_S 100 _t
+(data)_S 100 _t
+(.)_S 200 _t
+(The)_S 100 _t
+(best)_S 1200 10183 _m
+(single-plane)_S 100 _t
+(classifier)_S 100 _t
+(separated)_S 100 _t
+(benign)_S 100 _t
+(from)_S 100 _t
+(malignant)_S 100 _t
+(points)_S 100 _t
+(based)_S 100 _t
+(on)_S 100 _t
+(three)_S 1200 9849 _m
+(nuclear)_S 100 _t
+(feature)_S 100 _t
+(values)_S 100 _t
+(for)_S 100 _t
+(each)_S 100 _t
+(case:)_S 100 _t
+(mean)_S 100 _t
+(texture,)_S 100 _t
+(the)_S 100 _t
+(worst)_S 100 _t
+(area,)_S 100 _t
+(and)_S 100 _t
+(the)_S 1200 9515 _m
+(worst)_S 100 _t
+(smoothness.)_S 200 _t
+(With)_S 100 _t
+(a)_S 100 _t
+(single)_S 100 _t
+(plane)_S 100 _t
+(classifier,)_S 100 _t
+(the)_S 100 _t
+(probability)_S 100 _t
+(of)_S 100 _t
+(a)_S 1200 9181 _m
+(specific)_S 100 _t
+(sample)_S 100 _t
+(being)_S 100 _t
+(malignant)_S 100 _t
+(can)_S 100 _t
+(be)_S 100 _t
+(estimated.)_S 200 _t
+(This)_S 100 _t
+(information)_S 100 _t
+(is)_S 100 _t
+(shared)_S 1200 8847 _m
+(with)_S 100 _t
+(the)_S 100 _t
+(patient)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(decision)_S 100 _t
+(whether)_S 100 _t
+(to)_S 100 _t
+(follow)_S 100 _t
+(or)_S 100 _t
+(to)_S 100 _t
+(biopsy)_S 100 _t
+(an)_S 100 _t
+(apparently)_S 1200 8513 _m
+(benign)_S 100 _t
+(mass)_S 100 _t
+(is)_S 100 _t
+(made.)_S 200 _t
+1800 8179 _m
+(Distribution)_S 100 _t
+(curves)_S 100 _t
+(for)_S 100 _t
+(malignant)_S 100 _t
+(and)_S 100 _t
+(benign)_S 100 _t
+(points)_S 100 _t
+(are)_S 100 _t
+(determined)_S 100 _t
+(by)_S 1200 7845 _m
+(projecting)_S 100 _t
+(the)_S 100 _t
+(positions)_S 100 _t
+(which)_S 100 _t
+(the)_S 100 _t
+(malignant)_S 100 _t
+(and)_S 100 _t
+(benign)_S 100 _t
+(points)_S 100 _t
+(occupy)_S 100 _t
+(in)_S 100 _t
+(three)_S 1200 7511 _m
+(dimensional)_S 100 _t
+(space)_S 100 _t
+(\(determined)_S 100 _t
+(by)_S 100 _t
+(the)_S 100 _t
+(values)_S 100 _t
+(for)_S 100 _t
+(mean)_S 100 _t
+(texture,)_S 100 _t
+(worst)_S 100 _t
+(area)_S 100 _t
+(and)_S 1200 7177 _m
+(worst)_S 100 _t
+(smoothness\))_S 100 _t
+(onto)_S 100 _t
+(the)_S 100 _t
+(normal)_S 100 _t
+(line)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(separating)_S 100 _t
+(plane.)_S 200 _t
+(The)_S 100 _t
+(estimated)_S 1200 6843 _m
+(probability)_S 100 _t
+(of)_S 100 _t
+(malignancy)_S 100 _t
+(for)_S 100 _t
+(a)_S 100 _t
+(new)_S 100 _t
+(point)_S 100 _t
+(is)_S 100 _t
+(determined)_S 100 _t
+(from)_S 100 _t
+(the)_S 100 _t
+(ratio)_S 100 _t
+(of)_S 100 _t
+(the)_S 1200 6509 _m
+(intercepts)_S 100 _t
+(at)_S 100 _t
+(that)_S 100 _t
+(point)_S 100 _t
+(with)_S 100 _t
+(the)_S 100 _t
+(malignant)_S 100 _t
+(and)_S 100 _t
+(benign)_S 100 _t
+(distribution)_S 100 _t
+(curves)_S 100 _t
+(as)_S 100 _t
+1200 6175 _m
+(determined)_S 100 _t
+(by)_S 100 _t
+(Parzen)_S 100 _t
+(windows)_S 100 _t
+(technique)_S 100 _t
+([28])_S 100 _t
+(\(Fig.)_S 100 _t
+(2-4\).)_S 1200 5507 _m
+(Estimate)_S 100 _t
+(of)_S 100 _t
+(Predictive)_S 100 _t
+(Accuracy)_S 1200 5173 _m
+(A)_S 100 _t
+(ten-fold)_S 100 _t
+(cross-validation)_S 100 _t
+([36])_S 100 _t
+(was)_S 100 _t
+(performed)_S 100 _t
+(in)_S 100 _t
+(order)_S 100 _t
+(to)_S 100 _t
+(estimate)_S 100 _t
+(diagnostic)_S 1200 4839 _m
+(predictive)_S 100 _t
+(accuracy.)_S 200 _t
+(This)_S 100 _t
+(train-and-test)_S 100 _t
+(procedure)_S 100 _t
+(divides)_S 100 _t
+(the)_S 100 _t
+(data)_S 100 _t
+(set)_S 100 _t
+(into)_S 1200 4505 _m
+(ten)_S 100 _t
+(randomly)_S 100 _t
+(selected,)_S 100 _t
+(equally)_S 100 _t
+(sized)_S 100 _t
+(parts)_S 100 _t
+(and)_S 100 _t
+(uses)_S 100 _t
+(each)_S 100 _t
+(in)_S 100 _t
+(turn)_S 100 _t
+(as)_S 100 _t
+(a)_S 100 _t
+(test)_S 100 _t
+(set)_S 1200 4171 _m
+(on)_S 100 _t
+(a)_S 100 _t
+(classifier)_S 100 _t
+(created)_S 100 _t
+(from)_S 100 _t
+(the)_S 100 _t
+(remaining)_S 100 _t
+(nine)_S 100 _t
+(sets.)_S 200 _t
+(This)_S 100 _t
+(estimate)_S 100 _t
+(is)_S 1200 3837 _m
+(unbiased)_S 100 _t
+(and)_S 100 _t
+(also)_S 100 _t
+(very)_S 100 _t
+(accurate)_S 100 _t
+(in)_S 100 _t
+(cases)_S 100 _t
+(such)_S 100 _t
+(as)_S 100 _t
+(ours)_S 100 _t
+(which)_S 100 _t
+(have)_S 100 _t
+(a)_S 100 _t
+(fairly)_S 1200 3503 _m
+(large)_S 100 _t
+(number)_S 100 _t
+(of)_S 100 _t
+(training)_S 100 _t
+(samples.)_S 200 _t
+(The)_S 100 _t
+(accuracy)_S 100 _t
+(was)_S 100 _t
+(directly)_S 100 _t
+(tested)_S 100 _t
+(by)_S 100 _t
+(the)_S 1200 3169 _m
+(analysis)_S 100 _t
+(of)_S 100 _t
+(54)_S 100 _t
+(newly)_S 100 _t
+(obtained)_S 100 _t
+(samples)_S 100 _t
+(\(36)_S 100 _t
+(benign,)_S 100 _t
+(1)_S 100 _t
+(atypia)_S 100 _t
+(and)_S 100 _t
+(17)_S 100 _t
+(malignant\).)_S 100 _t
+1200 2835 _m
+100 _t
+1200 2501 _m
+(RESULTS:)_S 1200 2167 _m
+(Diagnostic)_S 100 _t
+(Separation)_S 1200 1833 _m
+(The)_S 100 _t
+(best)_S 100 _t
+(single-plane)_S 100 _t
+(diagnostic)_S 100 _t
+(classifier)_S 100 _t
+(based)_S 100 _t
+(on)_S 100 _t
+(mean)_S 100 _t
+(texture,)_S 100 _t
+(the)_S 100 _t
+(worst)_S 1200 1499 _m
+(area,)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(worst)_S 100 _t
+(smoothness)_S 100 _t
+(separated)_S 100 _t
+(97.3%)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(cases)_S 100 _t
+(successfully.)_S 200 _t
+(The)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8800 11886 _m
+(11)_S 1200 11519 _m
+(projected)_S 100 _t
+(prospective)_S 100 _t
+(accuracy)_S 100 _t
+(was)_S 100 _t
+(97%.)_S 200 _t
+(Using)_S 100 _t
+(the)_S 100 _t
+(standard)_S 100 _t
+(error)_S 100 _t
+(from)_S 100 _t
+(the)_S 1200 11185 _m
+(binomial)_S 100 _t
+(distribution)_S 100 _t
+([41],)_S 100 _t
+(we)_S 100 _t
+(can)_S 100 _t
+(be)_S 100 _t
+(confident)_S 100 _t
+(at)_S 100 _t
+(the)_S 100 _t
+(95%)_S 100 _t
+(level)_S 100 _t
+(that)_S 100 _t
+(the)_S 100 _t
+(true)_S 1200 10851 _m
+(prospective)_S 100 _t
+(accuracy)_S 100 _t
+(lies)_S 100 _t
+(between)_S 100 _t
+(95.5%)_S 100 _t
+(and)_S 100 _t
+(98.5%.)_S 100 _t
+(Fifty-four)_S 100 _t
+(\(17)_S 100 _t
+(malignant,)_S 1200 10517 _m
+(36)_S 100 _t
+(benign,)_S 100 _t
+(and)_S 100 _t
+(1)_S 100 _t
+(papilloma)_S 100 _t
+(with)_S 100 _t
+(atypia\))_S 100 _t
+(samples)_S 100 _t
+(which)_S 100 _t
+(were)_S 100 _t
+(obtained)_S 100 _t
+(subsequent)_S 1200 10183 _m
+(to)_S 100 _t
+(the)_S 100 _t
+(development)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(trained)_S 100 _t
+(diagnostic)_S 100 _t
+(algorithm)_S 100 _t
+(were)_S 100 _t
+(used)_S 100 _t
+(to)_S 100 _t
+(test)_S 100 _t
+(its)_S 1200 9849 _m
+(accuracy.)_S 200 _t
+(The)_S 100 _t
+(machine)_S 100 _t
+(diagnosis)_S 100 _t
+(was)_S 100 _t
+(correct)_S 100 _t
+(in)_S 100 _t
+(all)_S 100 _t
+(instances.)_S 200 _t
+(The)_S 100 _t
+(machine)_S 1200 9515 _m
+(diagnosis)_S 100 _t
+(was)_S 100 _t
+(ambiguous)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(case)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(papilloma)_S 100 _t
+(with)_S 100 _t
+(atypia.)_S 200 _t
+(The)_S 100 _t
+(machine)_S 1200 9181 _m
+(diagnosis)_S 100 _t
+(based)_S 100 _t
+(on)_S 100 _t
+(the)_S 100 _t
+(MSM-T)_S 100 _t
+(plane)_S 100 _t
+(was)_S 100 _t
+(benign,)_S 100 _t
+(but)_S 100 _t
+(the)_S 100 _t
+(estimated)_S 100 _t
+(probability)_S 1200 8847 _m
+(of)_S 100 _t
+(malignancy)_S 100 _t
+(based)_S 100 _t
+(on)_S 100 _t
+(the)_S 100 _t
+(distribution)_S 100 _t
+(curves)_S 100 _t
+(was)_S 100 _t
+(0.57.)_S 200 _t
+(The)_S 100 _t
+(estimated)_S 1200 8513 _m
+(probability)_S 100 _t
+(of)_S 100 _t
+(malignancy)_S 100 _t
+(for)_S 100 _t
+(all)_S 100 _t
+(the)_S 100 _t
+(54)_S 100 _t
+(new)_S 100 _t
+(samples)_S 100 _t
+(and)_S 100 _t
+(their)_S 100 _t
+(actual)_S 1200 8179 _m
+(diagnoses)_S 100 _t
+(is)_S 100 _t
+(shown)_S 100 _t
+(in)_S 100 _t
+(Figure)_S 100 _t
+(5.)_S 1200 7177 _m
+(DISCUSSION:)_S 1800 6843 _m
+(Other)_S 100 _t
+(researchers)_S 100 _t
+(have)_S 100 _t
+(applied)_S 100 _t
+(computer)_S 100 _t
+(based)_S 100 _t
+(image)_S 100 _t
+(analysis)_S 100 _t
+(to)_S 100 _t
+(various)_S 1200 6509 _m
+(aspects)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(cytology)_S 100 _t
+(interpretation.)_S 200 _t
+(Wittekind)_S 100 _t
+(and)_S 100 _t
+(Schulte)_S 1200 6175 _m
+([43])_S 100 _t
+(found)_S 100 _t
+(that)_S 100 _t
+(mean)_S 100 _t
+(nuclear)_S 100 _t
+(area,)_S 100 _t
+(mean)_S 100 _t
+(maximum)_S 100 _t
+(nuclear)_S 100 _t
+(diameter)_S 100 _t
+(and)_S 100 _t
+(mean)_S 1200 5841 _m
+(nuclear)_S 100 _t
+(perimeter)_S 100 _t
+(differed)_S 100 _t
+(significantly)_S 100 _t
+(between)_S 100 _t
+(benign)_S 100 _t
+(and)_S 100 _t
+(malignant)_S 100 _t
+(breast)_S 1200 5507 _m
+(cell)_S 100 _t
+(obtained)_S 100 _t
+(by)_S 100 _t
+(FNA.)_S 200 _t
+(Additionally,)_S 100 _t
+(they)_S 100 _t
+(showed)_S 100 _t
+(that)_S 100 _t
+(computer-assisted)_S 1200 5173 _m
+(image)_S 100 _t
+(analysis)_S 100 _t
+(was)_S 100 _t
+(superior)_S 100 _t
+(to)_S 100 _t
+(eyepiece)_S 100 _t
+(measurement)_S 100 _t
+(with)_S 100 _t
+(respect)_S 100 _t
+(to)_S 1200 4839 _m
+(accuracy)_S 100 _t
+(and)_S 100 _t
+(reproducibility)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(results.)_S 200 _t
+(Other)_S 100 _t
+(studies)_S 100 _t
+(either)_S 100 _t
+(have)_S 100 _t
+(used)_S 100 _t
+1200 4505 _m
+(direct)_S 100 _t
+(scanning)_S 100 _t
+(of)_S 100 _t
+(Feulgen)_S 100 _t
+(stained)_S 100 _t
+(material)_S 100 _t
+([29])_S 100 _t
+(or)_S 100 _t
+(have)_S 100 _t
+(analyzed)_S 100 _t
+(digitized)_S 1200 4171 _m
+(images)_S 100 _t
+(as)_S 100 _t
+(we)_S 100 _t
+(have)_S 100 _t
+(done)_S 100 _t
+([16],)_S 100 _t
+([31],)_S 100 _t
+([43].)_S 200 _t
+(Direct)_S 100 _t
+(scanning)_S 100 _t
+(techniques)_S 100 _t
+(generally)_S 1200 3837 _m
+(analyze)_S 100 _t
+(only)_S 100 _t
+(size)_S 100 _t
+(and)_S 100 _t
+(texture)_S 100 _t
+(features)_S 100 _t
+(whereas)_S 100 _t
+(analysis)_S 100 _t
+(of)_S 100 _t
+(digitized)_S 100 _t
+(images)_S 1200 3503 _m
+(also)_S 100 _t
+(allows)_S 100 _t
+(measurement)_S 100 _t
+(of)_S 100 _t
+(shape)_S 100 _t
+(features.)_S 200 _t
+(Those)_S 100 _t
+(who)_S 100 _t
+(have)_S 100 _t
+(analyzed)_S 100 _t
+(digitized)_S 1200 3169 _m
+(images)_S 100 _t
+(obtained)_S 100 _t
+(them)_S 100 _t
+(by)_S 100 _t
+(manually)_S 100 _t
+(tracing)_S 100 _t
+(the)_S 100 _t
+(nuclear)_S 100 _t
+(outline)_S 100 _t
+(on)_S 100 _t
+(a)_S 100 _t
+(digitizing)_S 1200 2835 _m
+(tablet.)_S 200 _t
+(In)_S 100 _t
+(contrast,)_S 100 _t
+(we)_S 100 _t
+(used)_S 100 _t
+(a)_S 100 _t
+("mouse")_S 100 _t
+(to)_S 100 _t
+(manually)_S 100 _t
+(outline)_S 100 _t
+(the)_S 100 _t
+(digitized)_S 1200 2501 _m
+(nucleus)_S 100 _t
+(on)_S 100 _t
+(a)_S 100 _t
+(computer)_S 100 _t
+(monitor)_S 100 _t
+(and)_S 100 _t
+(relied)_S 100 _t
+(on)_S 100 _t
+(our)_S 100 _t
+(snake)_S 100 _t
+(program)_S 100 _t
+(to)_S 100 _t
+(conform)_S 100 _t
+(the)_S 1200 2167 _m
+(rough)_S 100 _t
+(outline)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(actual)_S 100 _t
+(nuclear)_S 100 _t
+(boundary.)_S 200 _t
+(The)_S 100 _t
+(snake)_S 100 _t
+(program)_S 100 _t
+(accomplishes)_S 1200 1833 _m
+(segmentation)_S 100 _t
+(but)_S 100 _t
+(other)_S 100 _t
+(image)_S 100 _t
+(processing)_S 100 _t
+(methods)_S 100 _t
+(may)_S 100 _t
+(also)_S 100 _t
+(be)_S 100 _t
+(appropriate)_S 100 _t
+(\(e.g.)_S 1200 1499 _m
+(region)_S 100 _t
+(growing\).)_S 100 _t
+_ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8800 11886 _m
+(12)_S 1800 11519 _m
+(Hutchinson)_S 100 _t
+(et)_S 100 _t
+(al)_S 100 _t
+(analyzed)_S 100 _t
+(clump)_S 100 _t
+(characteristics)_S 100 _t
+(in)_S 100 _t
+(breast)_S 100 _t
+(aspirates)_S 100 _t
+(but)_S 1200 11185 _m
+(found)_S 100 _t
+(them)_S 100 _t
+(to)_S 100 _t
+(add)_S 100 _t
+(little)_S 100 _t
+(to)_S 100 _t
+(diagnostic)_S 100 _t
+(accuracy)_S 100 _t
+([15].)_S 200 _t
+(Their)_S 100 _t
+(diagnostic)_S 1200 10851 _m
+(accuracy)_S 100 _t
+(using)_S 100 _t
+(only)_S 100 _t
+(cell)_S 100 _t
+(features)_S 100 _t
+(was)_S 100 _t
+(83.6%,)_S 100 _t
+(using)_S 100 _t
+(only)_S 100 _t
+(smear)_S 100 _t
+(characteristics)_S 1200 10517 _m
+(was)_S 100 _t
+(70.5%,)_S 100 _t
+(and)_S 100 _t
+(using)_S 100 _t
+(both)_S 100 _t
+(was)_S 100 _t
+(86.9%.)_S 100 _t
+(We)_S 100 _t
+(achieved)_S 100 _t
+(better)_S 100 _t
+(accuracy)_S 100 _t
+(using)_S 100 _t
+(only)_S 1200 10183 _m
+(cell)_S 100 _t
+(features.)_S 200 _t
+(The)_S 100 _t
+(analytical)_S 100 _t
+(methods)_S 100 _t
+(which)_S 100 _t
+(we)_S 100 _t
+(used)_S 100 _t
+(to)_S 100 _t
+(project)_S 100 _t
+(prospective)_S 1200 9849 _m
+(accuracy)_S 100 _t
+(are)_S 100 _t
+(familiar)_S 100 _t
+(to)_S 100 _t
+(the)_S 100 _t
+(machine)_S 100 _t
+(learning)_S 100 _t
+(community)_S 100 _t
+(but)_S 100 _t
+(have)_S 100 _t
+(been)_S 100 _t
+(under-)_S 1200 9515 _m
+(utilized)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(medical)_S 100 _t
+(community.)_S 1800 9181 _m
+(Our)_S 100 _t
+(computerized)_S 100 _t
+(system)_S 100 _t
+(is)_S 100 _t
+(intended)_S 100 _t
+(to)_S 100 _t
+(address)_S 100 _t
+(the)_S 100 _t
+(case)_S 100 _t
+(of)_S 100 _t
+(multiple)_S 100 _t
+(and)_S 1200 8847 _m
+(possibly)_S 100 _t
+(less)_S 100 _t
+(experienced)_S 100 _t
+(observers.)_S 200 _t
+(Still,)_S 100 _t
+(computerization)_S 100 _t
+(of)_S 100 _t
+(cytological)_S 1200 8513 _m
+(analysis)_S 100 _t
+(as)_S 100 _t
+(described)_S 100 _t
+(here)_S 100 _t
+(requires)_S 100 _t
+(some)_S 100 _t
+(degree)_S 100 _t
+(of)_S 100 _t
+(operator)_S 100 _t
+(input.)_S 200 _t
+(Intra-)_S 100 _t
+(and)_S 1200 8179 _m
+(interobserver)_S 100 _t
+(reproducibility)_S 100 _t
+(of)_S 100 _t
+(our)_S 100 _t
+(system)_S 100 _t
+(was)_S 100 _t
+(determined)_S 100 _t
+(to)_S 100 _t
+(be)_S 100 _t
+(satisfactory)_S 100 _t
+1200 7845 _m
+(despite)_S 100 _t
+(intentional)_S 100 _t
+(testing)_S 100 _t
+(with)_S 100 _t
+(untrained)_S 100 _t
+(observers)_S 100 _t
+([44].)_S 200 _t
+(A)_S 100 _t
+(minimal)_S 100 _t
+(training)_S 1200 7511 _m
+(session,)_S 100 _t
+(coupled)_S 100 _t
+(with)_S 100 _t
+(the)_S 100 _t
+(increased)_S 100 _t
+(accuracy)_S 100 _t
+(of)_S 100 _t
+(computerized)_S 100 _t
+(image)_S 100 _t
+(processing)_S 1200 7177 _m
+(and)_S 100 _t
+(the)_S 100 _t
+(robustness)_S 100 _t
+(of)_S 100 _t
+(a)_S 100 _t
+(good)_S 100 _t
+(machine)_S 100 _t
+(learning)_S 100 _t
+(procedure,)_S 100 _t
+(should)_S 100 _t
+(reduce)_S 100 _t
+(or)_S 100 _t
+(even)_S 1200 6843 _m
+(eliminate)_S 100 _t
+(the)_S 100 _t
+(interobserver)_S 100 _t
+(variability)_S 100 _t
+(inherent)_S 100 _t
+(to)_S 100 _t
+(visual)_S 1200 6509 _m
+(interpretation.)_S 200 _t
+1200 6175 _m
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+(We)_S 100 _t
+(plan)_S 100 _t
+(to)_S 100 _t
+(adapt)_S 100 _t
+(our)_S 100 _t
+(UNIX-based)_S 100 _t
+(system)_S 100 _t
+(for)_S 100 _t
+(a)_S 100 _t
+(portable)_S 100 _t
+(DOS)_S 100 _t
+(based)_S 1200 5841 _m
+(application.)_S 200 _t
+(Use)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(system)_S 100 _t
+(will)_S 100 _t
+(require)_S 100 _t
+(a)_S 100 _t
+(video)_S 100 _t
+(camera)_S 100 _t
+(attachment)_S 100 _t
+(for)_S 100 _t
+(a)_S 1200 5507 _m
+(microscope,)_S 100 _t
+(a)_S 100 _t
+(frame)_S 100 _t
+(grabber)_S 100 _t
+(board)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(appropriate)_S 100 _t
+(expert)_S 100 _t
+(system)_S 100 _t
+(software.)_S 100 _t
+1200 5173 _m
+(Two)_S 100 _t
+(alternatives)_S 100 _t
+(exist)_S 100 _t
+(for)_S 100 _t
+(the)_S 100 _t
+(expert)_S 100 _t
+(system)_S 100 _t
+(software.)_S 200 _t
+(Either)_S 100 _t
+(an)_S 100 _t
+(individual)_S 1200 4839 _m
+(expert)_S 100 _t
+(system)_S 100 _t
+(can)_S 100 _t
+(be)_S 100 _t
+(generated)_S 100 _t
+(by)_S 100 _t
+(the)_S 100 _t
+(user)_S 100 _t
+(from)_S 100 _t
+(one's)_S 100 _t
+(own)_S 100 _t
+(cytology)_S 100 _t
+(collection,)_S 1200 4505 _m
+(or)_S 100 _t
+(the)_S 100 _t
+(FNA)_S 100 _t
+(slides)_S 100 _t
+(can)_S 100 _t
+(be)_S 100 _t
+(prepared)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(manner)_S 100 _t
+(described)_S 100 _t
+(herein)_S 100 _t
+(and)_S 100 _t
+(our)_S 1200 4171 _m
+(expert)_S 100 _t
+(system)_S 100 _t
+(based)_S 100 _t
+(on)_S 100 _t
+(569)_S 100 _t
+(samples)_S 100 _t
+(can)_S 100 _t
+(be)_S 100 _t
+(used)_S 100 _t
+(and)_S 100 _t
+(expanded.)_S 200 _t
+(These)_S 100 _t
+(techniques)_S 1200 3837 _m
+(estimate)_S 100 _t
+(the)_S 100 _t
+(probability)_S 100 _t
+(of)_S 100 _t
+(malignancy)_S 100 _t
+(in)_S 100 _t
+(borderline)_S 100 _t
+(cases)_S 100 _t
+(and)_S 100 _t
+(decisions)_S 100 _t
+(for)_S 1200 3503 _m
+(open)_S 100 _t
+(biopsy)_S 100 _t
+(can)_S 100 _t
+(be)_S 100 _t
+(objectively)_S 100 _t
+(made.)_S 200 _t
+(The)_S 100 _t
+(present)_S 100 _t
+(work)_S 100 _t
+(is)_S 100 _t
+(a)_S 100 _t
+(step)_S 100 _t
+(toward)_S 1200 3169 _m
+(increasing)_S 100 _t
+(the)_S 100 _t
+(diagnostic)_S 100 _t
+(usefulness)_S 100 _t
+(of)_S 100 _t
+(fine)_S 100 _t
+(needle)_S 100 _t
+(aspiration)_S 100 _t
+(biopsy.)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8800 11886 _m
+(13)_S 1200 11185 _m
+(Legend)_S 100 _t
+(for)_S 100 _t
+(figures:)_S 1200 10851 _m
+100 _t
+(Fig.)_S 100 _t
+(1:)_S 100 _t
+("Nuclear)_S 100 _t
+(features")_S 100 _t
+(of)_S 100 _t
+(four)_S 100 _t
+(shapes)_S 100 _t
+(and)_S 100 _t
+(three)_S 100 _t
+(sizes)_S 100 _t
+(\(Phantoms\))_S 100 _t
+(were)_S 1200 10517 _m
+(digitally)_S 100 _t
+(analyzed.)_S 1200 9849 _m
+(Fig.)_S 100 _t
+(2-4:)_S 100 _t
+(Graphic)_S 100 _t
+(representation)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(separating)_S 100 _t
+(plane)_S 100 _t
+(between)_S 100 _t
+(two)_S 1200 9515 _m
+(categories)_S 100 _t
+(of)_S 100 _t
+(points)_S 100 _t
+(and)_S 100 _t
+(the)_S 100 _t
+(normal)_S 100 _t
+(line)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(separating)_S 100 _t
+(plane.)_S 300 _t
+(The)_S 100 _t
+(actual)_S 1200 9181 _m
+(position)_S 100 _t
+(which)_S 100 _t
+(the)_S 100 _t
+(points)_S 100 _t
+(occupy)_S 100 _t
+(in)_S 100 _t
+(three)_S 100 _t
+(dimensional)_S 100 _t
+(space)_S 100 _t
+(is)_S 100 _t
+(represented)_S 100 _t
+(in)_S 1200 8847 _m
+(figure)_S 100 _t
+(2.)_S 200 _t
+(The)_S 100 _t
+(projection)_S 100 _t
+(of)_S 100 _t
+(these)_S 100 _t
+(points)_S 100 _t
+(onto)_S 100 _t
+(the)_S 100 _t
+(normal)_S 100 _t
+(line)_S 100 _t
+(of)_S 100 _t
+(the)_S 1200 8513 _m
+(separating)_S 100 _t
+(plane)_S 100 _t
+(is)_S 100 _t
+(represented)_S 100 _t
+(in)_S 100 _t
+(figure)_S 100 _t
+(3.)_S 200 _t
+(The)_S 100 _t
+(histogram)_S 100 _t
+(of)_S 100 _t
+(the)_S 1200 8179 _m
+(distribution)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(points)_S 100 _t
+(is)_S 100 _t
+(depicted)_S 100 _t
+(in)_S 100 _t
+(figure)_S 100 _t
+(4.)_S 100 _t
+(This)_S 100 _t
+(is)_S 100 _t
+(the)_S 100 _t
+(reference)_S 100 _t
+(for)_S 1200 7845 _m
+(determining)_S 100 _t
+(the)_S 100 _t
+(estimated)_S 100 _t
+(probability)_S 100 _t
+(of)_S 100 _t
+(malignancy)_S 100 _t
+(of)_S 100 _t
+(a)_S 100 _t
+(new)_S 100 _t
+(point.)_S 1200 7177 _m
+(Figure)_S 100 _t
+(5:)_S 100 _t
+(The)_S 100 _t
+(estimated)_S 100 _t
+(probability)_S 100 _t
+(of)_S 100 _t
+(malignancy)_S 100 _t
+(for)_S 100 _t
+(54)_S 100 _t
+(new)_S 100 _t
+(samples)_S 100 _t
+(as)_S 1200 6843 _m
+(diagnosed)_S 100 _t
+(by)_S 100 _t
+(the)_S 100 _t
+(trained)_S 100 _t
+(algorithm)_S 100 _t
+(together)_S 100 _t
+(with)_S 100 _t
+(their)_S 100 _t
+(actual)_S 100 _t
+(diagnoses.)_S _ep
+_bp 1 13200 10200 _ornt /CourierR 500 _ff
+1 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+11800 8886 _m
+(14)_S 1200 8519 _m
+(Table)_S 100 _t
+(1:)_S 100 _t
+(Normalized)_S 100 _t
+(measurement)_S 100 _t
+(of)_S 100 _t
+(digital)_S 100 _t
+(features)_S 100 _t
+(on)_S 100 _t
+(phantoms.)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 150 1036 _m
+_sp 279 1036 279 1037 150 1037 3 _pl _pf _np _s _s 150 890 _m
+_sp 151 890 151 1037 150 1037 3 _pl _pf _np _s _s 154 1032 _m
+_sp 279 1032 279 1033 154 1033 3 _pl _pf _np _s _s 154 890 _m
+_sp 155 890 155 1033 154 1033 3 _pl _pf _np 
+_s 0 g 141 123 156 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 1036 _m
+_sp 383 1036 383 1037 278 1037 3 _pl _pf _np _s _s 278 890 _m
+_sp 279 890 279 1033 278 1033 3 _pl _pf _np _s _s 278 1036 _m
+_sp 279 1036 279 1037 278 1037 3 _pl _pf _np _s _s 278 1032 _m
+_sp 383 1032 383 1033 278 1033 3 _pl _pf _np 
+_s 0 g 141 103 280 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 1036 _m
+_sp 495 1036 495 1037 382 1037 3 _pl _pf _np _s _s 382 890 _m
+_sp 383 890 383 1033 382 1033 3 _pl _pf _np _s _s 382 1036 _m
+_sp 383 1036 383 1037 382 1037 3 _pl _pf _np _s _s 382 1032 _m
+_sp 495 1032 495 1033 382 1033 3 _pl _pf _np 
+_s 0 g 141 111 384 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3173 8017 _m
+(Radius)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 1036 _m
+_sp 640 1036 640 1037 494 1037 3 _pl _pf _np _s _s 494 890 _m
+_sp 495 890 495 1033 494 1033 3 _pl _pf _np _s _s 494 1036 _m
+_sp 495 1036 495 1037 494 1037 3 _pl _pf _np _s _s 494 1032 _m
+_sp 640 1032 640 1033 494 1033 3 _pl _pf _np 
+_s 0 g 141 144 496 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4069 8017 _m
+(Perimeter)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 1036 _m
+_sp 762 1036 762 1037 639 1037 3 _pl _pf _np _s _s 639 890 _m
+_sp 640 890 640 1033 639 1033 3 _pl _pf _np _s _s 639 1036 _m
+_sp 640 1036 640 1037 639 1037 3 _pl _pf _np _s _s 639 1032 _m
+_sp 762 1032 762 1033 639 1033 3 _pl _pf _np 
+_s 0 g 141 121 641 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5230 8017 _m
+(Smooth-)_S 5230 7683 _m
+(ness)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 1036 _m
+_sp 902 1036 902 1037 761 1037 3 _pl _pf _np _s _s 761 890 _m
+_sp 762 890 762 1033 761 1033 3 _pl _pf _np _s _s 761 1036 _m
+_sp 762 1036 762 1037 761 1037 3 _pl _pf _np _s _s 761 1032 _m
+_sp 902 1032 902 1033 761 1033 3 _pl _pf _np 
+_s 0 g 141 139 763 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6210 8017 _m
+(Concavity)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 1036 _m
+_sp 1032 1036 1032 1037 901 1037 3 _pl _pf _np _s _s 901 890 _m
+_sp 902 890 902 1033 901 1033 3 _pl _pf _np _s _s 901 1036 _m
+_sp 902 1036 902 1037 901 1037 3 _pl _pf _np _s _s 901 1032 _m
+_sp 1032 1032 1032 1033 901 1033 3 _pl _pf _np 
+_s 0 g 141 129 903 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7327 8017 _m
+(Symmetry)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 1036 _m
+_sp 1116 1036 1116 1037 1031 1037 3 _pl _pf _np _s _s 1031 890 _m
+_sp 1032 890 1032 1033 1031 1033 3 _pl _pf _np _s _s 1031 1036 _m
+_sp 1032 1036 1032 1037 1031 1037 3 _pl _pf _np _s _s 1031 1032 _m
+_sp 1116 1032 1116 1033 1031 1033 3 _pl _pf _np 
+_s 0 g 141 83 1033 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8366 8017 _m
+(Area)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 1036 _m
+_sp 1247 1036 1247 1037 1115 1037 3 _pl _pf _np _s _s 1115 890 _m
+_sp 1116 890 1116 1033 1115 1033 3 _pl _pf _np _s _s 1115 1036 _m
+_sp 1116 1036 1116 1037 1115 1037 3 _pl _pf _np _s _s 1115 1032 _m
+_sp 1247 1032 1247 1033 1115 1033 3 _pl _pf _np 
+_s 0 g 141 130 1117 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9038 8017 _m
+(Compact-)_S 9038 7683 _m
+(ness)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 1036 _m
+_sp 1369 1036 1369 1037 1246 1037 3 _pl _pf _np _s _s 1246 890 _m
+_sp 1247 890 1247 1033 1246 1033 3 _pl _pf _np _s _s 1246 1036 _m
+_sp 1247 1036 1247 1037 1246 1037 3 _pl _pf _np _s _s 1246 1032 _m
+_sp 1369 1032 1369 1033 1246 1033 3 _pl _pf _np 
+_s 0 g 141 121 1248 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10088 8017 _m
+(Concave)_S 10088 7683 _m
+100 _t
+(points)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 890 _m
+_sp 1500 890 1500 1037 1499 1037 3 _pl _pf _np _s _s 1369 1036 _m
+_sp 1500 1036 1500 1037 1369 1037 3 _pl _pf _np _s _s 1369 890 _m
+_sp 1370 890 1370 1033 1369 1033 3 _pl _pf _np _s _s 1369 1036 _m
+_sp 1370 1036 1370 1037 1369 1037 3 _pl _pf _np _s _s 1495 890 _m
+_sp 1496 890 1496 1033 1495 1033 3 _pl _pf _np _s _s 1369 1032 _m
+_sp 1496 1032 1496 1033 1369 1033 3 _pl _pf _np 
+_s 0 g 141 123 1371 890 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11068 8017 _m
+(Fractal)_S 11068 7683 _m
+(dimensi)_S 11068 7349 _m
+(on)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 890 _m
+_sp 279 890 279 891 154 891 3 _pl _pf _np _s _s 150 831 _m
+_sp 151 831 151 891 150 891 3 _pl _pf _np _s _s 154 831 _m
+_sp 155 831 155 891 154 891 3 _pl _pf _np 
+_s 0 g 58 123 156 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 1348 6879 _m
+(Circle)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 890 _m
+_sp 383 890 383 891 278 891 3 _pl _pf _np _s _s 278 831 _m
+_sp 279 831 279 891 278 891 3 _pl _pf _np 
+_s 0 g 58 103 280 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 6879 _m
+(Large)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 890 _m
+_sp 495 890 495 891 382 891 3 _pl _pf _np _s _s 382 831 _m
+_sp 383 831 383 891 382 891 3 _pl _pf _np 
+_s 0 g 58 111 384 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 6879 _m
+(0.96)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 890 _m
+_sp 640 890 640 891 494 891 3 _pl _pf _np _s _s 494 831 _m
+_sp 495 831 495 891 494 891 3 _pl _pf _np 
+_s 0 g 58 144 496 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 6879 _m
+(0.67)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 890 _m
+_sp 762 890 762 891 639 891 3 _pl _pf _np _s _s 639 831 _m
+_sp 640 831 640 891 639 891 3 _pl _pf _np 
+_s 0 g 58 121 641 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 6879 _m
+(0.39)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 890 _m
+_sp 902 890 902 891 761 891 3 _pl _pf _np _s _s 761 831 _m
+_sp 762 831 762 891 761 891 3 _pl _pf _np 
+_s 0 g 58 139 763 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 6879 _m
+(0.06)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 890 _m
+_sp 1032 890 1032 891 901 891 3 _pl _pf _np _s _s 901 831 _m
+_sp 902 831 902 891 901 891 3 _pl _pf _np 
+_s 0 g 58 129 903 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 6879 _m
+(0.23)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 890 _m
+_sp 1116 890 1116 891 1031 891 3 _pl _pf _np _s _s 1031 831 _m
+_sp 1032 831 1032 891 1031 891 3 _pl _pf _np 
+_s 0 g 58 83 1033 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 6879 _m
+(0.94)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 890 _m
+_sp 1247 890 1247 891 1115 891 3 _pl _pf _np _s _s 1115 831 _m
+_sp 1116 831 1116 891 1115 891 3 _pl _pf _np 
+_s 0 g 58 130 1117 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 6879 _m
+(0.01)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 890 _m
+_sp 1369 890 1369 891 1246 891 3 _pl _pf _np _s _s 1246 831 _m
+_sp 1247 831 1247 891 1246 891 3 _pl _pf _np 
+_s 0 g 58 121 1248 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 6879 _m
+(0.13)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 831 _m
+_sp 1500 831 1500 891 1499 891 3 _pl _pf _np _s _s 1369 890 _m
+_sp 1496 890 1496 891 1369 891 3 _pl _pf _np _s _s 1369 831 _m
+_sp 1370 831 1370 891 1369 891 3 _pl _pf _np _s _s 1495 831 _m
+_sp 1496 831 1496 891 1495 891 3 _pl _pf _np 
+_s 0 g 58 123 1371 831 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 6879 _m
+(0.18)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 831 _m
+_sp 279 831 279 832 154 832 3 _pl _pf _np _s _s 150 772 _m
+_sp 151 772 151 832 150 832 3 _pl _pf _np _s _s 154 772 _m
+_sp 155 772 155 832 154 832 3 _pl _pf _np 
+_s 0 g 58 123 156 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 831 _m
+_sp 383 831 383 832 278 832 3 _pl _pf _np _s _s 278 772 _m
+_sp 279 772 279 832 278 832 3 _pl _pf _np 
+_s 0 g 58 103 280 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 6409 _m
+(Medium)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 831 _m
+_sp 495 831 495 832 382 832 3 _pl _pf _np _s _s 382 772 _m
+_sp 383 772 383 832 382 832 3 _pl _pf _np 
+_s 0 g 58 111 384 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 6409 _m
+(0.83)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 831 _m
+_sp 640 831 640 832 494 832 3 _pl _pf _np _s _s 494 772 _m
+_sp 495 772 495 832 494 832 3 _pl _pf _np 
+_s 0 g 58 144 496 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 6409 _m
+(0.57)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 831 _m
+_sp 762 831 762 832 639 832 3 _pl _pf _np _s _s 639 772 _m
+_sp 640 772 640 832 639 832 3 _pl _pf _np 
+_s 0 g 58 121 641 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 6409 _m
+(0.39)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 831 _m
+_sp 902 831 902 832 761 832 3 _pl _pf _np _s _s 761 772 _m
+_sp 762 772 762 832 761 832 3 _pl _pf _np 
+_s 0 g 58 139 763 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 6409 _m
+(0.06)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 831 _m
+_sp 1032 831 1032 832 901 832 3 _pl _pf _np _s _s 901 772 _m
+_sp 902 772 902 832 901 832 3 _pl _pf _np 
+_s 0 g 58 129 903 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 6409 _m
+(0.20)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 831 _m
+_sp 1116 831 1116 832 1031 832 3 _pl _pf _np _s _s 1031 772 _m
+_sp 1032 772 1032 832 1031 832 3 _pl _pf _np 
+_s 0 g 58 83 1033 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 6409 _m
+(0.67)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 831 _m
+_sp 1247 831 1247 832 1115 832 3 _pl _pf _np _s _s 1115 772 _m
+_sp 1116 772 1116 832 1115 832 3 _pl _pf _np 
+_s 0 g 58 130 1117 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 6409 _m
+(0.02)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 831 _m
+_sp 1369 831 1369 832 1246 832 3 _pl _pf _np _s _s 1246 772 _m
+_sp 1247 772 1247 832 1246 832 3 _pl _pf _np 
+_s 0 g 58 121 1248 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 6409 _m
+(0.07)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 772 _m
+_sp 1500 772 1500 832 1499 832 3 _pl _pf _np _s _s 1369 831 _m
+_sp 1496 831 1496 832 1369 832 3 _pl _pf _np _s _s 1369 772 _m
+_sp 1370 772 1370 832 1369 832 3 _pl _pf _np _s _s 1495 772 _m
+_sp 1496 772 1496 832 1495 832 3 _pl _pf _np 
+_s 0 g 58 123 1371 772 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 6409 _m
+(0.19)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 772 _m
+_sp 279 772 279 773 154 773 3 _pl _pf _np _s _s 150 713 _m
+_sp 151 713 151 773 150 773 3 _pl _pf _np _s _s 154 713 _m
+_sp 155 713 155 773 154 773 3 _pl _pf _np 
+_s 0 g 58 123 156 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 772 _m
+_sp 383 772 383 773 278 773 3 _pl _pf _np _s _s 278 713 _m
+_sp 279 713 279 773 278 773 3 _pl _pf _np 
+_s 0 g 58 103 280 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 5939 _m
+(Small)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 772 _m
+_sp 495 772 495 773 382 773 3 _pl _pf _np _s _s 382 713 _m
+_sp 383 713 383 773 382 773 3 _pl _pf _np 
+_s 0 g 58 111 384 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 5939 _m
+(0.62)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 772 _m
+_sp 640 772 640 773 494 773 3 _pl _pf _np _s _s 494 713 _m
+_sp 495 713 495 773 494 773 3 _pl _pf _np 
+_s 0 g 58 144 496 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 5939 _m
+(0.41)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 772 _m
+_sp 762 772 762 773 639 773 3 _pl _pf _np _s _s 639 713 _m
+_sp 640 713 640 773 639 773 3 _pl _pf _np 
+_s 0 g 58 121 641 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 5939 _m
+(0.31)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 772 _m
+_sp 902 772 902 773 761 773 3 _pl _pf _np _s _s 761 713 _m
+_sp 762 713 762 773 761 773 3 _pl _pf _np 
+_s 0 g 58 139 763 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 5939 _m
+(0.01)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 772 _m
+_sp 1032 772 1032 773 901 773 3 _pl _pf _np _s _s 901 713 _m
+_sp 902 713 902 773 901 773 3 _pl _pf _np 
+_s 0 g 58 129 903 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 5939 _m
+(0.25)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 772 _m
+_sp 1116 772 1116 773 1031 773 3 _pl _pf _np _s _s 1031 713 _m
+_sp 1032 713 1032 773 1031 773 3 _pl _pf _np 
+_s 0 g 58 83 1033 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 5939 _m
+(0.36)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 772 _m
+_sp 1247 772 1247 773 1115 773 3 _pl _pf _np _s _s 1115 713 _m
+_sp 1116 713 1116 773 1115 773 3 _pl _pf _np 
+_s 0 g 58 130 1117 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 5939 _m
+(0.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 772 _m
+_sp 1369 772 1369 773 1246 773 3 _pl _pf _np _s _s 1246 713 _m
+_sp 1247 713 1247 773 1246 773 3 _pl _pf _np 
+_s 0 g 58 121 1248 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 5939 _m
+(0.02)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 713 _m
+_sp 1500 713 1500 773 1499 773 3 _pl _pf _np _s _s 1369 772 _m
+_sp 1496 772 1496 773 1369 773 3 _pl _pf _np _s _s 1369 713 _m
+_sp 1370 713 1370 773 1369 773 3 _pl _pf _np _s _s 1495 713 _m
+_sp 1496 713 1496 773 1495 773 3 _pl _pf _np 
+_s 0 g 58 123 1371 713 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 5939 _m
+(0.20)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 713 _m
+_sp 279 713 279 714 154 714 3 _pl _pf _np _s _s 150 655 _m
+_sp 151 655 151 714 150 714 3 _pl _pf _np _s _s 154 655 _m
+_sp 155 655 155 714 154 714 3 _pl _pf _np 
+_s 0 g 57 123 156 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 1348 5469 _m
+(Ellipse)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 713 _m
+_sp 383 713 383 714 278 714 3 _pl _pf _np _s _s 278 655 _m
+_sp 279 655 279 714 278 714 3 _pl _pf _np 
+_s 0 g 57 103 280 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 5469 _m
+(Large)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 713 _m
+_sp 495 713 495 714 382 714 3 _pl _pf _np _s _s 382 655 _m
+_sp 383 655 383 714 382 714 3 _pl _pf _np 
+_s 0 g 57 111 384 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 5469 _m
+(1.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 713 _m
+_sp 640 713 640 714 494 714 3 _pl _pf _np _s _s 494 655 _m
+_sp 495 655 495 714 494 714 3 _pl _pf _np 
+_s 0 g 57 144 496 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 5469 _m
+(0.74)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 713 _m
+_sp 762 713 762 714 639 714 3 _pl _pf _np _s _s 639 655 _m
+_sp 640 655 640 714 639 714 3 _pl _pf _np 
+_s 0 g 57 121 641 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 5469 _m
+(0.48)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 713 _m
+_sp 902 713 902 714 761 714 3 _pl _pf _np _s _s 761 655 _m
+_sp 762 655 762 714 761 714 3 _pl _pf _np 
+_s 0 g 57 139 763 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 5469 _m
+(0.11)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 713 _m
+_sp 1032 713 1032 714 901 714 3 _pl _pf _np _s _s 901 655 _m
+_sp 902 655 902 714 901 714 3 _pl _pf _np 
+_s 0 g 57 129 903 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 5469 _m
+(0.35)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 713 _m
+_sp 1116 713 1116 714 1031 714 3 _pl _pf _np _s _s 1031 655 _m
+_sp 1032 655 1032 714 1031 714 3 _pl _pf _np 
+_s 0 g 57 83 1033 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 5469 _m
+(0.97)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 713 _m
+_sp 1247 713 1247 714 1115 714 3 _pl _pf _np _s _s 1115 655 _m
+_sp 1116 655 1116 714 1115 714 3 _pl _pf _np 
+_s 0 g 57 130 1117 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 5469 _m
+(0.13)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 713 _m
+_sp 1369 713 1369 714 1246 714 3 _pl _pf _np _s _s 1246 655 _m
+_sp 1247 655 1247 714 1246 714 3 _pl _pf _np 
+_s 0 g 57 121 1248 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 5469 _m
+(0.34)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 655 _m
+_sp 1500 655 1500 714 1499 714 3 _pl _pf _np _s _s 1369 713 _m
+_sp 1496 713 1496 714 1369 714 3 _pl _pf _np _s _s 1369 655 _m
+_sp 1370 655 1370 714 1369 714 3 _pl _pf _np _s _s 1495 655 _m
+_sp 1496 655 1496 714 1495 714 3 _pl _pf _np 
+_s 0 g 57 123 1371 655 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 5469 _m
+(0.30)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 655 _m
+_sp 279 655 279 656 154 656 3 _pl _pf _np _s _s 150 596 _m
+_sp 151 596 151 656 150 656 3 _pl _pf _np _s _s 154 596 _m
+_sp 155 596 155 656 154 656 3 _pl _pf _np 
+_s 0 g 58 123 156 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 655 _m
+_sp 383 655 383 656 278 656 3 _pl _pf _np _s _s 278 596 _m
+_sp 279 596 279 656 278 656 3 _pl _pf _np 
+_s 0 g 58 103 280 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 4999 _m
+(Medium)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 655 _m
+_sp 495 655 495 656 382 656 3 _pl _pf _np _s _s 382 596 _m
+_sp 383 596 383 656 382 656 3 _pl _pf _np 
+_s 0 g 58 111 384 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 4999 _m
+(0.85)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 655 _m
+_sp 640 655 640 656 494 656 3 _pl _pf _np _s _s 494 596 _m
+_sp 495 596 495 656 494 656 3 _pl _pf _np 
+_s 0 g 58 144 496 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 4999 _m
+(0.61)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 655 _m
+_sp 762 655 762 656 639 656 3 _pl _pf _np _s _s 639 596 _m
+_sp 640 596 640 656 639 656 3 _pl _pf _np 
+_s 0 g 58 121 641 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 4999 _m
+(0.40)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 655 _m
+_sp 902 655 902 656 761 656 3 _pl _pf _np _s _s 761 596 _m
+_sp 762 596 762 656 761 656 3 _pl _pf _np 
+_s 0 g 58 139 763 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 4999 _m
+(0.08)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 655 _m
+_sp 1032 655 1032 656 901 656 3 _pl _pf _np _s _s 901 596 _m
+_sp 902 596 902 656 901 656 3 _pl _pf _np 
+_s 0 g 58 129 903 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 4999 _m
+(0.61)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 655 _m
+_sp 1116 655 1116 656 1031 656 3 _pl _pf _np _s _s 1031 596 _m
+_sp 1032 596 1032 656 1031 656 3 _pl _pf _np 
+_s 0 g 58 83 1033 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 4999 _m
+(0.66)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 655 _m
+_sp 1247 655 1247 656 1115 656 3 _pl _pf _np _s _s 1115 596 _m
+_sp 1116 596 1116 656 1115 656 3 _pl _pf _np 
+_s 0 g 58 130 1117 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 4999 _m
+(0.13)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 655 _m
+_sp 1369 655 1369 656 1246 656 3 _pl _pf _np _s _s 1246 596 _m
+_sp 1247 596 1247 656 1246 656 3 _pl _pf _np 
+_s 0 g 58 121 1248 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 4999 _m
+(0.24)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 596 _m
+_sp 1500 596 1500 656 1499 656 3 _pl _pf _np _s _s 1369 655 _m
+_sp 1496 655 1496 656 1369 656 3 _pl _pf _np _s _s 1369 596 _m
+_sp 1370 596 1370 656 1369 656 3 _pl _pf _np _s _s 1495 596 _m
+_sp 1496 596 1496 656 1495 656 3 _pl _pf _np 
+_s 0 g 58 123 1371 596 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 4999 _m
+(0.33)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 596 _m
+_sp 279 596 279 597 154 597 3 _pl _pf _np _s _s 150 537 _m
+_sp 151 537 151 597 150 597 3 _pl _pf _np _s _s 154 537 _m
+_sp 155 537 155 597 154 597 3 _pl _pf _np 
+_s 0 g 58 123 156 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 596 _m
+_sp 383 596 383 597 278 597 3 _pl _pf _np _s _s 278 537 _m
+_sp 279 537 279 597 278 597 3 _pl _pf _np 
+_s 0 g 58 103 280 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 4529 _m
+(Small)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 596 _m
+_sp 495 596 495 597 382 597 3 _pl _pf _np _s _s 382 537 _m
+_sp 383 537 383 597 382 597 3 _pl _pf _np 
+_s 0 g 58 111 384 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 4529 _m
+(0.63)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 596 _m
+_sp 640 596 640 597 494 597 3 _pl _pf _np _s _s 494 537 _m
+_sp 495 537 495 597 494 597 3 _pl _pf _np 
+_s 0 g 58 144 496 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 4529 _m
+(0.46)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 596 _m
+_sp 762 596 762 597 639 597 3 _pl _pf _np _s _s 639 537 _m
+_sp 640 537 640 597 639 597 3 _pl _pf _np 
+_s 0 g 58 121 641 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 4529 _m
+(0.57)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 596 _m
+_sp 902 596 902 597 761 597 3 _pl _pf _np _s _s 761 537 _m
+_sp 762 537 762 597 761 597 3 _pl _pf _np 
+_s 0 g 58 139 763 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 4529 _m
+(0.06)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 596 _m
+_sp 1032 596 1032 597 901 597 3 _pl _pf _np _s _s 901 537 _m
+_sp 902 537 902 597 901 597 3 _pl _pf _np 
+_s 0 g 58 129 903 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 4529 _m
+(0.37)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 596 _m
+_sp 1116 596 1116 597 1031 597 3 _pl _pf _np _s _s 1031 537 _m
+_sp 1032 537 1032 597 1031 597 3 _pl _pf _np 
+_s 0 g 58 83 1033 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 4529 _m
+(0.38)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 596 _m
+_sp 1247 596 1247 597 1115 597 3 _pl _pf _np _s _s 1115 537 _m
+_sp 1116 537 1116 597 1115 597 3 _pl _pf _np 
+_s 0 g 58 130 1117 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 4529 _m
+(0.14)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 596 _m
+_sp 1369 596 1369 597 1246 597 3 _pl _pf _np _s _s 1246 537 _m
+_sp 1247 537 1247 597 1246 597 3 _pl _pf _np 
+_s 0 g 58 121 1248 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 4529 _m
+(0.20)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 537 _m
+_sp 1500 537 1500 597 1499 597 3 _pl _pf _np _s _s 1369 596 _m
+_sp 1496 596 1496 597 1369 597 3 _pl _pf _np _s _s 1369 537 _m
+_sp 1370 537 1370 597 1369 597 3 _pl _pf _np _s _s 1495 537 _m
+_sp 1496 537 1496 597 1495 597 3 _pl _pf _np 
+_s 0 g 58 123 1371 537 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 4529 _m
+(0.38)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 537 _m
+_sp 279 537 279 538 154 538 3 _pl _pf _np _s _s 150 478 _m
+_sp 151 478 151 538 150 538 3 _pl _pf _np _s _s 154 478 _m
+_sp 155 478 155 538 154 538 3 _pl _pf _np 
+_s 0 g 58 123 156 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 1348 4059 _m
+(Moon)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 537 _m
+_sp 383 537 383 538 278 538 3 _pl _pf _np _s _s 278 478 _m
+_sp 279 478 279 538 278 538 3 _pl _pf _np 
+_s 0 g 58 103 280 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 4059 _m
+(Large)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 537 _m
+_sp 495 537 495 538 382 538 3 _pl _pf _np _s _s 382 478 _m
+_sp 383 478 383 538 382 538 3 _pl _pf _np 
+_s 0 g 58 111 384 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 4059 _m
+(0.99)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 537 _m
+_sp 640 537 640 538 494 538 3 _pl _pf _np _s _s 494 478 _m
+_sp 495 478 495 538 494 538 3 _pl _pf _np 
+_s 0 g 58 144 496 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 4059 _m
+(0.83)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 537 _m
+_sp 762 537 762 538 639 538 3 _pl _pf _np _s _s 639 478 _m
+_sp 640 478 640 538 639 538 3 _pl _pf _np 
+_s 0 g 58 121 641 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 4059 _m
+(0.60)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 537 _m
+_sp 902 537 902 538 761 538 3 _pl _pf _np _s _s 761 478 _m
+_sp 762 478 762 538 761 538 3 _pl _pf _np 
+_s 0 g 58 139 763 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 4059 _m
+(0.23)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 537 _m
+_sp 1032 537 1032 538 901 538 3 _pl _pf _np _s _s 901 478 _m
+_sp 902 478 902 538 901 538 3 _pl _pf _np 
+_s 0 g 58 129 903 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 4059 _m
+(0.90)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 537 _m
+_sp 1116 537 1116 538 1031 538 3 _pl _pf _np _s _s 1031 478 _m
+_sp 1032 478 1032 538 1031 538 3 _pl _pf _np 
+_s 0 g 58 83 1033 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 4059 _m
+(1.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 537 _m
+_sp 1247 537 1247 538 1115 538 3 _pl _pf _np _s _s 1115 478 _m
+_sp 1116 478 1116 538 1115 538 3 _pl _pf _np 
+_s 0 g 58 130 1117 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 4059 _m
+(0.33)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 537 _m
+_sp 1369 537 1369 538 1246 538 3 _pl _pf _np _s _s 1246 478 _m
+_sp 1247 478 1247 538 1246 538 3 _pl _pf _np 
+_s 0 g 58 121 1248 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 4059 _m
+(0.61)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 478 _m
+_sp 1500 478 1500 538 1499 538 3 _pl _pf _np _s _s 1369 537 _m
+_sp 1496 537 1496 538 1369 538 3 _pl _pf _np _s _s 1369 478 _m
+_sp 1370 478 1370 538 1369 538 3 _pl _pf _np _s _s 1495 478 _m
+_sp 1496 478 1496 538 1495 538 3 _pl _pf _np 
+_s 0 g 58 123 1371 478 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 4059 _m
+(0.49)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 478 _m
+_sp 279 478 279 479 154 479 3 _pl _pf _np _s _s 150 420 _m
+_sp 151 420 151 479 150 479 3 _pl _pf _np _s _s 154 420 _m
+_sp 155 420 155 479 154 479 3 _pl _pf _np 
+_s 0 g 57 123 156 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 478 _m
+_sp 383 478 383 479 278 479 3 _pl _pf _np _s _s 278 420 _m
+_sp 279 420 279 479 278 479 3 _pl _pf _np 
+_s 0 g 57 103 280 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 3589 _m
+(Medium)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 478 _m
+_sp 495 478 495 479 382 479 3 _pl _pf _np _s _s 382 420 _m
+_sp 383 420 383 479 382 479 3 _pl _pf _np 
+_s 0 g 57 111 384 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 3589 _m
+(0.86)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 478 _m
+_sp 640 478 640 479 494 479 3 _pl _pf _np _s _s 494 420 _m
+_sp 495 420 495 479 494 479 3 _pl _pf _np 
+_s 0 g 57 144 496 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 3589 _m
+(0.71)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 478 _m
+_sp 762 478 762 479 639 479 3 _pl _pf _np _s _s 639 420 _m
+_sp 640 420 640 479 639 479 3 _pl _pf _np 
+_s 0 g 57 121 641 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 3589 _m
+(0.44)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 478 _m
+_sp 902 478 902 479 761 479 3 _pl _pf _np _s _s 761 420 _m
+_sp 762 420 762 479 761 479 3 _pl _pf _np 
+_s 0 g 57 139 763 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 3589 _m
+(0.23)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 478 _m
+_sp 1032 478 1032 479 901 479 3 _pl _pf _np _s _s 901 420 _m
+_sp 902 420 902 479 901 479 3 _pl _pf _np 
+_s 0 g 57 129 903 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 3589 _m
+(1.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 478 _m
+_sp 1116 478 1116 479 1031 479 3 _pl _pf _np _s _s 1031 420 _m
+_sp 1032 420 1032 479 1031 479 3 _pl _pf _np 
+_s 0 g 57 83 1033 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 3589 _m
+(0.73)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 478 _m
+_sp 1247 478 1247 479 1115 479 3 _pl _pf _np _s _s 1115 420 _m
+_sp 1116 420 1116 479 1115 479 3 _pl _pf _np 
+_s 0 g 57 130 1117 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 3589 _m
+(0.34)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 478 _m
+_sp 1369 478 1369 479 1246 479 3 _pl _pf _np _s _s 1246 420 _m
+_sp 1247 420 1247 479 1246 479 3 _pl _pf _np 
+_s 0 g 57 121 1248 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 3589 _m
+(0.44)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 420 _m
+_sp 1500 420 1500 479 1499 479 3 _pl _pf _np _s _s 1369 478 _m
+_sp 1496 478 1496 479 1369 479 3 _pl _pf _np _s _s 1369 420 _m
+_sp 1370 420 1370 479 1369 479 3 _pl _pf _np _s _s 1495 420 _m
+_sp 1496 420 1496 479 1495 479 3 _pl _pf _np 
+_s 0 g 57 123 1371 420 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 3589 _m
+(0.50)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 420 _m
+_sp 279 420 279 421 154 421 3 _pl _pf _np _s _s 150 361 _m
+_sp 151 361 151 421 150 421 3 _pl _pf _np _s _s 154 361 _m
+_sp 155 361 155 421 154 421 3 _pl _pf _np 
+_s 0 g 58 123 156 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 420 _m
+_sp 383 420 383 421 278 421 3 _pl _pf _np _s _s 278 361 _m
+_sp 279 361 279 421 278 421 3 _pl _pf _np 
+_s 0 g 58 103 280 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 3119 _m
+(Small)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 420 _m
+_sp 495 420 495 421 382 421 3 _pl _pf _np _s _s 382 361 _m
+_sp 383 361 383 421 382 421 3 _pl _pf _np 
+_s 0 g 58 111 384 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 3119 _m
+(0.65)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 420 _m
+_sp 640 420 640 421 494 421 3 _pl _pf _np _s _s 494 361 _m
+_sp 495 361 495 421 494 421 3 _pl _pf _np 
+_s 0 g 58 144 496 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 3119 _m
+(0.52)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 420 _m
+_sp 762 420 762 421 639 421 3 _pl _pf _np _s _s 639 361 _m
+_sp 640 361 640 421 639 421 3 _pl _pf _np 
+_s 0 g 58 121 641 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 3119 _m
+(0.47)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 420 _m
+_sp 902 420 902 421 761 421 3 _pl _pf _np _s _s 761 361 _m
+_sp 762 361 762 421 761 421 3 _pl _pf _np 
+_s 0 g 58 139 763 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 3119 _m
+(0.25)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 420 _m
+_sp 1032 420 1032 421 901 421 3 _pl _pf _np _s _s 901 361 _m
+_sp 902 361 902 421 901 421 3 _pl _pf _np 
+_s 0 g 58 129 903 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 3119 _m
+(0.99)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 420 _m
+_sp 1116 420 1116 421 1031 421 3 _pl _pf _np _s _s 1031 361 _m
+_sp 1032 361 1032 421 1031 421 3 _pl _pf _np 
+_s 0 g 58 83 1033 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 3119 _m
+(0.40)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 420 _m
+_sp 1247 420 1247 421 1115 421 3 _pl _pf _np _s _s 1115 361 _m
+_sp 1116 361 1116 421 1115 421 3 _pl _pf _np 
+_s 0 g 58 130 1117 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 3119 _m
+(0.32)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 420 _m
+_sp 1369 420 1369 421 1246 421 3 _pl _pf _np _s _s 1246 361 _m
+_sp 1247 361 1247 421 1246 421 3 _pl _pf _np 
+_s 0 g 58 121 1248 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 3119 _m
+(0.39)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 361 _m
+_sp 1500 361 1500 421 1499 421 3 _pl _pf _np _s _s 1369 420 _m
+_sp 1496 420 1496 421 1369 421 3 _pl _pf _np _s _s 1369 361 _m
+_sp 1370 361 1370 421 1369 421 3 _pl _pf _np _s _s 1495 361 _m
+_sp 1496 361 1496 421 1495 421 3 _pl _pf _np 
+_s 0 g 58 123 1371 361 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 3119 _m
+(0.50)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 361 _m
+_sp 279 361 279 362 154 362 3 _pl _pf _np _s _s 150 302 _m
+_sp 151 302 151 362 150 362 3 _pl _pf _np _s _s 154 302 _m
+_sp 155 302 155 362 154 362 3 _pl _pf _np 
+_s 0 g 58 123 156 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 1348 2649 _m
+(Rough)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 361 _m
+_sp 383 361 383 362 278 362 3 _pl _pf _np _s _s 278 302 _m
+_sp 279 302 279 362 278 362 3 _pl _pf _np 
+_s 0 g 58 103 280 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 2649 _m
+(Large)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 361 _m
+_sp 495 361 495 362 382 362 3 _pl _pf _np _s _s 382 302 _m
+_sp 383 302 383 362 382 362 3 _pl _pf _np 
+_s 0 g 58 111 384 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 2649 _m
+(0.95)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 361 _m
+_sp 640 361 640 362 494 362 3 _pl _pf _np _s _s 494 302 _m
+_sp 495 302 495 362 494 362 3 _pl _pf _np 
+_s 0 g 58 144 496 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 2649 _m
+(1.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 361 _m
+_sp 762 361 762 362 639 362 3 _pl _pf _np _s _s 639 302 _m
+_sp 640 302 640 362 639 362 3 _pl _pf _np 
+_s 0 g 58 121 641 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 2649 _m
+(0.81)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 361 _m
+_sp 902 361 902 362 761 362 3 _pl _pf _np _s _s 761 302 _m
+_sp 762 302 762 362 761 362 3 _pl _pf _np 
+_s 0 g 58 139 763 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 2649 _m
+(0.79)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 361 _m
+_sp 1032 361 1032 362 901 362 3 _pl _pf _np _s _s 901 302 _m
+_sp 902 302 902 362 901 362 3 _pl _pf _np 
+_s 0 g 58 129 903 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 2649 _m
+(0.99)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 361 _m
+_sp 1116 361 1116 362 1031 362 3 _pl _pf _np _s _s 1031 302 _m
+_sp 1032 302 1032 362 1031 362 3 _pl _pf _np 
+_s 0 g 58 83 1033 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 2649 _m
+(0.90)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 361 _m
+_sp 1247 361 1247 362 1115 362 3 _pl _pf _np _s _s 1115 302 _m
+_sp 1116 302 1116 362 1115 362 3 _pl _pf _np 
+_s 0 g 58 130 1117 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 2649 _m
+(1.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 361 _m
+_sp 1369 361 1369 362 1246 362 3 _pl _pf _np _s _s 1246 302 _m
+_sp 1247 302 1247 362 1246 362 3 _pl _pf _np 
+_s 0 g 58 121 1248 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 2649 _m
+(0.97)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 302 _m
+_sp 1500 302 1500 362 1499 362 3 _pl _pf _np _s _s 1369 361 _m
+_sp 1496 361 1496 362 1369 362 3 _pl _pf _np _s _s 1369 302 _m
+_sp 1370 302 1370 362 1369 362 3 _pl _pf _np _s _s 1495 302 _m
+_sp 1496 302 1496 362 1495 362 3 _pl _pf _np 
+_s 0 g 58 123 1371 302 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 2649 _m
+(1.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 154 302 _m
+_sp 279 302 279 303 154 303 3 _pl _pf _np _s _s 150 243 _m
+_sp 151 243 151 303 150 303 3 _pl _pf _np _s _s 154 243 _m
+_sp 155 243 155 303 154 303 3 _pl _pf _np 
+_s 0 g 58 123 156 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 302 _m
+_sp 383 302 383 303 278 303 3 _pl _pf _np _s _s 278 243 _m
+_sp 279 243 279 303 278 303 3 _pl _pf _np 
+_s 0 g 58 103 280 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 2179 _m
+(Medium)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 302 _m
+_sp 495 302 495 303 382 303 3 _pl _pf _np _s _s 382 243 _m
+_sp 383 243 383 303 382 303 3 _pl _pf _np 
+_s 0 g 58 111 384 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 2179 _m
+(0.83)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 302 _m
+_sp 640 302 640 303 494 303 3 _pl _pf _np _s _s 494 243 _m
+_sp 495 243 495 303 494 303 3 _pl _pf _np 
+_s 0 g 58 144 496 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 2179 _m
+(0.85)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 302 _m
+_sp 762 302 762 303 639 303 3 _pl _pf _np _s _s 639 243 _m
+_sp 640 243 640 303 639 303 3 _pl _pf _np 
+_s 0 g 58 121 641 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 2179 _m
+(0.89)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 302 _m
+_sp 902 302 902 303 761 303 3 _pl _pf _np _s _s 761 243 _m
+_sp 762 243 762 303 761 303 3 _pl _pf _np 
+_s 0 g 58 139 763 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 2179 _m
+(0.81)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 302 _m
+_sp 1032 302 1032 303 901 303 3 _pl _pf _np _s _s 901 243 _m
+_sp 902 243 902 303 901 303 3 _pl _pf _np 
+_s 0 g 58 129 903 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 2179 _m
+(0.91)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 302 _m
+_sp 1116 302 1116 303 1031 303 3 _pl _pf _np _s _s 1031 243 _m
+_sp 1032 243 1032 303 1031 303 3 _pl _pf _np 
+_s 0 g 58 83 1033 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 2179 _m
+(0.68)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 302 _m
+_sp 1247 302 1247 303 1115 303 3 _pl _pf _np _s _s 1115 243 _m
+_sp 1116 243 1116 303 1115 303 3 _pl _pf _np 
+_s 0 g 58 130 1117 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 2179 _m
+(0.91)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 302 _m
+_sp 1369 302 1369 303 1246 303 3 _pl _pf _np _s _s 1246 243 _m
+_sp 1247 243 1247 303 1246 303 3 _pl _pf _np 
+_s 0 g 58 121 1248 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 2179 _m
+(0.94)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1499 243 _m
+_sp 1500 243 1500 303 1499 303 3 _pl _pf _np _s _s 1369 302 _m
+_sp 1496 302 1496 303 1369 303 3 _pl _pf _np _s _s 1369 243 _m
+_sp 1370 243 1370 303 1369 303 3 _pl _pf _np _s _s 1495 243 _m
+_sp 1496 243 1496 303 1495 303 3 _pl _pf _np 
+_s 0 g 58 123 1371 243 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 2179 _m
+(0.95)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 150 179 _m
+_sp 279 179 279 180 150 180 3 _pl _pf _np _s _s 154 243 _m
+_sp 279 243 279 244 154 244 3 _pl _pf _np _s _s 150 179 _m
+_sp 151 179 151 244 150 244 3 _pl _pf _np _s _s 154 183 _m
+_sp 279 183 279 184 154 184 3 _pl _pf _np _s _s 154 183 _m
+_sp 155 183 155 244 154 244 3 _pl _pf _np 
+_s 0 g 57 123 156 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 278 179 _m
+_sp 383 179 383 180 278 180 3 _pl _pf _np _s _s 278 243 _m
+_sp 383 243 383 244 278 244 3 _pl _pf _np _s _s 278 183 _m
+_sp 279 183 279 244 278 244 3 _pl _pf _np _s _s 278 183 _m
+_sp 383 183 383 184 278 184 3 _pl _pf _np 
+_s 0 g 57 103 280 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 2347 1709 _m
+(Small)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 382 179 _m
+_sp 495 179 495 180 382 180 3 _pl _pf _np _s _s 382 243 _m
+_sp 495 243 495 244 382 244 3 _pl _pf _np _s _s 382 183 _m
+_sp 383 183 383 244 382 244 3 _pl _pf _np _s _s 382 183 _m
+_sp 495 183 495 184 382 184 3 _pl _pf _np 
+_s 0 g 57 111 384 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 3453 1709 _m
+(0.63)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 494 179 _m
+_sp 640 179 640 180 494 180 3 _pl _pf _np _s _s 494 243 _m
+_sp 640 243 640 244 494 244 3 _pl _pf _np _s _s 494 183 _m
+_sp 495 183 495 244 494 244 3 _pl _pf _np _s _s 494 183 _m
+_sp 640 183 640 184 494 184 3 _pl _pf _np 
+_s 0 g 57 144 496 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 4614 1709 _m
+(0.62)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 639 179 _m
+_sp 762 179 762 180 639 180 3 _pl _pf _np _s _s 639 243 _m
+_sp 762 243 762 244 639 244 3 _pl _pf _np _s _s 639 183 _m
+_sp 640 183 640 244 639 244 3 _pl _pf _np _s _s 639 183 _m
+_sp 762 183 762 184 639 184 3 _pl _pf _np 
+_s 0 g 57 121 641 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 5594 1709 _m
+(1.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 761 179 _m
+_sp 902 179 902 180 761 180 3 _pl _pf _np _s _s 761 243 _m
+_sp 902 243 902 244 761 244 3 _pl _pf _np _s _s 761 183 _m
+_sp 762 183 762 244 761 244 3 _pl _pf _np _s _s 761 183 _m
+_sp 902 183 902 184 761 184 3 _pl _pf _np 
+_s 0 g 57 139 763 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 6711 1709 _m
+(1.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 901 179 _m
+_sp 1032 179 1032 180 901 180 3 _pl _pf _np _s _s 901 243 _m
+_sp 1032 243 1032 244 901 244 3 _pl _pf _np _s _s 901 183 _m
+_sp 902 183 902 244 901 244 3 _pl _pf _np _s _s 901 183 _m
+_sp 1032 183 1032 184 901 184 3 _pl _pf _np 
+_s 0 g 57 129 903 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 7750 1709 _m
+(0.89)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1031 179 _m
+_sp 1116 179 1116 180 1031 180 3 _pl _pf _np _s _s 1031 243 _m
+_sp 1116 243 1116 244 1031 244 3 _pl _pf _np _s _s 1031 183 _m
+_sp 1032 183 1032 244 1031 244 3 _pl _pf _np _s _s 1031 183 _m
+_sp 1116 183 1116 184 1031 184 3 _pl _pf _np 
+_s 0 g 57 83 1033 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 8422 1709 _m
+(0.38)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1115 179 _m
+_sp 1247 179 1247 180 1115 180 3 _pl _pf _np _s _s 1115 243 _m
+_sp 1247 243 1247 244 1115 244 3 _pl _pf _np _s _s 1115 183 _m
+_sp 1116 183 1116 244 1115 244 3 _pl _pf _np _s _s 1115 183 _m
+_sp 1247 183 1247 184 1115 184 3 _pl _pf _np 
+_s 0 g 57 130 1117 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 9472 1709 _m
+(0.86)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1246 179 _m
+_sp 1369 179 1369 180 1246 180 3 _pl _pf _np _s _s 1246 243 _m
+_sp 1369 243 1369 244 1246 244 3 _pl _pf _np _s _s 1246 183 _m
+_sp 1247 183 1247 244 1246 244 3 _pl _pf _np _s _s 1246 183 _m
+_sp 1369 183 1369 184 1246 184 3 _pl _pf _np 
+_s 0 g 57 121 1248 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 10452 1709 _m
+(1.00)_S gsave 8 8 scale 8 _sr _s 
+_s [] 0 _d 2 _lc 0 g _s 1369 179 _m
+_sp 1500 179 1500 180 1369 180 3 _pl _pf _np _s _s 1499 179 _m
+_sp 1500 179 1500 244 1499 244 3 _pl _pf _np _s _s 1369 243 _m
+_sp 1496 243 1496 244 1369 244 3 _pl _pf _np _s _s 1369 183 _m
+_sp 1370 183 1370 244 1369 244 3 _pl _pf _np _s _s 1369 183 _m
+_sp 1496 183 1496 184 1369 184 3 _pl _pf _np _s _s 1495 183 _m
+_sp 1496 183 1496 244 1495 244 3 _pl _pf _np 
+_s 0 g 57 123 1371 185 _cw 
+
+_s 0 g 0 0 0 0 _cw 
+_s grestore 11452 1709 _m
+(0.99)_S _ep
+_bp 0 13200 10200 _ornt /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8650 11886 _m
+(15)_S 1200 11519 _m
+(References:)_S 6600 _t
+1200 11185 _m
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+100 _t
+1200 10851 _m
+(1)_S 200 _t
+(Abele,)_S 100 _t
+(J.S.,)_S 100 _t
+(Miller,)_S 100 _t
+(T.R.,)_S 100 _t
+(Goodson,)_S 100 _t
+(W.H.I)_S 100 _t
+(and)_S 100 _t
+(Hohn,)_S 100 _t
+(D.C.)_S 100 _t
+(\(1983\))_S 1200 10517 _m
+(Fine-needle)_S 100 _t
+(aspiration)_S 100 _t
+(of)_S 100 _t
+(palpable)_S 100 _t
+(breast)_S 100 _t
+(masses.)_S 100 _t
+(A)_S 100 _t
+(program)_S 100 _t
+(for)_S 100 _t
+(staged)_S 1200 10183 _m
+(inplementation.)_S 100 _t
+(Arch)_S 100 _t
+(Surg,)_S 100 _t
+(118,)_S 100 _t
+(859-863.)_S 100 _t
+1200 9849 _m
+100 _t
+1200 9515 _m
+100 _t
+(2)_S 200 _t
+(Ballard,)_S 100 _t
+(D.)_S 100 _t
+(and)_S 100 _t
+(Brown,)_S 100 _t
+(C.)_S 100 _t
+(\(1982\))_S 100 _t
+(Computer)_S 100 _t
+(Vision,)_S 100 _t
+(Prentice-Hall,)_S 100 _t
+(Inc.,)_S 1200 9181 _m
+(Englewood)_S 100 _t
+(Cliffs,)_S 100 _t
+(New)_S 100 _t
+(Jersey.)_S 100 _t
+1200 8847 _m
+100 _t
+1200 8513 _m
+100 _t
+(3)_S 200 _t
+(Barrows,)_S 100 _t
+(G.H.,)_S 100 _t
+(Anderson,)_S 100 _t
+(T.J.,)_S 100 _t
+(Lamb,)_S 100 _t
+(J.L.)_S 100 _t
+(and)_S 100 _t
+(Dixon,)_S 100 _t
+(J.M.)_S 100 _t
+(\(1986\))_S 1200 8179 _m
+(Fine-needle)_S 100 _t
+(aspiration)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(cancer.)_S 100 _t
+(Relationship)_S 100 _t
+(of)_S 100 _t
+(clinical)_S 100 _t
+(factors)_S 100 _t
+(to)_S 1200 7845 _m
+(cytology)_S 100 _t
+(results)_S 100 _t
+(in)_S 100 _t
+(689)_S 100 _t
+(primary)_S 100 _t
+(malignancies.)_S 100 _t
+(Cancer,)_S 100 _t
+(58,)_S 100 _t
+(1493-1498.)_S 100 _t
+1200 7511 _m
+100 _t
+1200 7177 _m
+100 _t
+(4)_S 200 _t
+(Bell,)_S 100 _t
+(D.A.,)_S 100 _t
+(Hajdu,)_S 100 _t
+(S.I.,)_S 100 _t
+(Urban,)_S 100 _t
+(J.A.)_S 100 _t
+(and)_S 100 _t
+(Gaston,)_S 100 _t
+(J.P.)_S 100 _t
+(\(1983\))_S 100 _t
+(Role)_S 100 _t
+(of)_S 1200 6843 _m
+(aspiration)_S 100 _t
+(cytology)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(diagnosis)_S 100 _t
+(and)_S 100 _t
+(management)_S 100 _t
+(of)_S 100 _t
+(mammary)_S 100 _t
+(lesions)_S 100 _t
+(in)_S 1200 6509 _m
+(office)_S 100 _t
+(practice.)_S 100 _t
+(Cancer,)_S 100 _t
+(51,)_S 100 _t
+(1182-1189.)_S 100 _t
+1200 6175 _m
+100 _t
+1200 5841 _m
+100 _t
+(5)_S 200 _t
+(Bennett,)_S 100 _t
+(K.P.)_S 100 _t
+(\(1992\),)_S 100 _t
+(Decision)_S 100 _t
+(Tree)_S 100 _t
+(Construction)_S 100 _t
+(via)_S 100 _t
+(Linear)_S 100 _t
+(Programming.)_S 1200 5507 _m
+(In:)_S 100 _t
+(Proceedings)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(4th)_S 100 _t
+(Midwest)_S 100 _t
+(Artificial)_S 100 _t
+(Intelligence)_S 100 _t
+(and)_S 100 _t
+(Cognitive)_S 1200 5173 _m
+(Science)_S 100 _t
+(Society)_S 100 _t
+(Conference,)_S 100 _t
+(pp.)_S 100 _t
+(97-101.)_S 100 _t
+(Editor:)_S 100 _t
+(M.)_S 100 _t
+(Evans.)_S 200 _t
+1200 4839 _m
+(\(Also)_S 100 _t
+(available)_S 100 _t
+(on)_S 100 _t
+(request)_S 100 _t
+(as)_S 100 _t
+(Tehnical)_S 100 _t
+(Report)_S 100 _t
+(#1067,)_S 100 _t
+(Computer)_S 100 _t
+(Sciences)_S 1200 4505 _m
+(Dept.,)_S 100 _t
+(University)_S 100 _t
+(of)_S 100 _t
+(Wisconsin,)_S 100 _t
+(1210)_S 100 _t
+(W.)_S 100 _t
+(Dayton)_S 100 _t
+(St.,)_S 100 _t
+(Madison,)_S 100 _t
+(WI)_S 100 _t
+(53706\).)_S 1200 4171 _m
+100 _t
+1200 3837 _m
+100 _t
+(6)_S 200 _t
+(Bjurstam,)_S 100 _t
+(N.,)_S 100 _t
+(Hedberg,)_S 100 _t
+(K.,)_S 100 _t
+(Hultborn,)_S 100 _t
+(K.A.,)_S 100 _t
+(Johansson,)_S 100 _t
+(N.T.)_S 100 _t
+(and)_S 100 _t
+(Johnsen,)_S 1200 3503 _m
+(C.)_S 100 _t
+(\(1974\))_S 100 _t
+(Diagnosis)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(carcinoma:)_S 100 _t
+(Evalutation)_S 100 _t
+(of)_S 100 _t
+(clinical)_S 1200 3169 _m
+(examination,)_S 100 _t
+(mammography,)_S 100 _t
+(thermography)_S 100 _t
+(and)_S 100 _t
+(aspiration)_S 100 _t
+(biopsy)_S 100 _t
+(in)_S 100 _t
+(breast)_S 1200 2835 _m
+(disease.)_S 100 _t
+(Progr)_S 100 _t
+(Surg,)_S 100 _t
+(13,)_S 100 _t
+(1-65.)_S 100 _t
+1200 2501 _m
+100 _t
+1200 2167 _m
+100 _t
+(7)_S 200 _t
+(de)_S 100 _t
+(Ranieri,)_S 100 _t
+(E.,)_S 100 _t
+(Mandard,)_S 100 _t
+(A.M.,)_S 100 _t
+(Juret,)_S 100 _t
+(P.,)_S 100 _t
+(Couette,)_S 100 _t
+(J.E.,)_S 100 _t
+(Delozier,)_S 100 _t
+(T.)_S 1200 1833 _m
+(and)_S 100 _t
+(Ollivier,)_S 100 _t
+(J.MLG)_S 100 _t
+(\(1983\))_S 100 _t
+(Fiabilite)_S 100 _t
+(de)_S 100 _t
+(la)_S 100 _t
+(ponction)_S 100 _t
+(cytologique.)_S 100 _t
+(Qui)_S 100 _t
+(foit)_S 1200 1499 _m
+(ponctionnner)_S 100 _t
+(les)_S 100 _t
+(tumeurs)_S 100 _t
+(du)_S 100 _t
+(sein?)_S 100 _t
+(La)_S 100 _t
+(Presse)_S 100 _t
+(Med,)_S 100 _t
+(12,)_S 100 _t
+(1527-1529.)_S 100 _t
+_ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8650 11886 _m
+(16)_S 1200 11519 _m
+100 _t
+1200 11185 _m
+100 _t
+(8)_S 200 _t
+(Frable,)_S 100 _t
+(W.J.)_S 100 _t
+(\(1983\))_S 100 _t
+(Thin-needle)_S 100 _t
+(aspiration)_S 100 _t
+(biopsy.)_S 200 _t
+(Major)_S 100 _t
+(Problems)_S 100 _t
+(in)_S 1200 10851 _m
+(Pathology,)_S 100 _t
+(WB)_S 100 _t
+(Saunders)_S 100 _t
+(Co.,)_S 100 _t
+(Philadelphia.)_S 100 _t
+1200 10517 _m
+100 _t
+1200 10183 _m
+100 _t
+(9)_S 200 _t
+(Giard,)_S 100 _t
+(R.W.M.)_S 100 _t
+(and)_S 100 _t
+(Hermans,)_S 100 _t
+(J.)_S 100 _t
+(\(1992\))_S 100 _t
+(The)_S 100 _t
+(value)_S 100 _t
+(of)_S 100 _t
+(aspiration)_S 100 _t
+(cytologic)_S 1200 9849 _m
+(examination)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(breast.)_S 100 _t
+(A)_S 100 _t
+(statistical)_S 100 _t
+(review)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(medical)_S 100 _t
+(literature.)_S 1200 9515 _m
+(Cancer,)_S 100 _t
+(69,)_S 100 _t
+(2104-2110.)_S 100 _t
+1200 9181 _m
+100 _t
+1200 8847 _m
+(10)_S 200 _t
+(Griffith,)_S 100 _t
+(C.N.,)_S 100 _t
+(Kern,)_S 100 _t
+(W.H.)_S 100 _t
+(and)_S 100 _t
+(Mikkelsen,)_S 100 _t
+(W.P.)_S 100 _t
+(\(1986\))_S 100 _t
+(Needle)_S 100 _t
+(aspiration)_S 1200 8513 _m
+(cytologic)_S 100 _t
+(examination)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(management)_S 100 _t
+(of)_S 100 _t
+(suspicious)_S 100 _t
+(lesions)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(breast.)_S 1200 8179 _m
+(Surg)_S 100 _t
+(Gynec)_S 100 _t
+(Obst,)_S 100 _t
+(162,)_S 100 _t
+(142-144.)_S 100 _t
+1200 7845 _m
+100 _t
+1200 7511 _m
+(11)_S 200 _t
+(Gupta,)_S 100 _t
+(R.K.,)_S 100 _t
+(Dowle,)_S 100 _t
+(C.S.)_S 100 _t
+(and)_S 100 _t
+(Simpson,)_S 100 _t
+(J.S.)_S 100 _t
+(\(1990\))_S 100 _t
+(The)_S 100 _t
+(value)_S 100 _t
+(of)_S 100 _t
+(needle)_S 1200 7177 _m
+(aspiration)_S 100 _t
+(cytology)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(breast,)_S 100 _t
+(with)_S 100 _t
+(an)_S 100 _t
+(emphasis)_S 100 _t
+(on)_S 100 _t
+(the)_S 100 _t
+(diagnosis)_S 100 _t
+(of)_S 1200 6843 _m
+(breast)_S 100 _t
+(disease)_S 100 _t
+(in)_S 100 _t
+(young)_S 100 _t
+(women)_S 100 _t
+(below)_S 100 _t
+(the)_S 100 _t
+(age)_S 100 _t
+(of)_S 100 _t
+(30.)_S 100 _t
+(Acta)_S 100 _t
+(Cyologica,)_S 100 _t
+(34,)_S 1200 6509 _m
+(165-168.)_S 100 _t
+1200 6175 _m
+100 _t
+1200 5841 _m
+(12)_S 200 _t
+(Halevy,)_S 100 _t
+(A.,)_S 100 _t
+(Reif,)_S 100 _t
+(R.,)_S 100 _t
+(Bogolovsky,)_S 100 _t
+(H.)_S 100 _t
+(and)_S 100 _t
+(Orda,)_S 100 _t
+(R.)_S 100 _t
+(\(1987\))_S 100 _t
+(Diagnosis)_S 100 _t
+(of)_S 1200 5507 _m
+(carcinoma)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(breast)_S 100 _t
+(by)_S 100 _t
+(fine)_S 100 _t
+(needle)_S 100 _t
+(aspiration)_S 100 _t
+(cytology.)_S 100 _t
+(Surg)_S 100 _t
+(Gynec)_S 100 _t
+(Obst,)_S 1200 5173 _m
+(164,)_S 100 _t
+(506-508.)_S 100 _t
+1200 4839 _m
+100 _t
+1200 4505 _m
+(13)_S 200 _t
+(Hammond,)_S 100 _t
+(S.,)_S 100 _t
+(Keyhani-Rofagha,)_S 100 _t
+(S.)_S 100 _t
+(and)_S 100 _t
+(O'Toole,)_S 100 _t
+(R.V.)_S 100 _t
+(\(1987\))_S 100 _t
+(Statistical)_S 1200 4171 _m
+(analysis)_S 100 _t
+(of)_S 100 _t
+(fine)_S 100 _t
+(needle)_S 100 _t
+(aspiration)_S 100 _t
+(cytology)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(breast.)_S 100 _t
+(Acta)_S 100 _t
+(Cytologica,)_S 1200 3837 _m
+(31,)_S 100 _t
+(276-280.)_S 100 _t
+1200 3503 _m
+100 _t
+1200 3169 _m
+(14)_S 200 _t
+(Horgan,)_S 100 _t
+(P.G.,)_S 100 _t
+(Waldron,)_S 100 _t
+(D.,)_S 100 _t
+(Mooney,)_S 100 _t
+(E.,)_S 100 _t
+(O'Brien,)_S 100 _t
+(D.,)_S 100 _t
+(McGuire,)_S 100 _t
+(M.)_S 100 _t
+(and)_S 1200 2835 _m
+(Given,)_S 100 _t
+(H.F.)_S 100 _t
+(\(1991\))_S 100 _t
+(The)_S 100 _t
+(role)_S 100 _t
+(of)_S 100 _t
+(aspiration)_S 100 _t
+(cytologic)_S 100 _t
+(examination)_S 100 _t
+(in)_S 100 _t
+(the)_S 1200 2501 _m
+(diagnosis)_S 100 _t
+(of)_S 100 _t
+(carcinoma)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(breast.)_S 100 _t
+(Surg)_S 100 _t
+(Gynec)_S 100 _t
+(Obst,)_S 100 _t
+(172,)_S 100 _t
+(290-292.)_S 100 _t
+1200 2167 _m
+100 _t
+1200 1833 _m
+(15)_S 200 _t
+(Hutchinson,)_S 100 _t
+(M.L.,)_S 100 _t
+(Isenstein,)_S 100 _t
+(L.M.)_S 100 _t
+(and)_S 100 _t
+(Zahniser,)_S 100 _t
+(D.J.)_S 100 _t
+(\(1991\))_S 1200 1499 _m
+(High-resolution)_S 100 _t
+(and)_S 100 _t
+(contextual)_S 100 _t
+(analysis)_S 100 _t
+(for)_S 100 _t
+(the)_S 100 _t
+(diagnosis)_S 100 _t
+(of)_S 100 _t
+(fine)_S 100 _t
+(needle)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8650 11886 _m
+(17)_S 1200 11519 _m
+(aspirates)_S 100 _t
+(of)_S 100 _t
+(breast.)_S 100 _t
+(Analy)_S 100 _t
+(Quant)_S 100 _t
+(Cytol)_S 100 _t
+(and)_S 100 _t
+(Hist,)_S 100 _t
+(13,)_S 100 _t
+(351-355.)_S 100 _t
+1200 11185 _m
+100 _t
+1200 10851 _m
+(16)_S 200 _t
+(Hutchinson,)_S 100 _t
+(W.B.,)_S 100 _t
+(Thomas,)_S 100 _t
+(D.B.,)_S 100 _t
+(Hamilin,)_S 100 _t
+(W.B.,)_S 100 _t
+(Roth,)_S 100 _t
+(G.F.)_S 100 _t
+(and)_S 100 _t
+(Peterson,)_S 1200 10517 _m
+(A.V.)_S 100 _t
+(\(1980\))_S 100 _t
+(Risk)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(cancer)_S 100 _t
+(in)_S 100 _t
+(women)_S 100 _t
+(with)_S 100 _t
+(benign)_S 100 _t
+(breast)_S 100 _t
+(disease.)_S 100 _t
+(JNCI,)_S 1200 10183 _m
+(65,)_S 100 _t
+(13-20.)_S 100 _t
+1200 9849 _m
+100 _t
+1200 9515 _m
+(17)_S 200 _t
+(Kass,)_S 100 _t
+(M.,)_S 100 _t
+(Witkin,)_S 100 _t
+(A.)_S 100 _t
+(and)_S 100 _t
+(Terzopoulos,)_S 100 _t
+(D.)_S 100 _t
+(\(1987\))_S 100 _t
+(Snakes:)_S 100 _t
+(Active)_S 100 _t
+(contour)_S 1200 9181 _m
+(models.)_S 100 _t
+(Proc.)_S 200 _t
+(First)_S 100 _t
+(Int.)_S 200 _t
+(Conf.)_S 200 _t
+(on)_S 100 _t
+(Computer)_S 100 _t
+(Vision,)_S 100 _t
+(259-269.)_S 100 _t
+1200 8847 _m
+100 _t
+1200 8513 _m
+(18)_S 200 _t
+(Kline,)_S 100 _t
+(T.)_S 100 _t
+(\(1981\))_S 100 _t
+(Handbook)_S 100 _t
+(of)_S 100 _t
+(Fine)_S 100 _t
+(Needle)_S 100 _t
+(Aspiration)_S 100 _t
+(Biopsy)_S 100 _t
+(Cytology,)_S 1200 8179 _m
+(C.V.)_S 100 _t
+(Mosby,)_S 100 _t
+(Saint)_S 100 _t
+(Louis,)_S 100 _t
+(MO.)_S 100 _t
+1200 7845 _m
+100 _t
+1200 7511 _m
+(19)_S 200 _t
+(Knight,)_S 100 _t
+(C.D.J,)_S 100 _t
+(Ingle,)_S 100 _t
+(J.N.,)_S 100 _t
+(Gaffey,)_S 100 _t
+(T.A.)_S 100 _t
+(and)_S 100 _t
+(et)_S 100 _t
+(al,)_S 200 _t
+(\(1986\))_S 100 _t
+(Surgical)_S 1200 7177 _m
+(considerations)_S 100 _t
+(after)_S 100 _t
+(chemotherapy)_S 100 _t
+(and)_S 100 _t
+(radiation)_S 100 _t
+(therapy)_S 100 _t
+(for)_S 100 _t
+(inflammatory)_S 1200 6843 _m
+(breast)_S 100 _t
+(cancer.)_S 100 _t
+(Surgery,)_S 100 _t
+(99,)_S 100 _t
+(385-391.)_S 100 _t
+1200 6509 _m
+100 _t
+1200 6175 _m
+(20)_S 200 _t
+(Koivuniemi,)_S 100 _t
+(A.P.)_S 100 _t
+(\(1976\))_S 100 _t
+(Fine-needle)_S 100 _t
+(aspiration)_S 100 _t
+(biopsy)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(breast.)_S 100 _t
+(Ann)_S 1200 5841 _m
+(Clin)_S 100 _t
+(Research,)_S 100 _t
+(8,)_S 100 _t
+(272-283.)_S 100 _t
+1200 5507 _m
+100 _t
+1200 5173 _m
+(21)_S 200 _t
+(Mandelbrot,)_S 100 _t
+(B.B)_S 100 _t
+(\(1977\))_S 100 _t
+(The)_S 100 _t
+(Fractal)_S 100 _t
+(Geometry)_S 100 _t
+(of)_S 100 _t
+(Nature,)_S 100 _t
+(W.H.Freeman)_S 100 _t
+(and)_S 1200 4839 _m
+(Company,)_S 100 _t
+(New)_S 100 _t
+(York,)_S 100 _t
+(N.Y..)_S 100 _t
+1200 4505 _m
+100 _t
+1200 4171 _m
+(22)_S 200 _t
+(Mangasarian,)_S 100 _t
+(O.L.)_S 100 _t
+(\(1968\))_S 100 _t
+(Multi-surface)_S 100 _t
+(method)_S 100 _t
+(of)_S 100 _t
+(pattern)_S 100 _t
+(separation.)_S 1200 3837 _m
+(IEEE)_S 100 _t
+(Trans)_S 100 _t
+(on)_S 100 _t
+(information)_S 100 _t
+(theory,)_S 100 _t
+(IT-14,)_S 100 _t
+(801-807.)_S 100 _t
+1200 3503 _m
+100 _t
+1200 3169 _m
+(23)_S 200 _t
+(Mangasarian,)_S 100 _t
+(O.L.)_S 100 _t
+(\(1992\))_S 100 _t
+(Mathematical)_S 100 _t
+(programming)_S 100 _t
+(in)_S 100 _t
+(neural)_S 100 _t
+(networks.)_S 1200 2835 _m
+(Technical)_S 100 _t
+(Report)_S 100 _t
+(#1129,)_S 100 _t
+(Computer)_S 100 _t
+(Sciences,)_S 100 _t
+(Univ)_S 100 _t
+(Wisc.)_S 100 _t
+(\(Available)_S 100 _t
+(on)_S 100 _t
+(request,)_S 1200 2501 _m
+(Computer)_S 100 _t
+(Sciences)_S 100 _t
+(Dept.,)_S 100 _t
+(University)_S 100 _t
+(of)_S 100 _t
+(Wisconsin,)_S 100 _t
+(1210)_S 100 _t
+(W.)_S 100 _t
+(Dayton)_S 100 _t
+(St.,)_S 1200 2167 _m
+(Madison,)_S 100 _t
+(WI)_S 100 _t
+(53706\).)_S 200 _t
+1200 1833 _m
+100 _t
+1200 1499 _m
+(24)_S 200 _t
+(Mangasarian,)_S 100 _t
+(O.L.,)_S 100 _t
+(Setiono,)_S 100 _t
+(R.)_S 100 _t
+(and)_S 100 _t
+(Wolberg,)_S 100 _t
+(W.H.)_S 100 _t
+(\(1990\),)_S 100 _t
+(Pattern)_S _ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8650 11886 _m
+(18)_S 1200 11519 _m
+(Recognition)_S 100 _t
+(via)_S 100 _t
+(Linear)_S 100 _t
+(Programming:Theory)_S 100 _t
+(and)_S 100 _t
+(Application)_S 100 _t
+(to)_S 100 _t
+(Medical)_S 1200 11185 _m
+(Diagnosis.)_S 100 _t
+(In:)_S 100 _t
+(Large-Scale)_S 100 _t
+(Numerical)_S 100 _t
+(Optimization,)_S 100 _t
+(pp.)_S 100 _t
+(22-30.)_S 100 _t
+(Editors:)_S 100 _t
+(T.F.)_S 1200 10851 _m
+(Coleman)_S 100 _t
+(and)_S 100 _t
+(Y.)_S 100 _t
+(Li.)_S 100 _t
+(SIAM,)_S 100 _t
+(Philadelphia,)_S 100 _t
+(Pa.)_S 100 _t
+1200 10517 _m
+100 _t
+1200 10183 _m
+(25)_S 200 _t
+(Nicholson,)_S 100 _t
+(S.,)_S 100 _t
+(Sainsbury,)_S 100 _t
+(J.R.C.,)_S 100 _t
+(Wadehra,)_S 100 _t
+(V.,)_S 100 _t
+(Needham,)_S 100 _t
+(G.K.)_S 100 _t
+(and)_S 1200 9849 _m
+(Farndon,)_S 100 _t
+(J.R.)_S 100 _t
+(\(1988\))_S 100 _t
+(Use)_S 100 _t
+(of)_S 100 _t
+(fine)_S 100 _t
+(needle)_S 100 _t
+(aspiration)_S 100 _t
+(cytology)_S 100 _t
+(with)_S 100 _t
+(immediate)_S 1200 9515 _m
+(reporting)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(diagnosis)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(disease.)_S 100 _t
+(Br)_S 100 _t
+(J)_S 100 _t
+(Surg,)_S 100 _t
+(75,)_S 100 _t
+(847-850.)_S 100 _t
+1200 9181 _m
+100 _t
+1200 8847 _m
+(26)_S 200 _t
+(Painter,)_S 100 _t
+(R.W.)_S 100 _t
+(and)_S 100 _t
+(Clark,)_S 100 _t
+(W.E.I)_S 100 _t
+(\(1988\))_S 100 _t
+(Negative)_S 100 _t
+(findings)_S 100 _t
+(on)_S 100 _t
+(fine-needle)_S 1200 8513 _m
+(aspiration)_S 100 _t
+(biopsy)_S 100 _t
+(of)_S 100 _t
+(solid)_S 100 _t
+(breast)_S 100 _t
+(masses:)_S 100 _t
+(Patient)_S 100 _t
+(management.)_S 100 _t
+(Amer)_S 100 _t
+(J)_S 100 _t
+(Surg,)_S 1200 8179 _m
+(155,)_S 100 _t
+(387-390.)_S 100 _t
+1200 7845 _m
+100 _t
+1200 7511 _m
+(27)_S 200 _t
+(Palombini,)_S 100 _t
+(L.,)_S 100 _t
+(Fulciniti,)_S 100 _t
+(F.,)_S 100 _t
+(Vetrani,)_S 100 _t
+(A.,)_S 100 _t
+(De)_S 100 _t
+(Rosa,)_S 100 _t
+(G.,)_S 100 _t
+(Di)_S 100 _t
+(Benedetto,)_S 1200 7177 _m
+(G.,)_S 100 _t
+(Zeppa,)_S 100 _t
+(P.)_S 100 _t
+(and)_S 100 _t
+(Troncone,)_S 100 _t
+(G.)_S 100 _t
+(\(1988\))_S 100 _t
+(Fine-needle)_S 100 _t
+(aspiration)_S 100 _t
+(biopsies)_S 100 _t
+(of)_S 1200 6843 _m
+(breast)_S 100 _t
+(masses.)_S 100 _t
+(A)_S 100 _t
+(critical)_S 100 _t
+(analysis)_S 100 _t
+(of)_S 100 _t
+(1956)_S 100 _t
+(cases)_S 100 _t
+(in)_S 100 _t
+(8)_S 100 _t
+(years)_S 100 _t
+(\(1976-1984\).)_S 1200 6509 _m
+(Cancer,)_S 100 _t
+(61,)_S 100 _t
+(2273-2277.)_S 100 _t
+1200 6175 _m
+100 _t
+1200 5841 _m
+(28)_S 200 _t
+(Parzen,)_S 100 _t
+(E.)_S 100 _t
+(\(1962\))_S 100 _t
+(On)_S 100 _t
+(estimation)_S 100 _t
+(of)_S 100 _t
+(a)_S 100 _t
+(probability)_S 100 _t
+(density)_S 100 _t
+(and)_S 100 _t
+(mode.)_S 100 _t
+(Ann)_S 1200 5507 _m
+(Mathematical)_S 100 _t
+(Statistics,)_S 100 _t
+(35,)_S 100 _t
+(1065-1076.)_S 100 _t
+1200 5173 _m
+100 _t
+1200 4839 _m
+(29)_S 200 _t
+(Pienta,)_S 100 _t
+(K.J.)_S 100 _t
+(and)_S 100 _t
+(Coffey,)_S 100 _t
+(D.S.)_S 100 _t
+(\(1991\))_S 100 _t
+(Correlation)_S 100 _t
+(of)_S 100 _t
+(nuclear)_S 100 _t
+(morphometry)_S 1200 4505 _m
+(with)_S 100 _t
+(progression)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(cancer.)_S 100 _t
+(Cancer,)_S 100 _t
+(68,)_S 100 _t
+(2012-2016.)_S 100 _t
+1200 4171 _m
+100 _t
+1200 3837 _m
+(30)_S 200 _t
+(Pilotti,)_S 100 _t
+(S.,)_S 100 _t
+(Rilke,)_S 100 _t
+(F.,)_S 100 _t
+(Delpiano,)_S 100 _t
+(C.,)_S 100 _t
+(Di)_S 100 _t
+(Pietro,)_S 100 _t
+(S.)_S 100 _t
+(and)_S 100 _t
+(Guzzon,)_S 100 _t
+(A.)_S 1200 3503 _m
+(\(1982\))_S 100 _t
+(Problems)_S 100 _t
+(in)_S 100 _t
+(fine-needle)_S 100 _t
+(aspiration)_S 100 _t
+(biopsy)_S 100 _t
+(cytology)_S 100 _t
+(of)_S 100 _t
+(clinically)_S 100 _t
+(or)_S 1200 3169 _m
+(mammographically)_S 100 _t
+(uncertain)_S 100 _t
+(breast)_S 100 _t
+(tumors.)_S 100 _t
+(Tumor,)_S 100 _t
+(68,)_S 100 _t
+(407-412.)_S 100 _t
+1200 2835 _m
+100 _t
+1200 2501 _m
+(31)_S 200 _t
+(Salmon,)_S 100 _t
+(I.,)_S 100 _t
+(Coibion,)_S 100 _t
+(M.,)_S 100 _t
+(Larsimont,)_S 100 _t
+(D.,)_S 100 _t
+(Badr-El-Din,)_S 100 _t
+(V)_S 100 _t
+(and)_S 100 _t
+(et)_S 100 _t
+(al.,)_S 100 _t
+1200 2167 _m
+(\(1991\))_S 100 _t
+(Comparison)_S 100 _t
+(of)_S 100 _t
+(fine)_S 100 _t
+(needle)_S 100 _t
+(aspirates)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(cancers)_S 100 _t
+(to)_S 100 _t
+(imprint)_S 1200 1833 _m
+(smears)_S 100 _t
+(by)_S 100 _t
+(means)_S 100 _t
+(of)_S 100 _t
+(digital)_S 100 _t
+(cell)_S 100 _t
+(image)_S 100 _t
+(analysis.)_S 100 _t
+(Analy)_S 100 _t
+(Quant)_S 100 _t
+(Cytol)_S 100 _t
+(and)_S 100 _t
+(Hist,)_S 1200 1499 _m
+(13,)_S 100 _t
+(193-200.)_S 100 _t
+_ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8650 11886 _m
+(19)_S 1200 11519 _m
+100 _t
+1200 11185 _m
+(32)_S 200 _t
+(Schondorf,)_S 100 _t
+(H.)_S 100 _t
+(and)_S 100 _t
+(Schneider,)_S 100 _t
+(V.)_S 100 _t
+(\(1978\))_S 100 _t
+(Aspiration)_S 100 _t
+(cytology)_S 100 _t
+(of)_S 100 _t
+(the)_S 1200 10851 _m
+(breast,)_S 100 _t
+(WB)_S 100 _t
+(Saunders)_S 100 _t
+(Co.,)_S 100 _t
+(Philadelphia.)_S 100 _t
+1200 10517 _m
+100 _t
+1200 10183 _m
+(33)_S 200 _t
+(Smallwood,)_S 100 _t
+(J.,)_S 100 _t
+(Herbert,)_S 100 _t
+(A.,)_S 100 _t
+(Guyer,)_S 100 _t
+(P.)_S 100 _t
+(and)_S 100 _t
+(Taylor,)_S 100 _t
+(I.)_S 100 _t
+(\(1985\))_S 100 _t
+(Accuracy)_S 100 _t
+(of)_S 1200 9849 _m
+(aspiration)_S 100 _t
+(cytology)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(diagnosis)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(disease.)_S 100 _t
+(Br)_S 100 _t
+(J)_S 100 _t
+(Surg,)_S 100 _t
+(72,)_S 1200 9515 _m
+(841-843.)_S 100 _t
+1200 9181 _m
+100 _t
+1200 8847 _m
+(34)_S 200 _t
+(Smith,)_S 100 _t
+(C.,)_S 100 _t
+(Butler,)_S 100 _t
+(J.,)_S 100 _t
+(Cobb,)_S 100 _t
+(C.)_S 100 _t
+(and)_S 100 _t
+(State,)_S 100 _t
+(D.)_S 100 _t
+(\(1988\))_S 100 _t
+(Fine-needle)_S 1200 8513 _m
+(aspiration)_S 100 _t
+(cytology)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(diagnosis)_S 100 _t
+(of)_S 100 _t
+(primary)_S 100 _t
+(breast)_S 100 _t
+(cancer.)_S 100 _t
+(Surgery,)_S 100 _t
+(103,)_S 1200 8179 _m
+(178-183.)_S 100 _t
+1200 7845 _m
+100 _t
+1200 7511 _m
+(35)_S 200 _t
+(Somers,)_S 100 _t
+(R.G.,)_S 100 _t
+(Young,)_S 100 _t
+(G.P.,)_S 100 _t
+(Kaplan,)_S 100 _t
+(M.J.,)_S 100 _t
+(Bernhard,)_S 100 _t
+(V.M.,)_S 100 _t
+(Rosenberg,)_S 100 _t
+(M.)_S 1200 7177 _m
+(and)_S 100 _t
+(Somers,)_S 100 _t
+(D.)_S 100 _t
+(\(1985\))_S 100 _t
+(Fine-needle)_S 100 _t
+(aspiration)_S 100 _t
+(biopsy)_S 100 _t
+(in)_S 100 _t
+(the)_S 100 _t
+(management)_S 100 _t
+(of)_S 1200 6843 _m
+(solid)_S 100 _t
+(breast)_S 100 _t
+(tumors.)_S 100 _t
+(Arch)_S 100 _t
+(Surg,)_S 100 _t
+(120,)_S 100 _t
+(673-677.)_S 100 _t
+1200 6509 _m
+100 _t
+1200 6175 _m
+(36)_S 200 _t
+(Stone,)_S 100 _t
+(M.)_S 100 _t
+(\(1974\))_S 100 _t
+(Cross-validatory)_S 100 _t
+(choice)_S 100 _t
+(and)_S 100 _t
+(assessment)_S 100 _t
+(of)_S 100 _t
+(statistical)_S 1200 5841 _m
+(predictions.)_S 100 _t
+(Journal)_S 100 _t
+(of)_S 100 _t
+(the)_S 100 _t
+(Royal)_S 100 _t
+(Statistical)_S 100 _t
+(Society,)_S 100 _t
+(36,)_S 100 _t
+(111-147.)_S 100 _t
+1200 5507 _m
+100 _t
+1200 5173 _m
+(37)_S 200 _t
+(Street,)_S 100 _t
+(W.N.,)_S 100 _t
+(Wolberg,)_S 100 _t
+(W.H.)_S 100 _t
+(and)_S 100 _t
+(Mangasarian,)_S 100 _t
+(O.L.)_S 100 _t
+(\(1993\))_S 100 _t
+(Nuclear)_S 100 _t
+(feature)_S 1200 4839 _m
+(extraction)_S 100 _t
+(for)_S 100 _t
+(breast)_S 100 _t
+(tumor)_S 100 _t
+(diagnosis.)_S 100 _t
+(Proceedings)_S 100 _t
+(IS&T/SPIE)_S 100 _t
+(International)_S 1200 4505 _m
+(Symposium)_S 100 _t
+(on)_S 100 _t
+(Electronic)_S 100 _t
+(Imaging,)_S 100 _t
+(1905,)_S 100 _t
+(861-870.)_S 100 _t
+1200 4171 _m
+100 _t
+1200 3837 _m
+(38)_S 200 _t
+(Ulanow,)_S 100 _t
+(R.M.,)_S 100 _t
+(Galblum,)_S 100 _t
+(L.)_S 100 _t
+(and)_S 100 _t
+(Canter,)_S 100 _t
+(J.W.)_S 100 _t
+(\(1984\))_S 100 _t
+(Fine)_S 100 _t
+(needle)_S 100 _t
+(aspiration)_S 1200 3503 _m
+(in)_S 100 _t
+(the)_S 100 _t
+(diagnosis)_S 100 _t
+(and)_S 100 _t
+(management)_S 100 _t
+(of)_S 100 _t
+(solid)_S 100 _t
+(breast)_S 100 _t
+(lesions.)_S 100 _t
+(Am)_S 100 _t
+(J)_S 100 _t
+(Surg,)_S 100 _t
+(148,)_S 1200 3169 _m
+(653-657.)_S 100 _t
+1200 2835 _m
+100 _t
+1200 2501 _m
+(39)_S 200 _t
+(Vetrani,)_S 100 _t
+(A.,)_S 100 _t
+(Fulciniti,)_S 100 _t
+(F.,)_S 100 _t
+(de)_S 100 _t
+(Benedetto,)_S 100 _t
+(G.,)_S 100 _t
+(Zeppa,)_S 100 _t
+(P.,)_S 100 _t
+(Troncone,)_S 100 _t
+(G.)_S 1200 2167 _m
+(and)_S 100 _t
+(et)_S 100 _t
+(al.,)_S 200 _t
+(\(1992\))_S 100 _t
+(Fine-needle)_S 100 _t
+(aspiration)_S 100 _t
+(biopsies)_S 100 _t
+(of)_S 100 _t
+(breast)_S 100 _t
+(masses.)_S 100 _t
+(An)_S 1200 1833 _m
+(additional)_S 100 _t
+(experience)_S 100 _t
+(with)_S 100 _t
+(1153)_S 100 _t
+(cases)_S 100 _t
+(\(1985)_S 100 _t
+(to)_S 100 _t
+(1988\))_S 100 _t
+(and)_S 100 _t
+(a)_S 100 _t
+(meta-analysis.)_S 1200 1499 _m
+(Cancer,)_S 100 _t
+(69,)_S 100 _t
+(736-740.)_S 100 _t
+_ep
+_bp /CourierR 500 _ff
+0 13200 10200 _ornt 
+/_r      { sflg {/_t {0 rmoveto}bdef /ron false def}
+         { /_S /show load def /_t {0 rmoveto}bdef /ron false def}ifelse
+     }bdef
+8650 11886 _m
+(20)_S 1200 11519 _m
+100 _t
+1200 11185 _m
+(40)_S 200 _t
+(Wanebo,)_S 100 _t
+(H.J.,)_S 100 _t
+(Feldman,)_S 100 _t
+(P.S.,)_S 100 _t
+(Wilhelm,)_S 100 _t
+(M.C.,)_S 100 _t
+(Cocell,)_S 100 _t
+(F.L.)_S 100 _t
+(and)_S 100 _t
+(Binns,)_S 100 _t
+(R.L.)_S 1200 10851 _m
+(\(1984\))_S 100 _t
+(Fine)_S 100 _t
+(needle)_S 100 _t
+(aspiration)_S 100 _t
+(cytology)_S 100 _t
+(in)_S 100 _t
+(lieu)_S 100 _t
+(of)_S 100 _t
+(open)_S 100 _t
+(biopsy)_S 100 _t
+(in)_S 100 _t
+(management)_S 1200 10517 _m
+(of)_S 100 _t
+(primary)_S 100 _t
+(breast)_S 100 _t
+(cancer.)_S 100 _t
+(Ann)_S 100 _t
+(Surg,)_S 100 _t
+(199,)_S 100 _t
+(569-579.)_S 100 _t
+1200 10183 _m
+100 _t
+1200 9849 _m
+(41)_S 200 _t
+(Weiss,)_S 100 _t
+(S.)_S 100 _t
+(and)_S 100 _t
+(Kulikowski,)_S 100 _t
+(C.A.)_S 100 _t
+(\(1991\))_S 100 _t
+(Computer)_S 100 _t
+(Systems)_S 100 _t
+(That)_S 100 _t
+(Learn,)_S 1200 9515 _m
+(Morgan)_S 100 _t
+(Kaufmann,)_S 100 _t
+(San)_S 100 _t
+(Mateo,)_S 100 _t
+(CA.)_S 100 _t
+1200 9181 _m
+100 _t
+1200 8847 _m
+(42)_S 200 _t
+(Williams,)_S 100 _t
+(D.J.)_S 100 _t
+(and)_S 100 _t
+(Shah,)_S 100 _t
+(M.)_S 100 _t
+(\(1990\),)_S 100 _t
+(A)_S 100 _t
+(fast)_S 100 _t
+(algorithm)_S 100 _t
+(for)_S 100 _t
+(active)_S 100 _t
+(contours.)_S 1200 8513 _m
+(In:)_S 100 _t
+(Proc.)_S 100 _t
+(Third)_S 100 _t
+(Int.)_S 100 _t
+(Conf.)_S 100 _t
+(on)_S 100 _t
+(Computer)_S 100 _t
+(Vision,)_S 100 _t
+(pp.)_S 100 _t
+(592-595.)_S 100 _t
+(Osaka,)_S 100 _t
+(Japan.)_S 100 _t
+1200 8179 _m
+100 _t
+1200 7845 _m
+(43)_S 200 _t
+(Wittekind,)_S 100 _t
+(C.)_S 100 _t
+(and)_S 100 _t
+(Schulte,)_S 100 _t
+(E.)_S 100 _t
+(\(1987\))_S 100 _t
+(Computerized)_S 100 _t
+(morphometric)_S 100 _t
+(image)_S 1200 7511 _m
+(analysis)_S 100 _t
+(of)_S 100 _t
+(cytologic)_S 100 _t
+(nuclear)_S 100 _t
+(parameters)_S 100 _t
+(in)_S 100 _t
+(breast)_S 100 _t
+(cancer.)_S 100 _t
+(Analy)_S 100 _t
+(Quant)_S 100 _t
+(Cytol)_S 1200 7177 _m
+(and)_S 100 _t
+(Hist,)_S 100 _t
+(9,)_S 100 _t
+(480-484.)_S 100 _t
+1200 6843 _m
+100 _t
+1200 6509 _m
+(44)_S 200 _t
+(Wolberg,)_S 100 _t
+(W.H.,)_S 100 _t
+(Street,)_S 100 _t
+(W.N.)_S 100 _t
+(and)_S 100 _t
+(Mangasarian,)_S 100 _t
+(O.L.)_S 100 _t
+(\(1993\))_S 100 _t
+(Breast)_S 100 _t
+(cytology)_S 1200 6175 _m
+(diagnosis)_S 100 _t
+(via)_S 100 _t
+(digital)_S 100 _t
+(image)_S 100 _t
+(analysis.)_S 100 _t
+(Analy)_S 100 _t
+(Quant)_S 100 _t
+(Cytol)_S 100 _t
+(and)_S 100 _t
+(Hist,)_S 100 _t
+(\(in)_S 100 _t
+(press\).)_S 100 _t
+1200 5507 _m
+100 _t
+_ep
+_ed end end
+

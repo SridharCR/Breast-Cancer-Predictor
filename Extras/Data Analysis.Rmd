@@ -2,10 +2,7 @@
 title: "Data Analysis"
 author: "Sridhar"
 date: "28 January 2019"
-output:
-  html_document: default
-  pdf_document: default
-  word_document: default
+output: html_document
 ---
 
 ```{r}
@@ -15,19 +12,14 @@ output:
 library(ggplot2)
 library(ggvis)
 library(knitr)
-library(mice)
-library(caret)
-library(doParallel) 
 ```
 ## Load the Data
 Breast Cancer Wisconsin(Diagnosis) data is loaded and the column names are defined based on the attribute information.
 
 ### Dataset 1
 The outcome variable is the "classes" and it has following category of data
-
 * Malignant or
 * Benign breast mass
-
 The phenotypes for characterization are
 * Sample ID (code number)
 * Clump thickness
@@ -43,7 +35,7 @@ The phenotypes for characterization are
 
 
 ```{r}
-diagnosis_data <- read.csv("~/Desktop/BreastCancer/Data/breast-cancer-wisconsin.data.csv", header = FALSE)
+diagnosis_data <- read.csv("breast-cancer-wisconsin.data.csv", header = FALSE)
 colnames(diagnosis_data) <- c("sample_code_number", "clump_thickness", "uniformity_of_cell_size", "uniformity_of_cell_shape", "marginal_adhesion", "single_epithelial_cell_size", 
                        "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitosis", "classes")
 
@@ -52,9 +44,9 @@ colnames(diagnosis_data) <- c("sample_code_number", "clump_thickness", "uniformi
 
 ```{r}
 # impute missing data
+library(mice)
 
 diagnosis_data[,2:10] <- apply(diagnosis_data[, 2:10], 2, function(x) as.numeric(as.character(x)))
-
 dataset_impute <- mice(diagnosis_data[, 2:10],  print = FALSE)
 diagnosis_data <- cbind(diagnosis_data[, 11, drop = FALSE], mice::complete(dataset_impute, 1))
 
@@ -62,7 +54,6 @@ diagnosis_data$classes <- as.factor(diagnosis_data$classes)
 
 # how many benign and malignant cases are there?
 summary(diagnosis_data$classes)
-
 ```
 The data is presented below.
 
@@ -75,10 +66,6 @@ The properties of data are given,
 
 ```{r}
 str(diagnosis_data)
-```
-
-```{r}
-summary(diagnosis_data)
 ```
 
 ### Dataset 2
@@ -103,7 +90,7 @@ i) symmetry
 j) fractal dimension ("coastline approximation" - 1)
 
 ```{r}
-diagnosis_data_2 <- read.csv("~/Desktop/BreastCancer/Data/wdbc.data.csv", header = FALSE)
+diagnosis_data_2 <- read.csv("wdbc.data.csv", header = FALSE)
 
 phenotypes <- rep(c("radius", "texture", "perimeter", "area", "smoothness", "compactness", "concavity", "concave_points", "symmetry", "fractal_dimension"), 3)
 types <- rep(c("mean", "se", "largest_worst"), each = 10)
@@ -118,7 +105,7 @@ str(diagnosis_data_2)
 ```
 
 ```{r}
-diagnosis_data_3 <- read.csv("~/Desktop/BreastCancer/Data/wpbc.data.csv", header = FALSE)
+diagnosis_data_3 <- read.csv("wpbc.data.csv", header = FALSE)
 
 colnames(diagnosis_data_3) <- c("ID", "outcome", "time", paste(phenotypes, types, sep = "_"), "tumor_size", "lymph_node_status")
 diagnosis_data_3[diagnosis_data_3 == "?"] <- NA
@@ -137,29 +124,27 @@ summary(diagnosis_data_3$outcome)
 ```
 
 
-
+## Visualizations
 
 ```{r}
+# plotting theme*
 
-# plotting theme
-
-library(ggplot2)
 
 my_theme <- function(base_size = 12, base_family = "sans"){
   theme_minimal(base_size = base_size, base_family = base_family) +
   theme(
     axis.text = element_text(size = 12),
-    axis.text.x = element_text(angle = 0, vjust = 1, hjust = 1),
+    axis.text.x = element_text(angle = 0, vjust = 0.5, hjust = 0.5),
     axis.title = element_text(size = 14),
     panel.grid.major = element_line(color = "grey"),
     panel.grid.minor = element_blank(),
     panel.background = element_rect(fill = "aliceblue"),
-    strip.background = element_rect(fill = "navy", color = "navy", size = 2),
+    strip.background = element_rect(fill = "navy", color = "navy", size = 1),
     strip.text = element_text(face = "bold", size = 12, color = "white"),
     legend.position = "right",
     legend.justification = "top", 
     legend.background = element_blank(),
-    panel.border = element_rect(color = "grey", fill = NA, size = 1)
+    panel.border = element_rect(color = "grey", fill = NA, size = 0.5)
   )
 }
 
@@ -242,8 +227,7 @@ library(gridExtra)
 library(grid)
 p1 <- pca_func(data = t(diagnosis_data[, 2:10]), groups = as.character(diagnosis_data$classes), title = "Breast cancer dataset 1: Samples")
 p2 <- pca_func(data = diagnosis_data[, 2:10], groups = as.character(colnames(diagnosis_data[, 2:10])), title = "Breast cancer dataset 1: Features", print_ellipse = FALSE)
-plot(p1)
-plot(p2)
+grid.arrange(p1, p2, ncol = 2)
 ```
 
 
@@ -273,8 +257,7 @@ ggplot(data = diagnosis_data_gather, aes(x = value, fill = classes, color = clas
 ```{r}
 p1 <- pca_func(data = t(diagnosis_data_2[, 3:32]), groups = as.character(diagnosis_data_2$diagnosis), title = "Breast cancer dataset 2: Samples")
 p2 <- pca_func(data = diagnosis_data_2[, 3:32], groups = as.character(colnames(diagnosis_data_2[, 3:32])), title = "Breast cancer dataset 2: Features", print_ellipse = FALSE)
-plot(p1)
-plot(p2)
+grid.arrange(p1, p2, ncol = 2, widths = c(0.5, 0.5))
 ```
 
 ```{r}
@@ -282,27 +265,11 @@ h_2 <- hclust(dist(t(diagnosis_data_2[, 3:32]), method = "euclidean"), method = 
 plot(h_2)
 ```
 
-
-
-
 ```{r}
-p1 <- pca_func(data = t(diagnosis_data_3[, 2:34]), groups = as.character(diagnosis_data_3$outcome), title = "Breast cancer dataset 3: Samples")
-p2 <- pca_func(data = diagnosis_data_3[, 2:34], groups = as.character(colnames(diagnosis_data_3[, 2:34])), title = "Breast cancer dataset 3: Features", print_ellipse = FALSE)
-plot(p1)
-plot(p2)
-```
+diagnosis_data_2_gather <- diagnosis_data_2[, -1] %>%
+  gather(measure, value, radius_mean:fractal_dimension_largest_worst)
 
-
-
-```{r}
-h_3 <- hclust(dist(t(diagnosis_data_3[,2:34]), method = "euclidean"), method = "complete")
-plot(h_3)
-```
-```{r}
-diagnosis_data_3_gather <- diagnosis_data_3 %>%
-  gather(measure, value, time:lymph_node_status)
-
-ggplot(data = diagnosis_data_3_gather, aes(x = value, fill = outcome, color = outcome)) +
+ggplot(data = diagnosis_data_2_gather, aes(x = value, fill = diagnosis, color = diagnosis)) +
   geom_density(alpha = 0.3, size = 1) +
   geom_rug() +
   scale_fill_brewer(palette = "Set1") +
@@ -312,9 +279,21 @@ ggplot(data = diagnosis_data_3_gather, aes(x = value, fill = outcome, color = ou
 
 
 
+```{r}
+p1 <- pca_func(data = t(diagnosis_data_3[, 2:34]), groups = as.character(diagnosis_data_3$outcome), title = "Breast cancer dataset 3: Samples")
+p2 <- pca_func(data = diagnosis_data_3[, 2:34], groups = as.character(colnames(diagnosis_data_3[, 2:34])), title = "Breast cancer dataset 3: Features", print_ellipse = FALSE)
+grid.arrange(p1, p2, ncol = 2, widths = c(0.4, 0.6))
+```
+
+
 
 ```{r}
-# parallel processing
+h_3 <- hclust(dist(t(diagnosis_data_3[,2:34]), method = "euclidean"), method = "complete")
+plot(h_3)
+```
+```{r}
+library(caret)
+library(doParallel) # parallel processing
 registerDoParallel()
 
 # prepare training scheme
@@ -366,188 +345,5 @@ set.seed(27)
 imp_3 <- train(outcome ~ ., data = diagnosis_data_3, method = "rf", preProcess = c("scale", "center"), trControl = control)
 p3 <- feature_imp(imp_3, title = "Breast cancer dataset 3")
 grid.arrange(p1, p2, p3, ncol = 3, widths = c(0.3, 0.35, 0.35))
-```
-Correlation
-
-```{r}
-library(caret)
-set.seed(27)
-diagnosis_data_index <- createDataPartition(diagnosis_data$classes, p = 0.7, list = FALSE)
-diagnosis_data_train <- diagnosis_data[diagnosis_data_index, ]
-diagnosis_data_test  <- diagnosis_data[-diagnosis_data_index, ]
-```
-
-Dataset 2
-```{r}
-set.seed(27)
-diagnosis_data_2_index <- createDataPartition(diagnosis_data_2$diagnosis, p = 0.7, list = FALSE)
-diagnosis_data_2_train <- diagnosis_data_2[diagnosis_data_2_index, ]
-diagnosis_data_2_test  <- diagnosis_data_2[-diagnosis_data_2_index, ]
-```
-
-Dataset 3
-```{r}
-set.seed(27)
-diagnosis_data_3_index <- createDataPartition(diagnosis_data_3$outcome, p = 0.7, list = FALSE)
-diagnosis_data_3_train <- diagnosis_data_3[diagnosis_data_3_index, ]
-diagnosis_data_3_test  <- diagnosis_data_3[-diagnosis_data_3_index, ]
-```
-
-```{r}
-library(corrplot)
-
-# calculate correlation matrix
-corMatMy <- cor(diagnosis_data_train[, -1])
-corrplot(corMatMy, order = "hclust")
-```
-
-
-
-```{r}
-corMatMy <- cor(diagnosis_data_2_train[, 3:32])
-corrplot(corMatMy, order = "hclust")
-```
-
-```{r}
-corMatMy <- cor(diagnosis_data_3_train[, -1])
-corrplot(corMatMy, order = "hclust", number.cex=1)
-```
-```{r}
-highlyCor <- colnames(diagnosis_data_3_train[, -1])[findCorrelation(corMatMy, cutoff = 0.7, verbose = TRUE)]
-```
-```{r}
-highlyCor
-```
-
-```{r}
-diagnosis_data_3_cor <- diagnosis_data_3_train[, which(!colnames(diagnosis_data_3_train) %in% highlyCor)]
-```
-
-
-Recursive Feature Elimination (RFE)
-Another way to choose features is with Recursive Feature Elimination. RFE uses a Random Forest algorithm to test combinations of features and rate each with an accuracy score. The combination with the highest score is usually preferential.
-
-
-```{r}
-# ensure the results are repeatable
-set.seed(7)
-# define the control using a random forest selection function with cross validation
-control <- rfeControl(functions = rfFuncs, method = "cv", number = 10)
-
-# run the RFE algorithm
-results_1 <- rfe(x = diagnosis_data_train[, -1], y = diagnosis_data_train$classes, sizes = c(1:9), rfeControl = control)
-
-# chosen features
-predictors(results_1)
-```
-
-```{r}
-# subset the chosen features
-diagnosis_data_rfe <- diagnosis_data_train[, c(1, which(colnames(diagnosis_data_train) %in% predictors(results_1)))]
-```
-
-```{r}
-set.seed(7)
-results_2 <- rfe(x = diagnosis_data_2_train[, -c(1, 2)], y = as.factor(diagnosis_data_2_train$diagnosis), sizes = c(1:30), rfeControl = control)
-
-predictors(results_2)
-```
-
-```{r}
-diagnosis_data_2_rfe <- diagnosis_data_2_train[, c(2, which(colnames(diagnosis_data_2_train) %in% predictors(results_2)))]
-```
-
-```{r}
-set.seed(7)
-results_3 <- rfe(x = diagnosis_data_3_train[,-1], y = as.factor(diagnosis_data_3_train$outcome), sizes = c(1:33), rfeControl = control)
-
-predictors(results_2)
-```
-
-```{r}
-diagnosis_data_3_rfe <- diagnosis_data_3_train[, c(1, which(colnames(diagnosis_data_3_train) %in% predictors(results_3)))]
-```
-
-```{r}
-library(dplyr)
-
-ga_ctrl <- gafsControl(functions = rfGA, # Assess fitness with RF
-                       method = "cv",    # 10 fold cross validation
-                       genParallel = TRUE, # Use parallel programming
-                       allowParallel = TRUE)
-```
-
-```{r}
-lev <- c("malignant", "benign")     # Set the levels
-
-set.seed(27)
-model_1 <- gafs(x = diagnosis_data_train[, -1], y = diagnosis_data_train$classes,
-                   iters = 10, # generations of algorithm
-                   popSize = 5, # population size for each generation
-                   levels = lev,
-                   gafsControl = ga_ctrl)
-```
-
-```{r}
-plot(model_1) # Plot mean fitness (AUC) by generation
-```
-
-```{r}
-model_1$ga$final
-```
-
-```{r}
-diagnosis_data_ga <- diagnosis_data_train[, c(1, which(colnames(diagnosis_data_train) %in% model_1$ga$final))]
-```
-
-
-```{r}
-lev <- c("M", "B")
-
-set.seed(27)
-model_2 <- gafs(x = diagnosis_data_2_train[, -c(1, 2)], y = diagnosis_data_2_train$diagnosis,
-                   iters = 10, # generations of algorithm
-                   popSize = 5, # population size for each generation
-                   levels = lev,
-                   gafsControl = ga_ctrl)
-```
-
-
-```{r}
-plot(model_2)
-```
-
-```{r}
-model_2$ga$final
-diagnosis_data_2_ga <- diagnosis_data_2_train[, c(2, which(colnames(diagnosis_data_2_train) %in% model_2$ga$final))]
-```
-
-```{r}
-
-lev <- c("R", "N")
-
-set.seed(27)
-model_3 <- gafs(x = diagnosis_data_3_train[, -1], y = diagnosis_data_3_train$outcome,
-                   iters = 10, # generations of algorithm
-                   popSize = 5, # population size for each generation
-                   levels = lev,
-                   gafsControl = ga_ctrl)
-```
-
-```{r}
-plot(model_3)
-```
-
-```{r}
-model_3$ga$final
-```
-
-```{r}
-diagnosis_data_3_ga <- diagnosis_data_3_train[, c(1, which(colnames(diagnosis_data_3_train) %in% model_3$ga$final))]
-```
-Model comparison
-
-```{r}
-
 ```
 

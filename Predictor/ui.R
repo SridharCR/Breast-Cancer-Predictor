@@ -35,8 +35,10 @@ dashboardPage(
   sidebar <- dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("dashboard")),
-      menuItem("Dimensions of tumour cells", tabName = "physical_dimensions" ,icon = icon("cog", lib = "glyphicon")),
-      menuItem("Tumour Cell data", tabName = "cellular_data", icon = icon("diagnoses")),
+      menuItem("Tumour Nuclei Data", tabName = "nuclei_data" ,icon = icon("cog", lib = "glyphicon"),
+               menuSubItem("Input", tabName = "get_input", icon = icon("table")),
+               menuSubItem("Results", tabName = "get_output", icon = icon("bar-chart-o"))),
+      menuItem("Tumour Cell Data", tabName = "cellular_data", icon = icon("diagnoses")),
       menuItem("About", tabName = "about", icon = icon("info-circle")),
       menuItem("Github", icon = icon("send",lib='glyphicon'), 
                href = "https://github.com/SridharCR/Breast-Cancer-Predictor")
@@ -46,12 +48,21 @@ dashboardPage(
     
     tabItems(
       tabItem(tabName = "home",
+              box(width = 12,
+              h1("Prediction of Breast Cancer"),
+              p("The breast cancer is becoming a serious issue between the women. One woman will die of breast cancer every 13 minutes. 
+                The diagnosis of the breast cancer is a complex task and takes time for the doctor to check and analyze the lab results.
+                Here we predict the breast cancer on its initial stages, with the lab results.
+                This web application can predict whether the tumour mass is malignant or benign. In case of malignant, the patient should take 
+                effective treatments accordingly.
+                ", style='font-size: 18px'),
+              img(src='Malignant and benign breast masses.png',width='40%')),
               useShinyjs(),
               extendShinyjs(text = jscode, functions = c("closeWindow")),
               actionButton("close", "Close window")
               ),
       
-      tabItem(tabName = "physical_dimensions",
+      tabItem(tabName = "get_input",
               frow2 <- fluidRow(
                 tags$head(
                   tags$style("
@@ -101,7 +112,6 @@ dashboardPage(
             tags$style("
                      .input-sm,.selectize-input {
                      min-height: 34px;  font-size: 11.2px;
-                    
                      }
                      ")),
           
@@ -160,7 +170,7 @@ dashboardPage(
     actionButton("Run_model", "Run model"),
       valueBoxOutput("summary")
     
-    
+      
   ),
   tabItem(tabName = "cellular_data",
           # "clump_thickness", "uniformity_of_cell_size", "uniformity_of_cell_shape", "marginal_adhesion", "single_epithelial_cell_size", "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitosis"

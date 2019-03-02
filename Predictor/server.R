@@ -15,6 +15,7 @@ shinyServer(function(input, output) {
   })
   output$attribute <- renderUI(HTML("
 <h2>Metadata:</h2>
+<div style='font-size:18px'>
 Ten real-valued features are computed for each cell nucleus:<br>
 	<ul>
   <li>Radius (mean of distances from center to points on the perimeter)</li>
@@ -26,7 +27,7 @@ Ten real-valued features are computed for each cell nucleus:<br>
 	<li>Concavity (severity of concave portions of the contour)</li>
 	<li>Concave points (number of concave portions of the contour)</li>
 	<li>Symmetry</li>
-	<li>Fractal dimension (coastline approximation - 1)</li>"))
+	<li>Fractal dimension (coastline approximation - 1)</li></div>"))
   test <- reactive({
     # this is how you fetch the input variables from ui component
     
