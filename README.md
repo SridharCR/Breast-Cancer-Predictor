@@ -22,6 +22,15 @@ Your workstation should have the following tools and softwares
 * Predictor - It comprises of the web app
 * Data_Analysis_files - System generated figures and other stuff required in RMD.
 
+## Screenshots of the web app
+![Screenshot1 ](Data_Analysis_files/figure-html/Selection_154.png "Screenshot 1")
+
+
+
+![Screenshot2](Data_Analysis_files/figure-html/Selection_153.png "Screenshot 2")
+
+
+
 ## End Notes
 This project is in development stage. Watch this repo to get notified.
  Contributions are welcomed!
