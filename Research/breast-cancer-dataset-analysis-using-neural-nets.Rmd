@@ -150,6 +150,10 @@ terminal_panel=node_barplot(model_tree, col = "black", fill = columncol[c(1,2,4)
 beside = TRUE, ymax = 1, ylines = TRUE, widths = 1, gap = 0.1,
 reverse = FALSE, id = TRUE))
 ```
+```{r}
+aaa
+
+```
                                 
                                 
 
