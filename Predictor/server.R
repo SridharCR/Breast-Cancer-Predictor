@@ -7,15 +7,14 @@ library(NeuralNetTools)
 library(caret)
 library(nnet)
 load("Neuralnetwork.rda")
+load("Neuralnetwork1.rda")
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  observeEvent(input$close, {
-    js$closeWindow()
-    stopApp()
-  })
+
   output$attribute <- renderUI(HTML("
-<h2>Metadata:</h2>
-<div style='font-size:18px'>
+
+<div style='font-size:17px'>
+Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.<br>
 Ten real-valued features are computed for each cell nucleus:<br>
 	<ul>
   <li>Radius (mean of distances from center to points on the perimeter)</li>
@@ -27,7 +26,24 @@ Ten real-valued features are computed for each cell nucleus:<br>
 	<li>Concavity (severity of concave portions of the contour)</li>
 	<li>Concave points (number of concave portions of the contour)</li>
 	<li>Symmetry</li>
-	<li>Fractal dimension (coastline approximation - 1)</li></div>"))
+	<li>Fractal dimension (coastline approximation - 1)</li>
+  </ul>
+  The mean, standard error and 'worst' or largest (mean of the three largest values) of these features were computed for each image, resulting in 30 features. For instance, field 3 is Mean Radius, field 13 is Radius SE, field 23 is Worst Radius.</div>"))
+  output$attribute1 <- renderUI(HTML("
+
+<div style='font-size:17px'>
+	
+The attributes are measured in discrete manner, they are numbered from 1 - 10. From 1 being low values and 10 being the highest. Each attribute constitutes to the model to predict the severity of the tumour mass.
+  <ul>
+  <li>Clump Thickness               </li>
+  <li>Uniformity of Cell Size       </li>
+  <li>Uniformity of Cell Shape      </li>
+  <li>Marginal Adhesion             </li>
+  <li>Single Epithelial Cell Size   </li>
+  <li>Bare Nuclei                   </li>
+  <li>Bland Chromatin               </li>
+  <li>Normal Nucleoli               </li>
+  <li>Mitoses                       </li></div>"))
   test <- reactive({
     # this is how you fetch the input variables from ui component
     
@@ -69,6 +85,7 @@ Ten real-valued features are computed for each cell nucleus:<br>
     
   })
   pred <- eventReactive(input$Run_model, {
+    
     predict(model_nnet, newdata = test(), type = "class")
   })
   output$summary <- renderValueBox({
@@ -95,14 +112,22 @@ Ten real-valued features are computed for each cell nucleus:<br>
     bland_chromatin <- as.numeric(input$bland_chromatin)
     normal_nucleoli <- as.numeric(input$normal_nucleoli)
     mitosis <- as.numeric(input$mitosis)
+    
+    test1 <- cbind(clump_thickness,uniformity_of_cell_size,uniformity_of_cell_shape,marginal_adhesion,single_epithelial_cell_size,bare_nuclei,bland_chromatin,normal_nucleoli,mitosis)
+    test1 <- as.data.frame(test1)
   })
-  pred1 <- eventReactive(input$Run_model, {
-    predict(model_nnet, newdata = test(), type = "class")
+  pred1 <- eventReactive(input$Run_cellular_model, {
+    predict(NN, test1(), type = "class")
   })
   output$summary1 <- renderValueBox({
-    valueBox(
-      renderText(pred()), "Result", icon = icon("heartbeat"),
-      color = "yellow"
-    )
+    res1 <- pred1()
+    if(is.null(res1))
+      res1 <- "Results"
+    if(res1 > 2)
+      res1 <- "Malignant"
+    else
+      res1 <- "Benign"
+    valueBox(res1," Result", icon = NULL, color = "aqua", width = 4,
+             href = NULL)
   })
 })

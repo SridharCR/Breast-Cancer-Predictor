@@ -1,0 +1,12 @@
+name: Classifier
+title: Classifier
+username:
+account: sridhar23
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 757313
+bundleId: 1912048
+url: https://sridhar23.shinyapps.io/Classifier/
+when: 1551614675.68537
+asMultiple: FALSE
+asStatic: FALSE

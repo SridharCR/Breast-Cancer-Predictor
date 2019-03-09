@@ -25,7 +25,13 @@ testNN = data[-index , ]
 
 # fit neural network
 set.seed(2)
-NN = neuralnet(classes~ clump_thickness+uniformity_of_cell_size+uniformity_of_cell_shape+marginal_adhesion+single_epithelial_cell_size+bland_chromatin+normal_nucleoli+mitosis,data = trainNN ,hidden = 3 , linear.output = T )
+NN = neuralnet(classes~ clump_thickness+uniformity_of_cell_size+uniformity_of_cell_shape+marginal_adhesion+single_epithelial_cell_size+bland_chromatin+normal_nucleoli+mitosis,data = trainNN ,hidden = 8, linear.output = TRUE)
 
 # plot neural network
 plot(NN)
+
+testNN <- testNN[,-ncol(testNN)]
+testNN <- testNN[,-1]
+## Prediction using neural network
+pred <- predict(NN, testNN, type = "class")
+save(NN , file = 'Neuralnetwork1.rda')

@@ -163,7 +163,7 @@ reverse = FALSE, id = TRUE))
 ```{r}
 ##   type="class" gives class_values (1 or 0 )
 save(model_nnet , file = 'Neuralnetwork.rda')
-class_pred <- predict(model_nnet,test_data[,-1])
+class_pred <- predict(model_nnet,test_data[,-1],type="class")
 print(class_pred)
 ```
 

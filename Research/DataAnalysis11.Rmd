@@ -134,6 +134,7 @@ diagnosis_data_3 <- cbind(diagnosis_data_3[, 2, drop = FALSE], mice::complete(da
 
 # how many recurring and non-recurring cases are there?
 summary(diagnosis_data_3$outcome)
+head(diagnosis_data_3)
 ```
 
 

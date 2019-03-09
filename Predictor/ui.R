@@ -34,10 +34,9 @@ dashboardPage(
   )),
   sidebar <- dashboardSidebar(
     sidebarMenu(
+      menuItem("Home1", tabName = "home1", icon = icon("heart")),
       menuItem("Home", tabName = "home", icon = icon("dashboard")),
-      menuItem("Tumour Nuclei Data", tabName = "nuclei_data" ,icon = icon("cog", lib = "glyphicon"),
-               menuSubItem("Input", tabName = "get_input", icon = icon("table")),
-               menuSubItem("Results", tabName = "get_output", icon = icon("bar-chart-o"))),
+      menuItem("Tumour Nuclei Data", tabName = "nuclei_data" ,icon = icon("cog", lib = "glyphicon")),
       menuItem("Tumour Cell Data", tabName = "cellular_data", icon = icon("diagnoses")),
       menuItem("About", tabName = "about", icon = icon("info-circle")),
       menuItem("Github", icon = icon("send",lib='glyphicon'), 
@@ -48,6 +47,44 @@ dashboardPage(
     
     tabItems(
       tabItem(tabName = "home",
+              
+                  
+                  HTML('
+                       <h1>What is Predict?</h1>
+<h3>Predict is an online tool that helps patients and clinicians </h3>
+<center><img src="icon-imagery.png">  </center>           
+                       '),
+              
+                  fluidRow(
+                    br(),
+                    br(),
+                    splitLayout(cellWidths=c("50%","50%"),
+                           actionButton("nucleus","Predict with nuclei data"),
+                           actionButton("cell","Predict with cell data")),
+                    br(),
+                    br(),
+                column(width = 4,
+                    HTML('
+                    <center><img src="graph-icon.png" align="middle"/></center>
+                    <h3>What does Predict do?</h3>'),
+                    p("Predict asks for some details about the patient and the cancer.
+It then uses data about the survival of similar women in the past to show the likely proportion of
+such women expected to survive up to fifteen years after their surgery with different treatment combinations.
+                    ", style='font-size: 17px')),
+                
+                column(width = 4,
+                    HTML('
+                    <center><img src="patient-icon.png" align="middle"/></center>'),
+                    h3("Who is Predict for?"),
+                    p("Predict is for clinicians, patients and their families.Patients should use it in consultation with a medical professional.", style='font-size: 17px')),
+                column(width = 4,
+                    HTML('
+                    <center><img src="book-icon.png" align="middle"/></center>'),
+                h3("Where can I find out more?"),
+                    p("To read more go to About Predict", style='font-size: 17px'))),
+              
+              dashboard_footer(),
+      tabItem(tabName = "home1",
               box(width = 12,
               h1("Prediction of Breast Cancer"),
               p("The breast cancer is becoming a serious issue between the women. One woman will die of breast cancer every 13 minutes. 
@@ -55,25 +92,23 @@ dashboardPage(
                 Here we predict the breast cancer on its initial stages, with the lab results.
                 This web application can predict whether the tumour mass is malignant or benign. In case of malignant, the patient should take 
                 effective treatments accordingly.
-                ", style='font-size: 18px'),
-              img(src='Malignant and benign breast masses.png',width='40%')),
-              useShinyjs(),
-              extendShinyjs(text = jscode, functions = c("closeWindow")),
-              actionButton("close", "Close window")
+                ", style='font-size: 17px'),
+              img(src='Malignant and benign breast masses.png',width='40%'),
+              h3("Classification"),
+              p("They can be classified based on the clinical lab data", style='font-size: 17px'),
+              tags$ul(
+                tags$li("Data of tumour cell nuclei"),
+                tags$li("Data of tumour cells")
               ),
+              p("The attributes are studied and fed into the model, so you can enter the data of the person you need to classify")
+              ),box(width = 12,h4("Data of tumour cell nuclei"),
+              htmlOutput("attribute")),
+              box(width = 12,h4("Data of tumour cells"),
+              htmlOutput("attribute1"))),
       
-      tabItem(tabName = "get_input",
-              frow2 <- fluidRow(
-                tags$head(
-                  tags$style("
-                     font-size: 15px;
-                      
-                     }
-                     ")),
-                  box(width = 12,
-                  htmlOutput("attribute")
-                  )
-              ),
+      tabItem(tabName = "nuclei_data",
+              
+                
     box(title = "Mean data", status = "primary", solidHeader = T, width = 12,
     
     frow1 <- fluidRow(
