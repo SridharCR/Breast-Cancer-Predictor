@@ -1,5 +1,5 @@
 library("caret")
-data <- read.csv("~/Desktop/BreastCancer/Data/breast-cancer-wisconsin.data.csv", header = FALSE)
+data <- read.csv("Data/breast-cancer-wisconsin.data.csv", header = FALSE)
 colnames(data) <- c("sample_code_number", "clump_thickness", "uniformity_of_cell_size", "uniformity_of_cell_shape", "marginal_adhesion", "single_epithelial_cell_size", 
                               "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitosis", "classes")
 samplesize = 0.60 * nrow(data)
