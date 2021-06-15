@@ -1,37 +1,62 @@
+# This file is used to create the neural network serialized object file.
+
+# Load required libraries
+library("neuralnet")
 library("caret")
+
+# Load data
 data <- read.csv("Data/breast-cancer-wisconsin.data.csv", header = FALSE)
-colnames(data) <- c("sample_code_number", "clump_thickness", "uniformity_of_cell_size", "uniformity_of_cell_shape", "marginal_adhesion", "single_epithelial_cell_size", 
-                              "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitosis", "classes")
+# Set the attribute names
+colnames(data) <-
+  c(
+    "sample_code_number",
+    "clump_thickness",
+    "uniformity_of_cell_size",
+    "uniformity_of_cell_shape",
+    "marginal_adhesion",
+    "single_epithelial_cell_size",
+    "bare_nuclei",
+    "bland_chromatin",
+    "normal_nucleoli",
+    "mitosis",
+    "classes"
+  )
+
+
 samplesize = 0.60 * nrow(data)
 set.seed(80)
-index = sample( seq_len ( nrow ( data ) ), size = samplesize )
+index = sample(seq_len (nrow (data)), size = samplesize)
 
-# Create training and test set
-datatrain = data[ index, ]
-datatest = data[ -index, ]
+# Creating training and test set
+trainNN = data[index ,]
+testNN = data[-index ,]
 
-## Scale data for neural network
+# Creating neural network
+# Algorithm = Resilient Backpropagation with weight backtracking
 
-
-## Fit neural network 
-
-
-# load library
-library(neuralnet)
-
-# creating training and test set
-trainNN = data[index , ]
-testNN = data[-index , ]
-
-# fit neural network
 set.seed(2)
-NN = neuralnet(classes~ clump_thickness+uniformity_of_cell_size+uniformity_of_cell_shape+marginal_adhesion+single_epithelial_cell_size+bland_chromatin+normal_nucleoli+mitosis,data = trainNN ,hidden = 8, linear.output = TRUE)
+formula = classes ~ clump_thickness + uniformity_of_cell_size + uniformity_of_cell_shape +
+  marginal_adhesion + single_epithelial_cell_size + bland_chromatin + normal_nucleoli +
+  mitosis
 
-# plot neural network
+NN = neuralnet(
+  formula = formula,
+  data = trainNN ,
+  hidden = c(5, 5, 5),
+  rep = 3,
+  algorithm = "rprop+",
+  act.fct = "logistic",
+  linear.output = TRUE,
+)
+
+# Plot neural network
 plot(NN)
 
-testNN <- testNN[,-ncol(testNN)]
-testNN <- testNN[,-1]
-## Prediction using neural network
+testNN <- testNN[, -ncol(testNN)]
+testNN <- testNN[, -1]
+
+# Prediction using neural network
 pred <- predict(NN, testNN, type = "class")
+
+# Saving the trained model as serialized object file
 save(NN , file = 'Neuralnetwork1.rda')
