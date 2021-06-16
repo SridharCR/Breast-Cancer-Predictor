@@ -46,11 +46,11 @@ NN = neuralnet(
   rep = 3,
   algorithm = "rprop+",
   act.fct = "logistic",
-  linear.output = TRUE,
+  linear.output = T,
 )
 
 # Plot neural network
-plot(NN)
+plots <- plot(NN)
 
 testNN <- testNN[, -ncol(testNN)]
 testNN <- testNN[, -1]
