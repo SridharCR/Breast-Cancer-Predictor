@@ -1,4 +1,4 @@
-# This file is used to create the neural network serialized object file.
+# This file is used to create the neural network for original breast cancer data as a serialized object file.
 
 # Load required libraries
 library("neuralnet")
@@ -59,4 +59,4 @@ testNN <- testNN[, -1]
 pred <- predict(NN, testNN, type = "class")
 
 # Saving the trained model as serialized object file
-save(NN , file = 'Neuralnetwork1.rda')
+save(NN , file = 'Predictor/Neuralnetwork1.rda')
