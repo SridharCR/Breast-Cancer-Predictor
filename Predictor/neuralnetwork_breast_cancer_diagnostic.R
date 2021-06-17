@@ -7,7 +7,7 @@ library(nnet)
 library(funModeling)
 
 # Load data
-cancerdata <- read.csv("Data/breast-cancer-diagnostic.csv")
+cancerdata <- read.csv("data/breast-cancer-diagnostic.csv")
 cancerdata <- subset(cancerdata, select = -c(X))
 
 cancerdata$diagnosis<-as.factor(cancerdata$diagnosis) 

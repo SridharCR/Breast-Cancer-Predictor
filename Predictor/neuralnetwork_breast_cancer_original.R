@@ -5,7 +5,7 @@ library("neuralnet")
 library("caret")
 
 # Load data
-data <- read.csv("Data/breast-cancer-original.csv", header = FALSE)
+data <- read.csv("data/breast-cancer-original.csv", header = FALSE)
 # Set the attribute names
 colnames(data) <-
   c(
