@@ -1,7 +1,6 @@
 ---
 title: "Breast Cancer Dataset Analysis"
-author: "Ravindra Peddinti"
-date: "December 05, 2017"
+author: "Sridhar CR"
 output:
   html_document: 
     theme: lumen
@@ -17,10 +16,7 @@ knitr::opts_chunk$set(comment=NA, message=FALSE, warning=FALSE)
 
 ## Summary
 
-This is an analysis of the *Breast Cancer Wisconsin (Diagnostic) DataSet*, obtained from [Kaggle](https://www.kaggle.com/uciml/breast-cancer-wisconsin-data)
-Predicting the cancer type (benign,malignant) for the given data attributes  based on neural network
-
-
+This is an analysis of the *Breast Cancer Wisconsin (Diagnostic) DataSet*
 
 ## Data loading and cleaning
 
@@ -41,7 +37,7 @@ library(devtools)
 
 ### Data Load
 ```{r}
- cancerdata <- read.csv("~/Desktop/BreastCancer/Research/data.csv")
+ cancerdata <- read.csv("data.csv")
 ```
                      
 ### Compactly Display the Structure of  cancerdata
@@ -150,10 +146,6 @@ terminal_panel=node_barplot(model_tree, col = "black", fill = columncol[c(1,2,4)
 beside = TRUE, ymax = 1, ylines = TRUE, widths = 1, gap = 0.1,
 reverse = FALSE, id = TRUE))
 ```
-```{r}
-aaa
-
-```
                                 
                                 
 
@@ -179,12 +171,7 @@ cols <- colorRampPalette(c('lightgreen', 'darkgreen'))(3)[rank(rel_imp)]
 plotnet(model_nnet, cex_val = .5,circle_col = list(cols, 'lightblue'))
 ```
 
-##References
 
-| <a href="https://www.kdnuggets.com/2016/08/begineers-guide-neural-networks-r.html">Neural Networks Begineers guide</a>
-| <a href="https://rmanic.wordpress.com/2016/05/19/creating-a-well-formatted-decision-tree-with-partykit-and-listing-the-rules-of-the-nodes/">Decision tree with partykit library</a>
-| <a href="https://beckmw.wordpress.com/tag/neural-network/">Visualizing neural networks</a>
-| <a href="https://eight2late.wordpress.com/2016/02/16/a-gentle-introduction-to-decision-trees-using-r/">Introduction to decision trees</a>
 
 
 
