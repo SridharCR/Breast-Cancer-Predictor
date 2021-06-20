@@ -85,14 +85,14 @@ This application helps the people to identify the whether the tumour mass on the
 ![Screenshot1 ](resources/Selection_154.png "Screenshot 1")
 
 
-1. Tumour nuclei data - Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image. (Check Diagnostic data)
+1. **Tumour nuclei data** - Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image. (Check Diagnostic data)
 
 The page would look something like this
 
 ![UIDiag](resources/ui_diagnostic.png "Screenshot 2")
 
 
-2. Tumour cell data - The observed attributes of the tumour cells. (Check Original data)
+2. **Tumour cell data** - The observed attributes of the tumour cells. (Check Original data)
 
 The page would look something like this
 
