@@ -1,4 +1,4 @@
-# Prediction of Cancer
+# Prediction of Breast Cancer
 The breast cancer is becoming a serious issue between the women. One woman will die of breast cancer every 13 minutes. The diagnosis of the breast cancer is a complex task and takes time for the doctor to chack and analyze the lab results. Here we predict the breast cancer on its initial stages, with the lab results. This repo can be categorized to be
 - Research
      It comprises of analyzing the data with various methodologies and applying different algorithms to improve the
